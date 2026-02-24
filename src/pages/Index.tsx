@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import ClinicalAssessment from "@/components/ClinicalAssessment";
 import TrustBand from "@/components/TrustBand";
 import Marquee from "@/components/Marquee";
 import Manifesto from "@/components/Manifesto";
@@ -40,6 +41,7 @@ const Index = () => {
         <Program3M />
         <Specializations />
         <Process />
+        <ClinicalAssessment />
         <Team />
         <About />
         <FAQ />
