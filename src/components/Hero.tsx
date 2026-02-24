@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-catarina.jpg";
+import heroImage from "@/assets/catarina-real.png";
 import { useFadeUp } from "@/hooks/useFadeUp";
 
 const Hero = () => {

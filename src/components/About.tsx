@@ -1,5 +1,5 @@
 import { useFadeUp } from "@/hooks/useFadeUp";
-import heroImage from "@/assets/hero-catarina.jpg";
+import heroImage from "@/assets/catarina-real.png";
 
 const tags = [
   "Medicina Funcional",
