@@ -1,45 +1,25 @@
 import { useFadeUp } from "@/hooks/useFadeUp";
-
-const pillars = [
-  {
-    num: "01",
-    title: "Investigação Profunda",
-    desc: "Análises com critérios funcionais avançados. Olhamos para o quadro completo, não apenas para valores isolados.",
-  },
-  {
-    num: "02",
-    title: "Protocolo Personalizado",
-    desc: "Nutrição, suplementação e estilo de vida construídos para a tua fisiologia específica.",
-  },
-  {
-    num: "03",
-    title: "Monitorização Contínua",
-    desc: "Reavaliação constante guiada por dados. O protocolo ajusta-se à medida que o teu corpo responde.",
-  },
-  {
-    num: "04",
-    title: "Autonomia Informada",
-    desc: "Literacia em saúde como parte do acompanhamento. Entendes o que está a acontecer e porquê.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Pillars = () => {
   const ref = useFadeUp();
+  const { t } = useLanguage();
+
+  const pillars = [
+    { num: "01", title: t("pillars.1.title"), desc: t("pillars.1.desc") },
+    { num: "02", title: t("pillars.2.title"), desc: t("pillars.2.desc") },
+    { num: "03", title: t("pillars.3.title"), desc: t("pillars.3.desc") },
+    { num: "04", title: t("pillars.4.title"), desc: t("pillars.4.desc") },
+  ];
 
   return (
     <section ref={ref} className="bg-ivory section-padding">
       <div className="max-w-6xl mx-auto">
-        <p className="fade-up label-uppercase text-amber mb-4">Abordagem</p>
-        <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-12">
-          Como trabalhamos
-        </h2>
-
+        <p className="fade-up label-uppercase text-amber mb-4">{t("pillars.label")}</p>
+        <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-12">{t("pillars.title")}</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {pillars.map((p) => (
-            <div
-              key={p.num}
-              className="fade-up card-hover border border-bone p-8 bg-ivory"
-            >
+            <div key={p.num} className="fade-up card-hover border border-bone p-8 bg-ivory">
               <span className="label-uppercase text-amber text-sm">{p.num}</span>
               <h3 className="font-serif text-2xl text-foreground mt-3 mb-3">{p.title}</h3>
               <p className="text-muted-custom text-[15px]">{p.desc}</p>
