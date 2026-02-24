@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import logoFull from "@/assets/logo-full.png";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -16,10 +17,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
         {/* Col 1 - Logo */}
         <div>
-          <p className="font-serif text-xl text-ivory mb-1">Catarina Veiga</p>
-          <p className="label-uppercase text-muted-custom text-[10px] mb-4">
-            Medicina Funcional · Integrativa
-          </p>
+          <img src={logoFull} alt="Catarina Veiga — Medicina Funcional Integrativa" className="h-12 mb-4 brightness-0 invert opacity-90" />
           <p className="text-[14px] text-ivory/60 mb-4">
             Medicina Funcional Integrativa com foco na saúde da mulher. Acompanhamento exclusivamente
             online para Portugal e internacional.
