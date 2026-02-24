@@ -1,5 +1,6 @@
 import { useFadeUp } from "@/hooks/useFadeUp";
 import { Button } from "@/components/ui/button";
+import { openAcuity } from "@/hooks/useAcuityModal";
 
 const CTAFinal = () => {
   const ref = useFadeUp();
@@ -18,7 +19,7 @@ const CTAFinal = () => {
             variant="heroAccent"
             size="lg"
             className="text-base px-10 py-6"
-            onClick={() => window.open("https://calendly.com/catarinaveiga", "_blank")}
+            onClick={openAcuity}
           >
             Agendar consulta inicial
           </Button>

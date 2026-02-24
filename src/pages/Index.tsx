@@ -19,8 +19,12 @@ import CTAFinal from "@/components/CTAFinal";
 import LegalBand from "@/components/LegalBand";
 import Footer from "@/components/Footer";
 import MobileCTA from "@/components/MobileCTA";
+import AcuityModal from "@/components/AcuityModal";
+import { useAcuityModal } from "@/hooks/useAcuityModal";
 
 const Index = () => {
+  const { open, onClose } = useAcuityModal();
+
   return (
     <>
       <Navbar />
@@ -46,6 +50,7 @@ const Index = () => {
       <LegalBand />
       <Footer />
       <MobileCTA />
+      <AcuityModal open={open} onClose={onClose} />
     </>
   );
 };
