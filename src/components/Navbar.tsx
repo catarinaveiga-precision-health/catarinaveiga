@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { openAcuity } from "@/hooks/useAcuityModal";
 
 const navLinks = [
   { label: "Abordagem", href: "#abordagem" },
@@ -56,7 +57,7 @@ const Navbar = () => {
           <Button
             variant="hero"
             size="sm"
-            onClick={() => window.open("https://calendly.com/catarinaveiga", "_blank")}
+            onClick={openAcuity}
           >
             Agendar consulta inicial
           </Button>
@@ -88,7 +89,7 @@ const Navbar = () => {
             variant="hero"
             size="sm"
             className="w-full mt-4"
-            onClick={() => window.open("https://calendly.com/catarinaveiga", "_blank")}
+            onClick={() => { openAcuity(); setMobileOpen(false); }}
           >
             Agendar consulta inicial
           </Button>

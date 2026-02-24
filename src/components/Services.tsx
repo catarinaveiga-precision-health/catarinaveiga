@@ -1,6 +1,7 @@
 import { useFadeUp } from "@/hooks/useFadeUp";
 import { Button } from "@/components/ui/button";
 import { Circle, Diamond, Hexagon } from "lucide-react";
+import { openAcuity } from "@/hooks/useAcuityModal";
 
 const Services = () => {
   const ref = useFadeUp();
@@ -30,7 +31,7 @@ const Services = () => {
             <Button
               variant="amber"
               size="sm"
-              onClick={() => window.open("https://calendly.com/catarinaveiga", "_blank")}
+              onClick={openAcuity}
             >
               Agendar
             </Button>

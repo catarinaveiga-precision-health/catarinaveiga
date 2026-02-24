@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/catarina-hero.png";
+import { openAcuity } from "@/hooks/useAcuityModal";
 import { useFadeUp } from "@/hooks/useFadeUp";
 
 const Hero = () => {
@@ -32,7 +33,7 @@ const Hero = () => {
             <Button
               variant="hero"
               size="lg"
-              onClick={() => window.open("https://calendly.com/catarinaveiga", "_blank")}
+              onClick={openAcuity}
             >
               Agendar consulta inicial
             </Button>
