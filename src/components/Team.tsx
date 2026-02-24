@@ -1,4 +1,6 @@
 import { useFadeUp } from "@/hooks/useFadeUp";
+import catarinaTeam from "@/assets/catarina-team.png";
+import patriciaTeam from "@/assets/patricia-team.jpeg";
 
 const Team = () => {
   const ref = useFadeUp();
@@ -14,6 +16,7 @@ const Team = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {/* Catarina - highlight */}
           <div className="fade-up bg-dark border border-amber p-8">
+            <img src={catarinaTeam} alt="Catarina Veiga" className="w-24 h-24 rounded-full object-cover object-top mb-5" loading="lazy" />
             <h3 className="font-serif text-2xl text-ivory mb-1">Catarina Veiga</h3>
             <p className="label-uppercase text-amber text-xs mb-4">
               Medicina Funcional Integrativa · Saúde da Mulher
@@ -26,6 +29,7 @@ const Team = () => {
 
           {/* Dra. Patrícia */}
           <div className="fade-up border border-bone p-8 bg-ivory">
+            <img src={patriciaTeam} alt="Dra. Patrícia Salvador" className="w-24 h-24 rounded-full object-cover mb-5" loading="lazy" />
             <h3 className="font-serif text-2xl text-foreground mb-1">Dra. Patrícia Salvador</h3>
             <p className="label-uppercase text-amber text-xs mb-4">Médica de Clínica Geral</p>
             <p className="text-muted-custom text-[15px]">
