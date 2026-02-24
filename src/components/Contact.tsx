@@ -20,7 +20,7 @@ const Contact = () => {
           {/* Tally Form embed */}
           <div className="fade-up">
             <iframe
-              src="https://tally.so/r/catarinaveiga"
+              src="https://tally.so/r/ZjNMvy"
               width="100%"
               height="500"
               frameBorder={0}
