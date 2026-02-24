@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+
 import heroImage from "@/assets/catarina-hero.png";
 import { openAcuity } from "@/hooks/useAcuityModal";
 import { useFadeUp } from "@/hooks/useFadeUp";
@@ -29,7 +29,7 @@ const Hero = () => {
             Abordagem funcional integrativa baseada em dados e na tua história individual.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 mb-4">
             <Button
               variant="hero"
               size="lg"
@@ -37,14 +37,20 @@ const Hero = () => {
             >
               Agendar consulta inicial
             </Button>
-            <a
-              href="#abordagem"
-              className="inline-flex items-center gap-2 text-amber hover:text-amber-light transition-colors font-sans text-sm"
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-border text-foreground hover:bg-bone hover:text-foreground font-sans font-normal tracking-wide"
+              asChild
             >
-              Descobre o que pode estar por trás dos teus sintomas
-              <ArrowRight size={16} />
-            </a>
+              <a href="https://triagem-saude.lovable.app/" target="_blank" rel="noopener noreferrer">
+                Avaliação clínica inicial gratuita
+              </a>
+            </Button>
           </div>
+          <p className="text-muted-custom text-sm mb-12 max-w-md">
+            Questionário estruturado que permite compreender a sua situação e orientar os próximos passos.
+          </p>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8">
