@@ -7,6 +7,7 @@ import Manifesto from "@/components/Manifesto";
 import Pillars from "@/components/Pillars";
 import Symptoms from "@/components/Symptoms";
 import Testimonials from "@/components/Testimonials";
+import GoogleReviews from "@/components/GoogleReviews";
 import Services from "@/components/Services";
 import Program3M from "@/components/Program3M";
 import Specializations from "@/components/Specializations";
@@ -37,6 +38,7 @@ const Index = () => {
         <Pillars />
         <Symptoms />
         <Testimonials />
+        <GoogleReviews />
         <Services />
         <Program3M />
         <Specializations />
