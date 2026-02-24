@@ -3,19 +3,42 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { openAcuity } from "@/hooks/useAcuityModal";
 import logoIcon from "@/assets/logo-icon.png";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const navLinks = [
-  { label: "Abordagem", href: "#abordagem" },
-  { label: "Serviços", href: "#servicos" },
-  { label: "Programa 3M", href: "#programa3m" },
-  { label: "Equipa", href: "#equipa" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contacto", href: "#contacto" },
-];
+const LanguageToggle = () => {
+  const { lang, setLang } = useLanguage();
+  return (
+    <div className="flex items-center gap-0 font-sans text-xs uppercase tracking-wider">
+      <button
+        onClick={() => setLang("pt")}
+        className={`px-1 transition-colors ${lang === "pt" ? "text-amber font-medium" : "text-muted-custom hover:text-foreground"}`}
+      >
+        PT
+      </button>
+      <span className="text-muted-custom">|</span>
+      <button
+        onClick={() => setLang("en")}
+        className={`px-1 transition-colors ${lang === "en" ? "text-amber font-medium" : "text-muted-custom hover:text-foreground"}`}
+      >
+        EN
+      </button>
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t("nav.abordagem"), href: "#abordagem" },
+    { label: t("nav.servicos"), href: "#servicos" },
+    { label: t("nav.programa3m"), href: "#programa3m" },
+    { label: t("nav.equipa"), href: "#equipa" },
+    { label: t("nav.blog"), href: "#blog" },
+    { label: t("nav.contacto"), href: "#contacto" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -38,7 +61,7 @@ const Navbar = () => {
               Catarina Veiga
             </span>
             <span className="label-uppercase text-muted-custom text-[10px]">
-              Medicina Funcional · Integrativa
+              {t("nav.subtitle")}
             </span>
           </div>
         </a>
@@ -56,24 +79,28 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Desktop CTA */}
-        <div className="hidden lg:block">
+        {/* Desktop CTA + Language Toggle */}
+        <div className="hidden lg:flex items-center gap-4">
+          <LanguageToggle />
           <Button
             variant="hero"
             size="sm"
             onClick={openAcuity}
           >
-            Agendar consulta inicial
+            {t("nav.cta")}
           </Button>
         </div>
 
         {/* Mobile toggle */}
-        <button
-          className="lg:hidden text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="lg:hidden flex items-center gap-3">
+          <LanguageToggle />
+          <button
+            className="text-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -95,7 +122,7 @@ const Navbar = () => {
             className="w-full mt-4"
             onClick={() => { openAcuity(); setMobileOpen(false); }}
           >
-            Agendar consulta inicial
+            {t("nav.cta")}
           </Button>
         </div>
       )}
