@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { openAcuity } from "@/hooks/useAcuityModal";
+import logoIcon from "@/assets/logo-icon.png";
 
 const navLinks = [
   { label: "Abordagem", href: "#abordagem" },
@@ -30,13 +31,16 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
         {/* Logo */}
-        <a href="#" className="flex flex-col">
-          <span className="font-serif text-xl text-foreground leading-tight">
-            Catarina Veiga
-          </span>
-          <span className="label-uppercase text-muted-custom text-[10px]">
-            Medicina Funcional · Integrativa
-          </span>
+        <a href="#" className="flex items-center gap-3">
+          <img src={logoIcon} alt="Catarina Veiga" className="h-9 w-9" />
+          <div className="flex flex-col">
+            <span className="font-serif text-xl text-foreground leading-tight">
+              Catarina Veiga
+            </span>
+            <span className="label-uppercase text-muted-custom text-[10px]">
+              Medicina Funcional · Integrativa
+            </span>
+          </div>
         </a>
 
         {/* Desktop links */}
