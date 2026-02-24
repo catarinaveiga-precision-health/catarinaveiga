@@ -22,7 +22,7 @@ const TrustBand = () => {
         {logos.map((logo, i) => (
           <span key={i} className="label-uppercase text-muted-custom text-[11px] whitespace-nowrap">
             {logo}
-            {i < logos.length - 1 && <span className="ml-4">\u00b7</span>}
+            {i < logos.length - 1 && <span className="ml-4">·</span>}
           </span>
         ))}
       </div>
