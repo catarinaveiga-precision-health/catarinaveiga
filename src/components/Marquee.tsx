@@ -10,7 +10,7 @@ const Marquee = () => {
     <>
       {items.map((item, i) => (
         <span key={i} className="mx-8 text-amber font-serif text-2xl md:text-3xl whitespace-nowrap">
-          {item} <span className="mx-4 text-amber/50">\u00b7</span>
+          {item} <span className="mx-4 text-amber/50">·</span>
         </span>
       ))}
     </>
