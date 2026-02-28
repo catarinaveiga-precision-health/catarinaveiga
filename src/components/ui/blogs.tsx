@@ -1,95 +1,43 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-
-interface Article {
-  category: string;
-  description: string;
-  image: string;
-  publishDate: string;
-  readMoreLink: string;
-  title: string;
-}
-
-const articlesData: Article[] = [
-  {
-    category: "BRANDING",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et lacinia mi.",
-    image: "https://images.unsplash.com/photo-1558174685-430919a96c8d?w=800&h=600&fit=crop",
-    publishDate: "Dec 22, 2025",
-    readMoreLink: "#",
-    title: "A Beginner's Guide to Webflow to Development",
-  },
-  {
-    category: "ARTDIRECTION",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et lacinia mi.",
-    image: "https://images.unsplash.com/photo-1466228432269-af42b400b934?w=800&h=600&fit=crop",
-    publishDate: "Nov 11, 2025",
-    readMoreLink: "#",
-    title: "The Ultimate Checklist for SEO Performance",
-  },
-  {
-    category: "DESIGNSYSTEM",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et lacinia mi.",
-    image: "https://images.unsplash.com/photo-1605907126120-f68611516ecc?w=800&h=600&fit=crop",
-    publishDate: "Oct 9, 2025",
-    readMoreLink: "#",
-    title: "The Evolution of Design: From Past to Present",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import { articles } from "@/data/articles";
 
 export default function Blogs() {
+  const { t } = useLanguage();
+
   return (
-    <section className="py-20 px-6 bg-background">
+    <section className="py-20 px-6 bg-bone">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
-          <p className="label-uppercase text-accent text-xs mb-2">CAPTION</p>
+          <p className="label-uppercase text-amber text-xs mb-2">{t("blog.label")}</p>
           <h2 className="font-serif text-4xl md:text-5xl text-foreground">
-            Blog Articles
+            {t("blog.title")}
           </h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {articlesData.map((article, index) => (
-            <div
-              key={index}
-              className="group border border-border bg-card overflow-hidden transition-shadow hover:shadow-md"
+          {articles.map((a) => (
+            <article
+              key={a.slug}
+              className="border border-bone bg-ivory p-8 hover:shadow-md transition-shadow"
             >
-              <div className="relative">
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-52 object-cover"
-                  loading="lazy"
-                />
-                <span className="absolute bottom-3 left-3 bg-background/90 text-foreground text-[11px] font-sans uppercase tracking-wider px-3 py-1">
-                  #{article.category}
-                </span>
-              </div>
-
-              <div className="p-6 flex flex-col gap-3">
-                <h3 className="font-serif text-xl text-foreground leading-snug">
-                  {article.title}
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  {article.description}
-                </p>
-                <div className="flex items-center justify-between mt-3">
-                  <Link
-                    to={article.readMoreLink}
-                    className="inline-flex items-center gap-1 text-accent text-sm hover:text-accent/80 transition-colors"
-                  >
-                    <ArrowRight size={14} />
-                    Read more
-                  </Link>
-                  <span className="text-muted-foreground text-xs">
-                    {article.publishDate}
-                  </span>
-                </div>
-              </div>
-            </div>
+              <p className="label-uppercase text-amber text-xs mb-3">
+                {t(a.catKey)}
+              </p>
+              <h3 className="font-serif text-xl text-foreground mb-4 leading-snug">
+                {t(a.titleKey)}
+              </h3>
+              <p className="text-muted-custom text-[14px] mb-6 line-clamp-4">
+                {t(a.introKey)}
+              </p>
+              <Link
+                to={`/blog/${a.slug}`}
+                className="inline-flex items-center gap-1 text-amber text-sm hover:text-amber-light transition-colors"
+              >
+                {t("blog.readmore")} <ArrowRight size={14} />
+              </Link>
+            </article>
           ))}
         </div>
       </div>
