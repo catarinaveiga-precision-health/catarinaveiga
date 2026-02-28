@@ -1,16 +1,33 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logoFull from "@/assets/logo-full.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const { t } = useLanguage();
+  const { toast } = useToast();
 
-  const handleNewsletter = (e: React.FormEvent) => {
+  const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Newsletter signup:", email);
-    setEmail("");
+    if (!email.trim()) return;
+    setLoading(true);
+    const { error } = await supabase.from("newsletter_subscribers" as any).insert({ email: email.trim() } as any);
+    setLoading(false);
+    if (error) {
+      if (error.code === "23505") {
+        toast({ title: t("footer.already_subscribed"), variant: "default" });
+      } else {
+        toast({ title: t("footer.error"), variant: "destructive" });
+      }
+    } else {
+      toast({ title: t("footer.success") });
+      setEmail("");
+    }
   };
 
   const navItems = [
@@ -51,12 +68,12 @@ const Footer = () => {
           <p className="label-uppercase text-ivory text-xs mb-4">{t("footer.social")}</p>
           <div className="space-y-2 text-[14px] mb-6">
             <a href="https://instagram.com/catarina__veiga" target="_blank" rel="noopener noreferrer" className="block text-ivory/60 hover:text-ivory transition-colors">Instagram</a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="block text-ivory/60 hover:text-ivory transition-colors">LinkedIn</a>
+            <a href="https://www.linkedin.com/company/catarina-veiga-medicina-funcional-integrativa/" target="_blank" rel="noopener noreferrer" className="block text-ivory/60 hover:text-ivory transition-colors">LinkedIn</a>
           </div>
           <p className="label-uppercase text-ivory text-xs mb-3">{t("footer.newsletter")}</p>
           <form onSubmit={handleNewsletter} className="flex gap-2">
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required className="flex-1 bg-transparent border border-ivory/20 px-3 py-2 text-sm text-ivory placeholder:text-ivory/30 focus:outline-none focus:border-amber" />
-            <Button variant="amber" size="sm" type="submit">{t("footer.subscribe")}</Button>
+            <Button variant="amber" size="sm" type="submit" disabled={loading}>{t("footer.subscribe")}</Button>
           </form>
         </div>
       </div>
@@ -64,9 +81,9 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-ivory/40">
           <p>{t("footer.copyright")}</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-ivory/60 transition-colors">{t("footer.legal")}</a>
-            <a href="#" className="hover:text-ivory/60 transition-colors">{t("footer.privacy")}</a>
-            <a href="#" className="hover:text-ivory/60 transition-colors">{t("footer.terms")}</a>
+            <Link to="/aviso-legal" className="hover:text-ivory/60 transition-colors">{t("footer.legal")}</Link>
+            <Link to="/politica-privacidade" className="hover:text-ivory/60 transition-colors">{t("footer.privacy")}</Link>
+            <Link to="/termos-utilizacao" className="hover:text-ivory/60 transition-colors">{t("footer.terms")}</Link>
           </div>
         </div>
         <p className="text-center text-xs text-ivory/30 mt-4">{t("footer.disclaimer")}</p>
