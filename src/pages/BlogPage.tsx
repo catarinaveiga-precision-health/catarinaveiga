@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import LegalBand from "@/components/LegalBand";
 import Footer from "@/components/Footer";
+import Blogs from "@/components/ui/blogs";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { articles } from "@/data/articles";
 import { useEffect } from "react";
@@ -33,6 +34,10 @@ const BlogPage = () => {
               </article>
             ))}
           </div>
+        </div>
+        {/* Blogs UI component preview */}
+        <div className="mt-16">
+          <Blogs />
         </div>
       </main>
       <LegalBand />
