@@ -1,24 +1,29 @@
-import { useFadeUp } from "@/hooks/useFadeUp";
 import { ArrowRight } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { articles } from "@/data/articles";
 
-const Blog = () => {
-  const ref = useFadeUp();
+export default function BlogSection() {
   const { t } = useLanguage();
 
   return (
-    <section ref={ref} id="blog" className="bg-bone section-padding">
+    <section id="blog" className="py-20 px-6 bg-bone">
       <div className="max-w-6xl mx-auto">
-        <p className="fade-up label-uppercase text-amber mb-4">{t("blog.label")}</p>
-        <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-12">{t("blog.title")}</h2>
-        <div className="grid md:grid-cols-3 gap-8 mb-10">
+        <div className="mb-12">
+          <p className="label-uppercase text-amber text-xs mb-2">
+            {t("blog.label")}
+          </p>
+          <h2 className="font-serif text-4xl md:text-5xl text-foreground">
+            {t("blog.title")}
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
           {articles.map((a) => (
             <Link
               key={a.slug}
               to={`/blog/${a.slug}`}
-              className="fade-up group block bg-ivory border border-bone overflow-hidden hover:shadow-lg transition-shadow duration-300"
+              className="group block bg-ivory border border-bone overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
               <div className="aspect-[16/10] overflow-hidden">
                 <img
@@ -29,11 +34,15 @@ const Blog = () => {
                 />
               </div>
               <div className="p-8">
-                <p className="label-uppercase text-amber text-xs mb-3">{t(a.catKey)}</p>
+                <p className="label-uppercase text-amber text-xs mb-3">
+                  {t(a.catKey)}
+                </p>
                 <h3 className="font-serif text-xl text-foreground mb-4 leading-snug group-hover:text-amber transition-colors">
                   {t(a.titleKey)}
                 </h3>
-                <p className="text-muted-custom text-[14px] mb-6 line-clamp-3">{t(a.introKey)}</p>
+                <p className="text-muted-custom text-[14px] mb-6 line-clamp-3">
+                  {t(a.introKey)}
+                </p>
                 <span className="inline-flex items-center gap-1 text-amber text-sm group-hover:gap-2 transition-all">
                   {t("blog.readmore")} <ArrowRight size={14} />
                 </span>
@@ -41,14 +50,16 @@ const Blog = () => {
             </Link>
           ))}
         </div>
-        <div className="fade-up text-center">
-          <Link to="/blog" className="inline-flex items-center gap-2 text-amber hover:text-amber-light transition-colors font-sans text-sm">
+
+        <div className="mt-12 text-center">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 text-amber hover:text-amber-light transition-colors font-sans text-sm"
+          >
             {t("blog.viewall")} <ArrowRight size={16} />
           </Link>
         </div>
       </div>
     </section>
   );
-};
-
-export default Blog;
+}
