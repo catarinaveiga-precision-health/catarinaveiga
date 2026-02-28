@@ -16,7 +16,7 @@ const Footer = () => {
     e.preventDefault();
     if (!email.trim()) return;
     setLoading(true);
-    const { error } = await supabase.from("newsletter_subscribers" as any).insert({ email: email.trim() } as any);
+    const { error } = await supabase.from("newsletter_subscribers" as any).insert({ email: email.trim(), source: "website" } as any);
     setLoading(false);
     if (error) {
       if (error.code === "23505") {
