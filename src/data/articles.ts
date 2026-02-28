@@ -1,3 +1,7 @@
+import blogExames from "@/assets/blog-exames.jpg";
+import blogMedicina from "@/assets/blog-medicina-funcional.jpg";
+import blogTiroide from "@/assets/blog-tiroide.jpg";
+
 export interface Article {
   slug: string;
   catKey: string;
@@ -5,6 +9,7 @@ export interface Article {
   introKey: string;
   bodyKey: string;
   date: string;
+  image: string;
 }
 
 export const articles: Article[] = [
@@ -15,6 +20,7 @@ export const articles: Article[] = [
     introKey: "blog.1.intro",
     bodyKey: "blog.1.body",
     date: "2026-01-05",
+    image: blogExames,
   },
   {
     slug: "tiroide-sub-optima",
@@ -23,6 +29,7 @@ export const articles: Article[] = [
     introKey: "blog.2.intro",
     bodyKey: "blog.2.body",
     date: "2025-12-15",
+    image: blogTiroide,
   },
   {
     slug: "perimenopausa-primeiros-sinais",
@@ -31,5 +38,6 @@ export const articles: Article[] = [
     introKey: "blog.3.intro",
     bodyKey: "blog.3.body",
     date: "2025-11-28",
+    image: blogMedicina,
   },
 ];
