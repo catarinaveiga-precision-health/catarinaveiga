@@ -35,6 +35,48 @@ export type Database = {
         }
         Relationships: []
       }
+      posts: {
+        Row: {
+          content_en: string | null
+          content_pt: string | null
+          cover_image: string | null
+          created_at: string
+          excerpt_en: string | null
+          excerpt_pt: string | null
+          id: string
+          published: boolean
+          slug: string
+          title_en: string
+          title_pt: string
+        }
+        Insert: {
+          content_en?: string | null
+          content_pt?: string | null
+          cover_image?: string | null
+          created_at?: string
+          excerpt_en?: string | null
+          excerpt_pt?: string | null
+          id?: string
+          published?: boolean
+          slug: string
+          title_en: string
+          title_pt: string
+        }
+        Update: {
+          content_en?: string | null
+          content_pt?: string | null
+          cover_image?: string | null
+          created_at?: string
+          excerpt_en?: string | null
+          excerpt_pt?: string | null
+          id?: string
+          published?: boolean
+          slug?: string
+          title_en?: string
+          title_pt?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
