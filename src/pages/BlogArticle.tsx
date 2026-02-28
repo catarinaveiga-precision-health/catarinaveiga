@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import LegalBand from "@/components/LegalBand";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { articles } from "@/data/articles";
+import { usePost } from "@/hooks/usePosts";
 import { useEffect } from "react";
 
 const renderBody = (text: string) => {
@@ -68,14 +68,30 @@ const formatInline = (text: string): React.ReactNode[] => {
 
 const BlogArticle = () => {
   const { slug } = useParams();
-  const { t } = useLanguage();
-  const article = articles.find((a) => a.slug === slug);
+  const { t, lang } = useLanguage();
+  const { data: post, isLoading } = usePost(slug || "");
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  if (!article) {
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-ivory">
+        <Navbar />
+        <main className="pt-32 pb-20 px-6">
+          <div className="max-w-3xl mx-auto animate-pulse space-y-4">
+            <div className="h-8 bg-bone w-1/3" />
+            <div className="h-12 bg-bone w-2/3" />
+            <div className="h-4 bg-bone w-full" />
+            <div className="h-64 bg-bone w-full mt-8" />
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (!post) {
     return (
       <div className="min-h-screen bg-ivory">
         <Navbar />
@@ -91,35 +107,41 @@ const BlogArticle = () => {
     );
   }
 
+  const title = lang === "pt" ? post.title_pt : post.title_en;
+  const excerpt = lang === "pt" ? post.excerpt_pt : post.excerpt_en;
+  const content = lang === "pt" ? post.content_pt : post.content_en;
+  const date = new Date(post.created_at).toLocaleDateString(lang === "pt" ? "pt-PT" : "en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div className="min-h-screen bg-ivory">
       <Navbar />
-      {/* SECTION 1 — Hero */}
       <section className="relative pt-32 pb-16 px-6">
         <div className="max-w-3xl mx-auto">
           <Link to="/blog" className="inline-flex items-center gap-2 text-amber hover:text-amber-light transition-colors text-sm mb-8">
             <ArrowLeft size={14} /> {t("blog.back")}
           </Link>
-          <p className="label-uppercase text-amber text-xs mb-2">{t(article.catKey)}</p>
-          <time className="text-muted-custom text-xs mb-6 block">{article.date}</time>
-          <h1 className="font-serif text-3xl md:text-5xl text-foreground mb-4 leading-snug">{t(article.titleKey)}</h1>
-          <p className="text-muted-custom text-lg font-light">{t(article.introKey)}</p>
+          <time className="text-muted-custom text-xs mb-6 block">{date}</time>
+          <h1 className="font-serif text-3xl md:text-5xl text-foreground mb-4 leading-snug">{title}</h1>
+          <p className="text-muted-custom text-lg font-light">{excerpt}</p>
         </div>
-        {article.image && (
+        {post.cover_image && (
           <div className="max-w-4xl mx-auto mt-10">
             <img
-              src={article.image}
-              alt={t(article.titleKey)}
+              src={post.cover_image}
+              alt={title}
               className="w-full aspect-[21/9] object-cover"
             />
           </div>
         )}
       </section>
 
-      {/* SECTIONS 2-5 — Body */}
       <main className="pb-20 px-6">
         <div className="max-w-3xl mx-auto text-muted-custom text-[15px] leading-relaxed">
-          {renderBody(t(article.bodyKey))}
+          {content && renderBody(content)}
         </div>
       </main>
 
