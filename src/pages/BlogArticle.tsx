@@ -94,19 +94,35 @@ const BlogArticle = () => {
   return (
     <div className="min-h-screen bg-ivory">
       <Navbar />
-      <main className="pt-32 pb-20 px-6">
+      {/* SECTION 1 — Hero */}
+      <section className="relative pt-32 pb-16 px-6">
         <div className="max-w-3xl mx-auto">
           <Link to="/blog" className="inline-flex items-center gap-2 text-amber hover:text-amber-light transition-colors text-sm mb-8">
             <ArrowLeft size={14} /> {t("blog.back")}
           </Link>
           <p className="label-uppercase text-amber text-xs mb-2">{t(article.catKey)}</p>
           <time className="text-muted-custom text-xs mb-6 block">{article.date}</time>
-          <h1 className="font-serif text-3xl md:text-4xl text-foreground mb-10 leading-snug">{t(article.titleKey)}</h1>
-          <div className="text-muted-custom text-[15px] leading-relaxed">
-            {renderBody(t(article.bodyKey))}
+          <h1 className="font-serif text-3xl md:text-5xl text-foreground mb-4 leading-snug">{t(article.titleKey)}</h1>
+          <p className="text-muted-custom text-lg font-light">{t(article.introKey)}</p>
+        </div>
+        {article.image && (
+          <div className="max-w-4xl mx-auto mt-10">
+            <img
+              src={article.image}
+              alt={t(article.titleKey)}
+              className="w-full aspect-[21/9] object-cover"
+            />
           </div>
+        )}
+      </section>
+
+      {/* SECTIONS 2-5 — Body */}
+      <main className="pb-20 px-6">
+        <div className="max-w-3xl mx-auto text-muted-custom text-[15px] leading-relaxed">
+          {renderBody(t(article.bodyKey))}
         </div>
       </main>
+
       <LegalBand />
       <Footer />
     </div>
