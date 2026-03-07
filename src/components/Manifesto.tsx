@@ -6,16 +6,14 @@ const Manifesto = () => {
   const { t } = useLanguage();
 
   return (
-    <section ref={ref} id="abordagem" className="bg-bone section-padding">
+    <section ref={ref} id="abordagem" className="bg-bone py-[160px] px-6">
       <div className="max-w-4xl mx-auto text-center">
-        <p className="fade-up label-uppercase text-amber mb-8">{t("manifesto.label")}</p>
-        <blockquote className="fade-up font-serif text-3xl md:text-5xl italic text-foreground leading-tight mb-10">
-          {t("manifesto.quote1")}<br />{t("manifesto.quote2")}
+        <blockquote className="fade-up font-serif text-3xl md:text-5xl italic text-foreground leading-tight mb-6">
+          {t("manifesto.quote1")}
         </blockquote>
-        <div className="fade-up space-y-6 text-muted-custom max-w-2xl mx-auto text-left">
-          <p>{t("manifesto.p1")}</p>
-          <p>{t("manifesto.p2")}</p>
-        </div>
+        <p className="fade-up font-serif text-2xl md:text-4xl text-foreground leading-tight">
+          {t("manifesto.quote2")}
+        </p>
       </div>
     </section>
   );

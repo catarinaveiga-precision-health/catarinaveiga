@@ -32,14 +32,13 @@ const Navbar = () => {
   const { t } = useLanguage();
 
   const navLinks = [
-    { label: t("nav.abordagem"), href: "#abordagem" },
-    { label: "Método", href: "/metodo" },
-    { label: t("nav.servicos"), href: "#servicos" },
-    { label: t("nav.programa3m"), href: "/programa-fundacao" },
-    { label: t("nav.equipa"), href: "#equipa" },
-    { label: t("nav.blog"), href: "/blog" },
-    { label: "Candidatura", href: "/candidatura" },
-    { label: t("nav.contacto"), href: "#contacto" },
+    { label: "Início", href: "/", isButton: false },
+    { label: "Método", href: "/metodo", isButton: false },
+    { label: t("nav.programa3m"), href: "/programa-fundacao", isButton: false },
+    { label: "Análises", href: "#servicos", isButton: false },
+    { label: t("nav.blog"), href: "/blog", isButton: false },
+    { label: "Sobre", href: "#equipa", isButton: false },
+    { label: "Candidatura", href: "/candidatura", isButton: true },
   ];
 
   useEffect(() => {
@@ -71,13 +70,23 @@ const Navbar = () => {
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-sans text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
+            link.isButton ? (
+              <a
+                key={link.href}
+                href={link.href}
+                className="inline-block bg-amber text-ivory text-sm font-sans px-4 py-1.5 rounded-full hover:opacity-90 transition-opacity"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-sans text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </a>
+            )
           ))}
         </div>
 

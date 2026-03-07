@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import CredentialsBand from "@/components/CredentialsBand";
 import ClinicalAssessment from "@/components/ClinicalAssessment";
 import TrustBand from "@/components/TrustBand";
 import Marquee from "@/components/Marquee";
@@ -32,6 +33,7 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <CredentialsBand />
         <TrustBand />
         <Marquee />
         <Manifesto />

@@ -30,7 +30,7 @@ const Services = () => {
             <h3 className="font-serif text-2xl text-ivory mb-4">{t("services.card2.title")}</h3>
             <p className="text-muted-custom text-[15px] mb-4 flex-1">{t("services.card2.desc")}</p>
             <p className="text-muted-custom text-sm mb-4">{t("services.card2.note")}</p>
-            <Button variant="amber" size="sm" asChild><a href="#programa-fundacao">{t("services.card2.cta")}</a></Button>
+            <Button variant="amber" size="sm" asChild><a href="/programa-fundacao">{t("services.card2.cta")}</a></Button>
           </div>
           <div className="fade-up border border-amber p-8 flex flex-col">
             <Hexagon size={32} className="text-amber mb-6" strokeWidth={1} />

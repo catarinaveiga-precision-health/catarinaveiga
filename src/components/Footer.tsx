@@ -86,7 +86,9 @@ const Footer = () => {
             <Link to="/termos-utilizacao" className="hover:text-ivory/60 transition-colors">{t("footer.terms")}</Link>
           </div>
         </div>
-        <p className="text-center text-xs text-ivory/30 mt-4">{t("footer.disclaimer")}</p>
+        <p className="text-center text-[11px] text-ivory/30 mt-4 max-w-2xl mx-auto leading-relaxed">
+          O conteúdo deste website é de natureza educativa e informativa. Não substitui consulta médica, diagnóstico ou tratamento.
+        </p>
       </div>
     </footer>
   );

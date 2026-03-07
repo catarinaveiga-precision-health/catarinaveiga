@@ -13,28 +13,24 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         <div className="fade-up">
           <p className="label-uppercase text-amber mb-6">{t("hero.label")}</p>
-          <h1 className="font-serif text-5xl md:text-7xl leading-[1.1] text-foreground mb-6">
-            {t("hero.title1")}<br />{t("hero.title2")}<br />{t("hero.title3")}
+          <h1 className="font-serif text-5xl md:text-7xl leading-[1.1] text-foreground mb-4">
+            {t("hero.title1")}<br />{t("hero.title2")}
           </h1>
+          <div className="w-[60px] h-[2px] bg-amber mb-6" />
           <p className="text-muted-custom max-w-lg mb-8">{t("hero.desc")}</p>
-          <div className="flex flex-col sm:flex-row gap-4 mb-4">
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <Button variant="hero" size="lg" onClick={openAcuity}>{t("hero.cta")}</Button>
             <Button variant="outline" size="lg" className="border-border text-foreground hover:bg-bone hover:text-foreground font-sans font-normal tracking-wide" asChild>
-              <a href="https://triagem-saude.lovable.app/" target="_blank" rel="noopener noreferrer">{t("hero.cta2")}</a>
+              <a href="/candidatura">{t("hero.cta2")}</a>
             </Button>
           </div>
-          <p className="text-muted-custom text-sm mb-12 max-w-md">{t("hero.cta2desc")}</p>
-          <div className="grid grid-cols-3 gap-8">
-            {[
-              { num: t("hero.stat1num"), label: t("hero.stat1label") },
-              { num: t("hero.stat2num"), label: t("hero.stat2label") },
-              { num: t("hero.stat3num"), label: t("hero.stat3label") },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p className="font-serif text-3xl md:text-4xl text-foreground">{stat.num}</p>
-                <p className="label-uppercase text-muted-custom text-[11px] mt-1">{stat.label}</p>
-              </div>
-            ))}
+          <div className="flex items-center gap-0 text-muted-custom text-sm font-sans">
+            <span className="font-serif text-2xl text-foreground">{t("hero.stat1num")}</span>
+            <span className="label-uppercase text-[11px] ml-2">{t("hero.stat1label")}</span>
+            <span className="text-amber mx-4">·</span>
+            <span>{t("hero.stat2label")}</span>
+            <span className="text-amber mx-4">·</span>
+            <span>{t("hero.stat3num")}</span>
           </div>
         </div>
         <div className="fade-up relative">
