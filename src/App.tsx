@@ -11,6 +11,7 @@ import TermosUtilizacao from "./pages/TermosUtilizacao";
 import BlogPage from "./pages/BlogPage";
 import BlogArticle from "./pages/BlogArticle";
 import Candidatura from "./pages/Candidatura";
+import ProgramaFundacao from "./pages/ProgramaFundacao";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/candidatura" element={<Candidatura />} />
+          <Route path="/programa-fundacao" element={<ProgramaFundacao />} />
           <Route path="/aviso-legal" element={<AvisoLegal />} />
           <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
           <Route path="/termos-utilizacao" element={<TermosUtilizacao />} />

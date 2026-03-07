@@ -34,7 +34,7 @@ const Navbar = () => {
   const navLinks = [
     { label: t("nav.abordagem"), href: "#abordagem" },
     { label: t("nav.servicos"), href: "#servicos" },
-    { label: t("nav.programa3m"), href: "#programa-fundacao" },
+    { label: t("nav.programa3m"), href: "/programa-fundacao" },
     { label: t("nav.equipa"), href: "#equipa" },
     { label: t("nav.blog"), href: "/blog" },
     { label: "Candidatura", href: "/candidatura" },
