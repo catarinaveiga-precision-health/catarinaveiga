@@ -38,7 +38,7 @@ const Navbar = () => {
     { label: "Sobre", href: "/sobre", isButton: false },
     { label: "Análises", href: "#servicos", isButton: false },
     { label: t("nav.blog"), href: "/blog", isButton: false },
-    { label: "Sobre", href: "#equipa", isButton: false },
+    { label: "Candidatura", href: "/candidatura", isButton: true },
     { label: "Candidatura", href: "/candidatura", isButton: true },
   ];
 
