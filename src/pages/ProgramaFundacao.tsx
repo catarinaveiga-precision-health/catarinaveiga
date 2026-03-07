@@ -112,7 +112,7 @@ const ThreePhases = () => {
               <div key={i} className="fade-up relative pl-16 md:pl-20">
                 {/* Amber dot */}
                 <div className="absolute left-[18px] md:left-[26px] top-2 w-3 h-3 rounded-full bg-amber" />
-                <span className="font-serif text-[80px] leading-none text-bone absolute -top-4 right-0 select-none hidden md:block">
+                <span className="font-serif text-[96px] leading-none text-bone absolute -top-6 right-0 select-none hidden md:block opacity-60">
                   {phase.num}
                 </span>
                 <span className="label-uppercase text-amber text-xs">{phase.weeks}</span>
