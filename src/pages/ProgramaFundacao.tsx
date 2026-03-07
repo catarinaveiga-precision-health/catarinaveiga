@@ -128,12 +128,12 @@ const ThreePhases = () => {
 };
 
 const inclusions = [
-  { icon: CalendarCheck, title: "4 Consultas de Acompanhamento", desc: "60 min cada, espaçadas por fase" },
-  { icon: FileText, title: "Protocolo Escrito Detalhado", desc: "Nutrição + suplementação + ritmo circadiano" },
-  { icon: FlaskConical, title: "Análises com Interpretação Funcional", desc: "Intervalos ODX, não laboratoriais" },
-  { icon: MessageCircle, title: "Suporte Entre Consultas", desc: "Resposta por mensagem em 48h úteis" },
-  { icon: BarChart3, title: "Reavaliação Analítica", desc: "Comparação de biomarcadores semanas 6–8" },
-  { icon: ClipboardList, title: "Plano de Manutenção", desc: "Documentado no final das 12 semanas" },
+  { title: "4 Consultas de Acompanhamento", desc: "60 min cada, espaçadas por fase" },
+  { title: "Protocolo Escrito Detalhado", desc: "Nutrição + suplementação + ritmo circadiano" },
+  { title: "Análises com Interpretação Funcional", desc: "Intervalos ODX, não laboratoriais" },
+  { title: "Suporte Entre Consultas", desc: "Resposta por mensagem em 48h úteis" },
+  { title: "Reavaliação Analítica", desc: "Comparação de biomarcadores semanas 6–8" },
+  { title: "Plano de Manutenção", desc: "Documentado no final das 12 semanas" },
 ];
 
 const WhatsIncluded = () => {
