@@ -140,7 +140,7 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Specializations
   "specs.label": { pt: "Especialidades", en: "Specialisations" },
-  "specs.title": { pt: "O que investigamos e tratamos", en: "What we investigate and treat" },
+  "specs.title": { pt: "O que investigo e trato", en: "What I investigate and treat" },
   "specs.0": { pt: "Sa\u00fade Hormonal", en: "Hormonal Health" },
   "specs.1": { pt: "Perimenopausa", en: "Perimenopause" },
   "specs.2": { pt: "Tir\u00f3ide", en: "Thyroid" },
