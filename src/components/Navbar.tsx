@@ -37,6 +37,7 @@ const Navbar = () => {
     { label: t("nav.programa3m"), href: "#programa-fundacao" },
     { label: t("nav.equipa"), href: "#equipa" },
     { label: t("nav.blog"), href: "/blog" },
+    { label: "Candidatura", href: "/candidatura" },
     { label: t("nav.contacto"), href: "#contacto" },
   ];
 
