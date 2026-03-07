@@ -4,13 +4,15 @@ import Navbar from "@/components/Navbar";
 import LegalBand from "@/components/LegalBand";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { usePosts } from "@/hooks/usePosts";
+import { useSanityPosts, useSanityCategories } from "@/hooks/useSanityPosts";
 import { useEffect, useState } from "react";
 
 const BlogPage = () => {
   const { t, lang } = useLanguage();
-  const { data: posts, isLoading } = usePosts();
+  const { data: posts, isLoading } = useSanityPosts();
+  const { data: categories } = useSanityCategories();
   const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,10 +26,11 @@ const BlogPage = () => {
     });
 
   const filtered = posts?.filter((post) => {
+    if (activeCategory && post.category !== activeCategory) return false;
     if (!search.trim()) return true;
     const q = search.toLowerCase();
-    const title = (lang === "pt" ? post.title_pt : post.title_en).toLowerCase();
-    const excerpt = (lang === "pt" ? post.excerpt_pt : post.excerpt_en)?.toLowerCase() || "";
+    const title = (post.title || "").toLowerCase();
+    const excerpt = (post.excerpt || "").toLowerCase();
     return title.includes(q) || excerpt.includes(q);
   });
 
@@ -40,7 +43,7 @@ const BlogPage = () => {
       <main className="pt-32 pb-20 px-6">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
             <div>
               <p className="label-uppercase text-amber mb-4">{t("blog.label")}</p>
               <h1 className="font-serif text-4xl md:text-6xl text-foreground">{t("blog.title")}</h1>
@@ -57,6 +60,35 @@ const BlogPage = () => {
               />
             </div>
           </div>
+
+          {/* Category filters */}
+          {categories && categories.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-12">
+              <button
+                onClick={() => setActiveCategory(null)}
+                className={`px-4 py-2 rounded-full font-sans text-xs uppercase tracking-wider transition-all border ${
+                  !activeCategory
+                    ? "bg-foreground text-ivory border-foreground"
+                    : "bg-transparent text-muted-foreground border-bone hover:border-amber"
+                }`}
+              >
+                {lang === "pt" ? "Todos" : "All"}
+              </button>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
+                  className={`px-4 py-2 rounded-full font-sans text-xs uppercase tracking-wider transition-all border ${
+                    activeCategory === cat
+                      ? "bg-foreground text-ivory border-foreground"
+                      : "bg-transparent text-muted-foreground border-bone hover:border-amber"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
 
           {isLoading ? (
             <div className="space-y-6">
@@ -78,18 +110,18 @@ const BlogPage = () => {
             </div>
           ) : (
             <div className="space-y-8">
-              {/* Featured article - hero card */}
+              {/* Featured article */}
               {featured && (
                 <Link
-                  to={`/blog/${featured.slug}`}
+                  to={`/blog/${featured.slug.current}`}
                   className="group relative block rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.01]"
                   style={{ boxShadow: "0 8px 30px -8px hsl(30 17% 9% / 0.12)" }}
                 >
-                  <div className="relative aspect-[21/9] md:aspect-[21/9] overflow-hidden bg-bone rounded-2xl">
-                    {featured.cover_image ? (
+                  <div className="relative aspect-[21/9] overflow-hidden bg-bone rounded-2xl">
+                    {featured.mainImage?.asset?.url ? (
                       <img
-                        src={featured.cover_image}
-                        alt={lang === "pt" ? featured.title_pt : featured.title_en}
+                        src={featured.mainImage.asset.url}
+                        alt={featured.mainImage.alt || featured.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     ) : (
@@ -97,18 +129,25 @@ const BlogPage = () => {
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                     <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between">
-                      <div className="flex justify-end">
+                      <div className="flex items-center justify-between">
+                        {featured.category && (
+                          <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-sans text-white border border-white/30">
+                            {featured.category}
+                          </span>
+                        )}
                         <span className="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-sans text-white border border-white/30">
-                          {formatDate(featured.created_at)}
+                          {formatDate(featured.publishedAt)}
                         </span>
                       </div>
                       <div className="max-w-2xl">
                         <h2 className="text-white font-serif text-2xl md:text-4xl leading-tight mb-3">
-                          {lang === "pt" ? featured.title_pt : featured.title_en}
+                          {featured.title}
                         </h2>
-                        <p className="text-white/70 text-sm md:text-base line-clamp-2 font-sans font-light">
-                          {lang === "pt" ? featured.excerpt_pt : featured.excerpt_en}
-                        </p>
+                        {featured.excerpt && (
+                          <p className="text-white/70 text-sm md:text-base line-clamp-2 font-sans font-light">
+                            {featured.excerpt}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
@@ -118,21 +157,21 @@ const BlogPage = () => {
                 </Link>
               )}
 
-              {/* Rest of articles - grid */}
+              {/* Grid */}
               {rest.length > 0 && (
                 <div className="grid md:grid-cols-3 gap-6">
                   {rest.map((post) => (
                     <Link
-                      key={post.slug}
-                      to={`/blog/${post.slug}`}
+                      key={post._id}
+                      to={`/blog/${post.slug.current}`}
                       className="group relative block rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02]"
                       style={{ boxShadow: "0 4px 20px -4px hsl(30 17% 9% / 0.08)" }}
                     >
                       <div className="relative aspect-[4/3] overflow-hidden bg-bone rounded-2xl">
-                        {post.cover_image ? (
+                        {post.mainImage?.asset?.url ? (
                           <img
-                            src={post.cover_image}
-                            alt={lang === "pt" ? post.title_pt : post.title_en}
+                            src={post.mainImage.asset.url}
+                            alt={post.mainImage.alt || post.title}
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             loading="lazy"
                           />
@@ -141,14 +180,19 @@ const BlogPage = () => {
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                         <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
-                          <div className="flex justify-end">
+                          <div className="flex items-center justify-between">
+                            {post.category && (
+                              <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-sans text-white border border-white/30">
+                                {post.category}
+                              </span>
+                            )}
                             <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-sans text-white border border-white/30">
-                              {formatDate(post.created_at)}
+                              {formatDate(post.publishedAt)}
                             </span>
                           </div>
                           <div className="flex items-end justify-between gap-4">
                             <h3 className="text-white text-lg md:text-xl font-serif leading-snug flex-1">
-                              {lang === "pt" ? post.title_pt : post.title_en}
+                              {post.title}
                             </h3>
                             <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shrink-0 group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
                               <ArrowUpRight className="w-4 h-4" />
