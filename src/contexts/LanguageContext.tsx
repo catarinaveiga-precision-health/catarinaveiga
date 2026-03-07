@@ -61,7 +61,7 @@ const translations: Record<string, Record<Language, string>> = {
   "manifesto.quote1": { pt: "\u201COs teus exames s\u00e3o normais.\u201D", en: "\u201CYour tests are normal.\u201D" },
   "manifesto.quote2": { pt: "Mas tu sabes que n\u00e3o te sentes normal.", en: "But you know you don\u2019t feel normal." },
   "manifesto.p1": { pt: "A medicina convencional usa intervalos de refer\u00eancia definidos para popula\u00e7\u00f5es gerais. A medicina funcional usa crit\u00e9rios funcionais avan\u00e7ados \u2014 mais exigentes, mais pr\u00f3ximos do que o teu corpo precisa para funcionar de forma \u00f3ptima.", en: "Conventional medicine uses reference ranges defined for general populations. Functional medicine uses advanced functional criteria \u2014 more demanding, closer to what your body needs to function optimally." },
-  "manifesto.p2": { pt: "A diferen\u00e7a entre \u201Cnormal\u201D e \u201C\u00f3ptimo\u201D pode ser a explica\u00e7\u00e3o para anos de sintomas sem resposta. O nosso trabalho come\u00e7a exactamente a\u00ed.", en: "The difference between \u201Cnormal\u201D and \u201Coptimal\u201D can explain years of unanswered symptoms. Our work begins exactly there." },
+  "manifesto.p2": { pt: "A diferença entre \u201Cnormal\u201D e \u201Córptimo\u201D pode ser a explicação para anos de sintomas sem resposta. O meu trabalho começa exactamente aí.", en: "The difference between \u201Cnormal\u201D and \u201Coptimal\u201D can explain years of unanswered symptoms. My work begins exactly there." },
 
   // Pillars
   "pillars.label": { pt: "Abordagem", en: "Approach" },
