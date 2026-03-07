@@ -20,7 +20,7 @@ const translations: Record<string, Record<Language, string>> = {
   // Navbar
   "nav.abordagem": { pt: "Abordagem", en: "Approach" },
   "nav.servicos": { pt: "Servi\u00e7os", en: "Services" },
-  "nav.programa3m": { pt: "Programa 3M", en: "3M Program" },
+  "nav.programa3m": { pt: "Programa Fundação", en: "Foundation Program" },
   "nav.equipa": { pt: "Equipa", en: "Team" },
   "nav.blog": { pt: "Blog", en: "Blog" },
   "nav.contacto": { pt: "Contacto", en: "Contact" },
@@ -57,15 +57,15 @@ const translations: Record<string, Record<Language, string>> = {
   "marquee.7": { pt: "Endometriose", en: "Endometriosis" },
 
   // Manifesto
-  "manifesto.label": { pt: "A nossa filosofia", en: "Our philosophy" },
+  "manifesto.label": { pt: "A minha filosofia", en: "My philosophy" },
   "manifesto.quote1": { pt: "\u201COs teus exames s\u00e3o normais.\u201D", en: "\u201CYour tests are normal.\u201D" },
   "manifesto.quote2": { pt: "Mas tu sabes que n\u00e3o te sentes normal.", en: "But you know you don\u2019t feel normal." },
   "manifesto.p1": { pt: "A medicina convencional usa intervalos de refer\u00eancia definidos para popula\u00e7\u00f5es gerais. A medicina funcional usa crit\u00e9rios funcionais avan\u00e7ados \u2014 mais exigentes, mais pr\u00f3ximos do que o teu corpo precisa para funcionar de forma \u00f3ptima.", en: "Conventional medicine uses reference ranges defined for general populations. Functional medicine uses advanced functional criteria \u2014 more demanding, closer to what your body needs to function optimally." },
-  "manifesto.p2": { pt: "A diferen\u00e7a entre \u201Cnormal\u201D e \u201C\u00f3ptimo\u201D pode ser a explica\u00e7\u00e3o para anos de sintomas sem resposta. O nosso trabalho come\u00e7a exactamente a\u00ed.", en: "The difference between \u201Cnormal\u201D and \u201Coptimal\u201D can explain years of unanswered symptoms. Our work begins exactly there." },
+  "manifesto.p2": { pt: "A diferença entre \u201Cnormal\u201D e \u201Córptimo\u201D pode ser a explicação para anos de sintomas sem resposta. O meu trabalho começa exactamente aí.", en: "The difference between \u201Cnormal\u201D and \u201Coptimal\u201D can explain years of unanswered symptoms. My work begins exactly there." },
 
   // Pillars
   "pillars.label": { pt: "Abordagem", en: "Approach" },
-  "pillars.title": { pt: "Como trabalhamos", en: "How we work" },
+  "pillars.title": { pt: "Como trabalho", en: "How I work" },
   "pillars.1.title": { pt: "Investiga\u00e7\u00e3o Profunda", en: "Deep Investigation" },
   "pillars.1.desc": { pt: "An\u00e1lises com crit\u00e9rios funcionais avan\u00e7ados. Olhamos para o quadro completo, n\u00e3o apenas para valores isolados.", en: "Analysis with advanced functional criteria. We look at the full picture, not just isolated values." },
   "pillars.2.title": { pt: "Protocolo Personalizado", en: "Personalised Protocol" },
@@ -106,7 +106,7 @@ const translations: Record<string, Record<Language, string>> = {
   "services.card1.cta": { pt: "Agendar", en: "Book" },
   "services.card1.note": { pt: "Esta consulta \u00e9 independente e n\u00e3o implica compromisso com programas posteriores.", en: "This consultation is independent and does not imply commitment to subsequent programs." },
   "services.card2.label": { pt: "Programa Signature", en: "Signature Program" },
-  "services.card2.title": { pt: "Programa 3M", en: "3M Program" },
+  "services.card2.title": { pt: "Programa Fundação", en: "Foundation Program" },
   "services.card2.desc": { pt: "Acompanhamento intensivo de 3 meses com protocolo personalizado, consultas estruturadas e reavalia\u00e7\u00e3o final.", en: "3-month intensive follow-up with personalised protocol, structured consultations, and final reassessment." },
   "services.card2.note": { pt: "Programa personalizado ap\u00f3s avalia\u00e7\u00e3o cl\u00ednica inicial.", en: "Personalised program after initial clinical assessment." },
   "services.card2.cta": { pt: "Saber mais", en: "Learn more" },
@@ -118,7 +118,7 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Program3M
   "program3m.badge": { pt: "Programa Signature", en: "Signature Program" },
-  "program3m.title": { pt: "Programa 3M", en: "3M Program" },
+  "program3m.title": { pt: "Programa Fundação", en: "Foundation Program" },
   "program3m.desc": { pt: "Tr\u00eas meses de acompanhamento real. Um protocolo constru\u00eddo \u00e0 tua medida, com a profundidade que o teu corpo merece.", en: "Three months of real follow-up. A protocol built to your measure, with the depth your body deserves." },
   "program3m.desc2": { pt: "Se fizer sentido ap\u00f3s a consulta inicial, proponho um plano estruturado para os teus sintomas espec\u00edficos. A decis\u00e3o \u00e9 sempre tua, depois de saberes exactamente o que envolve.", en: "If it makes sense after the initial consultation, I propose a structured plan for your specific symptoms. The decision is always yours, after knowing exactly what it involves." },
   "program3m.why": { pt: "Porque 3 meses?", en: "Why 3 months?" },
@@ -140,7 +140,7 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Specializations
   "specs.label": { pt: "Especialidades", en: "Specialisations" },
-  "specs.title": { pt: "O que investigamos e tratamos", en: "What we investigate and treat" },
+  "specs.title": { pt: "O que investigo e trato", en: "What I investigate and treat" },
   "specs.0": { pt: "Sa\u00fade Hormonal", en: "Hormonal Health" },
   "specs.1": { pt: "Perimenopausa", en: "Perimenopause" },
   "specs.2": { pt: "Tir\u00f3ide", en: "Thyroid" },
@@ -191,7 +191,7 @@ const translations: Record<string, Record<Language, string>> = {
   "about.p1": { pt: "Com mais de 20 anos de experi\u00eancia cl\u00ednica, constru\u00ed a minha pr\u00e1tica em torno de uma convic\u00e7\u00e3o simples: os sintomas s\u00e3o mensagens, n\u00e3o o problema.", en: "With over 20 years of clinical experience, I built my practice around a simple conviction: symptoms are messages, not the problem." },
   "about.p2": { pt: "A minha forma\u00e7\u00e3o inclui forma\u00e7\u00e3o em Psicologia (Universidade de Lisboa), forma\u00e7\u00e3o em Neurobiologia (Universidade de Chicago), forma\u00e7\u00e3o em Modula\u00e7\u00e3o Intestinal com o Prof. Murilo Pereira, e Interpreta\u00e7\u00e3o de An\u00e1lises Cl\u00ednicas e Nutri\u00e7\u00e3o Funcional com o Dr. Gabriel de Carvalho.", en: "My training includes Psychology (University of Lisbon), Neurobiology (University of Chicago), Intestinal Modulation with Prof. Murilo Pereira, and Clinical Analysis Interpretation and Functional Nutrition with Dr. Gabriel de Carvalho." },
   "about.p3": { pt: "Durante quatro anos integrei a equipa da Omnos em Londres \u2014 uma das plataformas pioneiras de medicina funcional na Europa \u2014 onde assumi os pap\u00e9is de Chief Resident of Microbiome e Academy Manager. Nesse percurso participei na arquitectura cl\u00ednica da plataforma, liderei a integra\u00e7\u00e3o do protocolo de microbioma, publiquei na revista ICAN e colaborei com especialistas internacionais de sa\u00fade.", en: "For four years I was part of the Omnos team in London \u2014 one of the pioneering functional medicine platforms in Europe \u2014 where I served as Chief Resident of Microbiome and Academy Manager. During this time, I participated in the platform\u2019s clinical architecture, led the microbiome protocol integration, published in ICAN journal, and collaborated with international health specialists." },
-  "about.p4": { pt: "Hoje trabalho exclusivamente online com mulheres e homens de Portugal e internacionalmente, em Portugu\u00eas e Ingl\u00eas, \u00e0 procura das causas que ficaram por encontrar.", en: "Today I work exclusively online with women and men from Portugal and internationally, in Portuguese and English, searching for the causes that remain to be found." },
+  "about.p4": { pt: "Hoje trabalho exclusivamente online com mulheres de Portugal e internacionalmente, em Português e Inglês, à procura das causas que ficaram por encontrar.", en: "Today I work exclusively online with women from Portugal and internationally, in Portuguese and English, searching for the causes that remain to be found." },
 
   // FAQ
   "faq.title": { pt: "Perguntas frequentes", en: "Frequently asked questions" },
@@ -199,7 +199,7 @@ const translations: Record<string, Record<Language, string>> = {
   "faq.1.a": { pt: "Sim. Todo o acompanhamento \u00e9 realizado online via Zoom. Trabalho com clientes de Portugal e internacionalmente, sem limita\u00e7\u00f5es geogr\u00e1ficas.", en: "Yes. All follow-up is done online via Zoom. I work with clients from Portugal and internationally, without geographic limitations." },
   "faq.2.q": { pt: "Posso fazer a consulta em ingl\u00eas?", en: "Can I have the consultation in English?" },
   "faq.2.a": { pt: "Sim. As consultas est\u00e3o dispon\u00edveis em Portugu\u00eas e Ingl\u00eas. Toda a documenta\u00e7\u00e3o pode ser fornecida no idioma da tua prefer\u00eancia.", en: "Yes. Consultations are available in Portuguese and English. All documentation can be provided in your preferred language." },
-  "faq.3.q": { pt: "Porque \u00e9 que o Programa 3M dura 3 meses?", en: "Why does the 3M Program last 3 months?" },
+  "faq.3.q": { pt: "Porque é que o Programa Fundação dura 3 meses?", en: "Why does the Foundation Program last 3 months?" },
   "faq.3.a": { pt: "O corpo precisa de tempo para responder. O sistema hormonal demora 6 a 8 semanas a reagir a interven\u00e7\u00f5es. A neuroplasticidade exige repeti\u00e7\u00e3o consistente. Tr\u00eas meses \u00e9 o m\u00ednimo para resultados mensur\u00e1veis e sustent\u00e1veis. N\u00e3o \u00e9 um n\u00famero arbitr\u00e1rio. \u00c9 fisiologia.", en: "The body needs time to respond. The hormonal system takes 6 to 8 weeks to react to interventions. Neuroplasticity requires consistent repetition. Three months is the minimum for measurable and sustainable results. It\u2019s not an arbitrary number. It\u2019s physiology." },
   "faq.4.q": { pt: "A medicina funcional substitui o m\u00e9dico convencional?", en: "Does functional medicine replace conventional doctors?" },
   "faq.4.a": { pt: "N\u00e3o. \u00c9 complementar. Quando necess\u00e1rio, pode ser recomendada consulta m\u00e9dica com a Dra. Patr\u00edcia Salvador para avalia\u00e7\u00e3o convencional, medica\u00e7\u00e3o ou referencia\u00e7\u00e3o.", en: "No. It\u2019s complementary. When necessary, a medical consultation with Dr. Patr\u00edcia Salvador may be recommended for conventional assessment, medication, or referral." },
@@ -208,7 +208,7 @@ const translations: Record<string, Record<Language, string>> = {
   "faq.6.q": { pt: "Os meus dados de sa\u00fade est\u00e3o protegidos?", en: "Is my health data protected?" },
   "faq.6.a": { pt: "Sim. Toda a informa\u00e7\u00e3o partilhada \u00e9 tratada com total confidencialidade, em conformidade com o RGPD. Os dados n\u00e3o s\u00e3o partilhados com terceiros sem consentimento expl\u00edcito.", en: "Yes. All shared information is treated with full confidentiality, in compliance with GDPR. Data is not shared with third parties without explicit consent." },
   "faq.7.q": { pt: "Como funciona o Programa de 3 meses e qual o investimento?", en: "How does the 3-month Program work and what\u2019s the investment?" },
-  "faq.7.a": { pt: "O Programa 3M \u00e9 proposto quando, ap\u00f3s a consulta inicial, faz sentido cl\u00ednico um acompanhamento mais prolongado. O investimento e estrutura s\u00e3o discutidos na consulta inicial, em fun\u00e7\u00e3o dos objectivos e complexidade do caso.", en: "The 3M Program is proposed when, after the initial consultation, a longer follow-up makes clinical sense. The investment and structure are discussed in the initial consultation, based on objectives and case complexity." },
+  "faq.7.a": { pt: "O Programa Fundação é proposto quando, após a consulta inicial, faz sentido clínico um acompanhamento mais prolongado. O investimento e estrutura são discutidos na consulta inicial, em função dos objectivos e complexidade do caso.", en: "The Foundation Program is proposed when, after the initial consultation, a longer follow-up makes clinical sense. The investment and structure are discussed in the initial consultation, based on objectives and case complexity." },
   "faq.8.q": { pt: "O que devo trazer para a primeira consulta?", en: "What should I bring to the first consultation?" },
   "faq.8.a": { pt: "Exames laboratoriais dos \u00faltimos 2 a 3 anos, lista de medicamentos e suplementos actuais. Ser\u00e1 enviado um question\u00e1rio estruturado antes da consulta.", en: "Lab tests from the last 2 to 3 years, list of current medications and supplements. A structured questionnaire will be sent before the consultation." },
 
@@ -248,7 +248,7 @@ const translations: Record<string, Record<Language, string>> = {
   "footer.social": { pt: "Redes Sociais", en: "Social Media" },
   "footer.newsletter": { pt: "Newsletter", en: "Newsletter" },
   "footer.subscribe": { pt: "Subscrever", en: "Subscribe" },
-  "footer.copyright": { pt: "\u00a9 2025 Catarina Veiga \u00b7 Todos os direitos reservados", en: "\u00a9 2025 Catarina Veiga \u00b7 All rights reserved" },
+  "footer.copyright": { pt: "© 2026 Catarina Veiga · Todos os direitos reservados", en: "© 2026 Catarina Veiga · All rights reserved" },
   "footer.legal": { pt: "Aviso Legal", en: "Legal Notice" },
   "footer.privacy": { pt: "Pol\u00edtica de Privacidade", en: "Privacy Policy" },
   "footer.terms": { pt: "Termos de Servi\u00e7o", en: "Terms of Service" },
@@ -332,7 +332,7 @@ const translations: Record<string, Record<Language, string>> = {
   "terms.h2_4": { pt: "Limitação de responsabilidade", en: "Limitation of liability" },
   "terms.p4": { pt: "Catarina Veiga não se responsabiliza por decisões tomadas com base na informação disponibilizada neste website. Os resultados do acompanhamento dependem de múltiplos factores individuais e não são garantidos.", en: "Catarina Veiga is not responsible for decisions made based on the information provided on this website. Follow-up results depend on multiple individual factors and are not guaranteed." },
   "terms.h2_5": { pt: "Alterações aos termos", en: "Changes to terms" },
-  "terms.p5": { pt: "Estes termos podem ser actualizados a qualquer momento. A utilização continuada do website após alterações constitui aceitação dos novos termos. Última actualização: Janeiro 2025.", en: "These terms may be updated at any time. Continued use of the website after changes constitutes acceptance of the new terms. Last updated: January 2025." },
+  "terms.p5": { pt: "Estes termos podem ser actualizados a qualquer momento. A utilização continuada do website após alterações constitui aceitação dos novos termos. Última actualização: Março 2026.", en: "These terms may be updated at any time. Continued use of the website after changes constitutes acceptance of the new terms. Last updated: March 2026." },
 };
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
