@@ -35,6 +35,7 @@ const Navbar = () => {
     { label: "Início", href: "/", isButton: false },
     { label: "Método", href: "/metodo", isButton: false },
     { label: t("nav.programa3m"), href: "/programa-fundacao", isButton: false },
+    { label: "Sobre", href: "/sobre", isButton: false },
     { label: "Análises", href: "#servicos", isButton: false },
     { label: t("nav.blog"), href: "/blog", isButton: false },
     { label: "Sobre", href: "#equipa", isButton: false },
