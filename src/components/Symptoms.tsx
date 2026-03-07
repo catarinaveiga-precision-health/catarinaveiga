@@ -1,5 +1,6 @@
 import { useFadeUp } from "@/hooks/useFadeUp";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Symptoms = () => {
@@ -18,8 +19,9 @@ const Symptoms = () => {
         <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-12">{t("symptoms.title")}</h2>
         <div className="fade-up space-y-5 mb-10">
           {items.map((item, i) => (
-            <div key={i} className="border-l-[3px] border-amber pl-5 py-1">
-              <p className="text-foreground">{"\u2713"} {item}</p>
+            <div key={i} className="border-l-[3px] border-amber pl-5 py-1 flex items-start gap-3">
+              <Check size={18} className="text-amber mt-1 shrink-0" strokeWidth={2.5} />
+              <p className="text-foreground">{item}</p>
             </div>
           ))}
         </div>
@@ -27,9 +29,9 @@ const Symptoms = () => {
           {t("symptoms.quote")}
         </p>
         <div className="fade-up text-center">
-          <a href="#servicos" className="inline-flex items-center gap-2 text-amber hover:text-amber-light transition-colors font-sans text-sm">
-            {t("symptoms.link")} <ArrowRight size={16} />
-          </a>
+          <Button variant="hero" size="lg" asChild>
+            <a href="/candidatura">Candidatar-me</a>
+          </Button>
         </div>
       </div>
     </section>
