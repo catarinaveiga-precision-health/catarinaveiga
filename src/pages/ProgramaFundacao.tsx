@@ -147,7 +147,7 @@ const WhatsIncluded = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {inclusions.map((item, i) => (
             <div key={i} className="fade-up bg-background rounded-[24px] p-8 border border-border">
-              <item.icon className="text-amber mb-4" size={28} strokeWidth={1.5} />
+              <div className="w-2.5 h-2.5 rounded-full bg-amber mb-4" />
               <h4 className="font-serif text-xl text-foreground mb-2">{item.title}</h4>
               <p className="text-muted-foreground text-[14px]">{item.desc}</p>
             </div>
