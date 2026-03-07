@@ -6,10 +6,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LegalBand from "@/components/LegalBand";
-import { CalendarCheck, FileText, FlaskConical, MessageCircle, BarChart3, ClipboardList } from "lucide-react";
 
 const Hero = () => {
   const ref = useFadeUp();
