@@ -65,7 +65,7 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Pillars
   "pillars.label": { pt: "Abordagem", en: "Approach" },
-  "pillars.title": { pt: "Como trabalhamos", en: "How we work" },
+  "pillars.title": { pt: "Como trabalho", en: "How I work" },
   "pillars.1.title": { pt: "Investiga\u00e7\u00e3o Profunda", en: "Deep Investigation" },
   "pillars.1.desc": { pt: "An\u00e1lises com crit\u00e9rios funcionais avan\u00e7ados. Olhamos para o quadro completo, n\u00e3o apenas para valores isolados.", en: "Analysis with advanced functional criteria. We look at the full picture, not just isolated values." },
   "pillars.2.title": { pt: "Protocolo Personalizado", en: "Personalised Protocol" },
