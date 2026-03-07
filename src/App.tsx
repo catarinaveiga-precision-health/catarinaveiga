@@ -11,6 +11,7 @@ import TermosUtilizacao from "./pages/TermosUtilizacao";
 import BlogPage from "./pages/BlogPage";
 import BlogArticle from "./pages/BlogArticle";
 import Candidatura from "./pages/Candidatura";
+import ProgramaFundacao from "./pages/ProgramaFundacao";
 
 const queryClient = new QueryClient();
 
