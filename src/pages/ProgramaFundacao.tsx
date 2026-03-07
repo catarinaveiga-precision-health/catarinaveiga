@@ -6,10 +6,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LegalBand from "@/components/LegalBand";
-import { CalendarCheck, FileText, FlaskConical, MessageCircle, BarChart3, ClipboardList } from "lucide-react";
 
 const Hero = () => {
   const ref = useFadeUp();
@@ -22,6 +22,9 @@ const Hero = () => {
         <h1 className="fade-up font-serif text-5xl md:text-6xl lg:text-7xl text-foreground mb-6 leading-tight">
           Investigação clínica. Protocolo personalizado. Três meses.
         </h1>
+        <div className="fade-up flex justify-center mb-10">
+          <div className="w-[60px] h-[2px] bg-amber" />
+        </div>
         <p className="fade-up text-muted-foreground max-w-2xl mx-auto mb-10 text-lg">
           A abordagem estruturada para mulheres com sintomas persistentes e causas ainda por identificar.
         </p>
@@ -109,7 +112,7 @@ const ThreePhases = () => {
               <div key={i} className="fade-up relative pl-16 md:pl-20">
                 {/* Amber dot */}
                 <div className="absolute left-[18px] md:left-[26px] top-2 w-3 h-3 rounded-full bg-amber" />
-                <span className="font-serif text-[80px] leading-none text-bone absolute -top-4 right-0 select-none hidden md:block">
+                <span className="font-serif text-[96px] leading-none text-bone absolute -top-6 right-0 select-none hidden md:block opacity-60">
                   {phase.num}
                 </span>
                 <span className="label-uppercase text-amber text-xs">{phase.weeks}</span>
@@ -125,12 +128,12 @@ const ThreePhases = () => {
 };
 
 const inclusions = [
-  { icon: CalendarCheck, title: "4 Consultas de Acompanhamento", desc: "60 min cada, espaçadas por fase" },
-  { icon: FileText, title: "Protocolo Escrito Detalhado", desc: "Nutrição + suplementação + ritmo circadiano" },
-  { icon: FlaskConical, title: "Análises com Interpretação Funcional", desc: "Intervalos ODX, não laboratoriais" },
-  { icon: MessageCircle, title: "Suporte Entre Consultas", desc: "Resposta por mensagem em 48h úteis" },
-  { icon: BarChart3, title: "Reavaliação Analítica", desc: "Comparação de biomarcadores semanas 6–8" },
-  { icon: ClipboardList, title: "Plano de Manutenção", desc: "Documentado no final das 12 semanas" },
+  { title: "4 Consultas de Acompanhamento", desc: "60 min cada, espaçadas por fase" },
+  { title: "Protocolo Escrito Detalhado", desc: "Nutrição + suplementação + ritmo circadiano" },
+  { title: "Análises com Interpretação Funcional", desc: "Intervalos ODX, não laboratoriais" },
+  { title: "Suporte Entre Consultas", desc: "Resposta por mensagem em 48h úteis" },
+  { title: "Reavaliação Analítica", desc: "Comparação de biomarcadores semanas 6–8" },
+  { title: "Plano de Manutenção", desc: "Documentado no final das 12 semanas" },
 ];
 
 const WhatsIncluded = () => {
@@ -144,7 +147,7 @@ const WhatsIncluded = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {inclusions.map((item, i) => (
             <div key={i} className="fade-up bg-background rounded-[24px] p-8 border border-border">
-              <item.icon className="text-amber mb-4" size={28} strokeWidth={1.5} />
+              <div className="w-2.5 h-2.5 rounded-full bg-amber mb-4" />
               <h4 className="font-serif text-xl text-foreground mb-2">{item.title}</h4>
               <p className="text-muted-foreground text-[14px]">{item.desc}</p>
             </div>
@@ -161,7 +164,9 @@ const Investment = () => {
     <section ref={ref} className="bg-background section-padding">
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-8">Investimento</h2>
-        <p className="fade-up font-serif text-7xl md:text-8xl text-foreground mb-2">€800</p>
+        <div className="fade-up inline-block border border-amber rounded-[16px] px-12 py-8 mb-4">
+          <p className="font-serif text-7xl md:text-8xl text-foreground">€800</p>
+        </div>
         <p className="fade-up text-muted-foreground text-lg mb-6">12 semanas · Programa completo</p>
         <p className="fade-up text-foreground text-[15px] mb-4">
           Equivale a €200 por consulta vs €300+ por especialista convencional
@@ -249,15 +254,26 @@ const FinalCTA = () => {
   );
 };
 
+const SectionDivider = () => (
+  <div className="max-w-5xl mx-auto px-6">
+    <Separator className="bg-bone" />
+  </div>
+);
+
 const ProgramaFundacao = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
       <Hero />
+      <SectionDivider />
       <QualifyingBlock />
+      <SectionDivider />
       <ThreePhases />
+      <SectionDivider />
       <WhatsIncluded />
+      <SectionDivider />
       <Investment />
+      <SectionDivider />
       <FAQSection />
       <FinalCTA />
       <Footer />
