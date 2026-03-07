@@ -106,7 +106,7 @@ const translations: Record<string, Record<Language, string>> = {
   "services.card1.cta": { pt: "Agendar", en: "Book" },
   "services.card1.note": { pt: "Esta consulta \u00e9 independente e n\u00e3o implica compromisso com programas posteriores.", en: "This consultation is independent and does not imply commitment to subsequent programs." },
   "services.card2.label": { pt: "Programa Signature", en: "Signature Program" },
-  "services.card2.title": { pt: "Programa 3M", en: "3M Program" },
+  "services.card2.title": { pt: "Programa Fundação", en: "Foundation Program" },
   "services.card2.desc": { pt: "Acompanhamento intensivo de 3 meses com protocolo personalizado, consultas estruturadas e reavalia\u00e7\u00e3o final.", en: "3-month intensive follow-up with personalised protocol, structured consultations, and final reassessment." },
   "services.card2.note": { pt: "Programa personalizado ap\u00f3s avalia\u00e7\u00e3o cl\u00ednica inicial.", en: "Personalised program after initial clinical assessment." },
   "services.card2.cta": { pt: "Saber mais", en: "Learn more" },
