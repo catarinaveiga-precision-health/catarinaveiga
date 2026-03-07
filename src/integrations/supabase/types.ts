@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      applications: {
+        Row: {
+          created_at: string
+          diagnosticos: string | null
+          duracao_sintomas: string | null
+          email: string
+          historico_tratamentos: string | null
+          id: string
+          idade: number | null
+          nome: string
+          pais: string | null
+          rgpd_aceite: boolean
+          sintomas: string[] | null
+        }
+        Insert: {
+          created_at?: string
+          diagnosticos?: string | null
+          duracao_sintomas?: string | null
+          email: string
+          historico_tratamentos?: string | null
+          id?: string
+          idade?: number | null
+          nome: string
+          pais?: string | null
+          rgpd_aceite?: boolean
+          sintomas?: string[] | null
+        }
+        Update: {
+          created_at?: string
+          diagnosticos?: string | null
+          duracao_sintomas?: string | null
+          email?: string
+          historico_tratamentos?: string | null
+          id?: string
+          idade?: number | null
+          nome?: string
+          pais?: string | null
+          rgpd_aceite?: boolean
+          sintomas?: string[] | null
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string
