@@ -20,7 +20,7 @@ const translations: Record<string, Record<Language, string>> = {
   // Navbar
   "nav.abordagem": { pt: "Abordagem", en: "Approach" },
   "nav.servicos": { pt: "Servi\u00e7os", en: "Services" },
-  "nav.programa3m": { pt: "Programa 3M", en: "3M Program" },
+  "nav.programa3m": { pt: "Programa Fundação", en: "Foundation Program" },
   "nav.equipa": { pt: "Equipa", en: "Team" },
   "nav.blog": { pt: "Blog", en: "Blog" },
   "nav.contacto": { pt: "Contacto", en: "Contact" },
