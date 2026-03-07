@@ -32,14 +32,13 @@ const Navbar = () => {
   const { t } = useLanguage();
 
   const navLinks = [
-    { label: t("nav.abordagem"), href: "#abordagem" },
-    { label: "Método", href: "/metodo" },
-    { label: t("nav.servicos"), href: "#servicos" },
-    { label: t("nav.programa3m"), href: "/programa-fundacao" },
-    { label: t("nav.equipa"), href: "#equipa" },
-    { label: t("nav.blog"), href: "/blog" },
-    { label: "Candidatura", href: "/candidatura" },
-    { label: t("nav.contacto"), href: "#contacto" },
+    { label: "Início", href: "/", isButton: false },
+    { label: "Método", href: "/metodo", isButton: false },
+    { label: t("nav.programa3m"), href: "/programa-fundacao", isButton: false },
+    { label: "Análises", href: "#servicos", isButton: false },
+    { label: t("nav.blog"), href: "/blog", isButton: false },
+    { label: "Sobre", href: "#equipa", isButton: false },
+    { label: "Candidatura", href: "/candidatura", isButton: true },
   ];
 
   useEffect(() => {
