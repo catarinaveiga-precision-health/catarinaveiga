@@ -234,9 +234,11 @@ const translations: Record<string, Record<Language, string>> = {
 
   // CTAFinal
   "ctafinal.label": { pt: "Pronto/a para come\u00e7ar?", en: "Ready to start?" },
-  "ctafinal.title1": { pt: "A tua sa\u00fade", en: "Your health" },
-  "ctafinal.title2": { pt: "merece respostas.", en: "deserves answers." },
+  "ctafinal.title1": { pt: "Pronta para perceber o que est\u00e1", en: "Ready to understand what\u2019s" },
+  "ctafinal.title2": { pt: "por tr\u00e1s dos teus sintomas?", en: "behind your symptoms?" },
   "ctafinal.cta": { pt: "Agendar consulta inicial", en: "Book initial consultation" },
+  "ctafinal.cta2": { pt: "Candidatar-me ao Programa", en: "Apply to the Program" },
+  "ctafinal.sublink": { pt: "Ou marcar consulta avulsa \u2014 \u20ac120", en: "Or book a single consultation \u2014 \u20ac120" },
 
   // Footer
   "footer.desc": { pt: "Medicina Funcional Integrativa com foco na sa\u00fade da mulher. Acompanhamento exclusivamente online para Portugal e internacional.", en: "Integrative Functional Medicine focused on women\u2019s health. Online-only follow-up for Portugal and international clients." },
