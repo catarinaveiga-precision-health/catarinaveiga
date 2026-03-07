@@ -12,6 +12,7 @@ import BlogPage from "./pages/BlogPage";
 import BlogArticle from "./pages/BlogArticle";
 import Candidatura from "./pages/Candidatura";
 import ProgramaFundacao from "./pages/ProgramaFundacao";
+import Metodo from "./pages/Metodo";
 
 const queryClient = new QueryClient();
 
