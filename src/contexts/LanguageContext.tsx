@@ -248,7 +248,7 @@ const translations: Record<string, Record<Language, string>> = {
   "footer.social": { pt: "Redes Sociais", en: "Social Media" },
   "footer.newsletter": { pt: "Newsletter", en: "Newsletter" },
   "footer.subscribe": { pt: "Subscrever", en: "Subscribe" },
-  "footer.copyright": { pt: "\u00a9 2025 Catarina Veiga \u00b7 Todos os direitos reservados", en: "\u00a9 2025 Catarina Veiga \u00b7 All rights reserved" },
+  "footer.copyright": { pt: "© 2026 Catarina Veiga · Todos os direitos reservados", en: "© 2026 Catarina Veiga · All rights reserved" },
   "footer.legal": { pt: "Aviso Legal", en: "Legal Notice" },
   "footer.privacy": { pt: "Pol\u00edtica de Privacidade", en: "Privacy Policy" },
   "footer.terms": { pt: "Termos de Servi\u00e7o", en: "Terms of Service" },
