@@ -22,6 +22,9 @@ const Hero = () => {
         <h1 className="fade-up font-serif text-5xl md:text-6xl lg:text-7xl text-foreground mb-6 leading-tight">
           Investigação clínica. Protocolo personalizado. Três meses.
         </h1>
+        <div className="fade-up flex justify-center mb-10">
+          <div className="w-[60px] h-[2px] bg-amber" />
+        </div>
         <p className="fade-up text-muted-foreground max-w-2xl mx-auto mb-10 text-lg">
           A abordagem estruturada para mulheres com sintomas persistentes e causas ainda por identificar.
         </p>
