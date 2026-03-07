@@ -164,7 +164,9 @@ const Investment = () => {
     <section ref={ref} className="bg-background section-padding">
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-8">Investimento</h2>
-        <p className="fade-up font-serif text-7xl md:text-8xl text-foreground mb-2">€800</p>
+        <div className="fade-up inline-block border border-amber rounded-[16px] px-12 py-8 mb-4">
+          <p className="font-serif text-7xl md:text-8xl text-foreground">€800</p>
+        </div>
         <p className="fade-up text-muted-foreground text-lg mb-6">12 semanas · Programa completo</p>
         <p className="fade-up text-foreground text-[15px] mb-4">
           Equivale a €200 por consulta vs €300+ por especialista convencional
