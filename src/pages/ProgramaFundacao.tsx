@@ -254,15 +254,26 @@ const FinalCTA = () => {
   );
 };
 
+const SectionDivider = () => (
+  <div className="max-w-5xl mx-auto px-6">
+    <Separator className="bg-bone" />
+  </div>
+);
+
 const ProgramaFundacao = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
       <Hero />
+      <SectionDivider />
       <QualifyingBlock />
+      <SectionDivider />
       <ThreePhases />
+      <SectionDivider />
       <WhatsIncluded />
+      <SectionDivider />
       <Investment />
+      <SectionDivider />
       <FAQSection />
       <FinalCTA />
       <Footer />
