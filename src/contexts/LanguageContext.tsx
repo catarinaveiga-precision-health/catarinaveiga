@@ -332,7 +332,7 @@ const translations: Record<string, Record<Language, string>> = {
   "terms.h2_4": { pt: "Limitação de responsabilidade", en: "Limitation of liability" },
   "terms.p4": { pt: "Catarina Veiga não se responsabiliza por decisões tomadas com base na informação disponibilizada neste website. Os resultados do acompanhamento dependem de múltiplos factores individuais e não são garantidos.", en: "Catarina Veiga is not responsible for decisions made based on the information provided on this website. Follow-up results depend on multiple individual factors and are not guaranteed." },
   "terms.h2_5": { pt: "Alterações aos termos", en: "Changes to terms" },
-  "terms.p5": { pt: "Estes termos podem ser actualizados a qualquer momento. A utilização continuada do website após alterações constitui aceitação dos novos termos. Última actualização: Janeiro 2025.", en: "These terms may be updated at any time. Continued use of the website after changes constitutes acceptance of the new terms. Last updated: January 2025." },
+  "terms.p5": { pt: "Estes termos podem ser actualizados a qualquer momento. A utilização continuada do website após alterações constitui aceitação dos novos termos. Última actualização: Março 2026.", en: "These terms may be updated at any time. Continued use of the website after changes constitutes acceptance of the new terms. Last updated: March 2026." },
 };
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {

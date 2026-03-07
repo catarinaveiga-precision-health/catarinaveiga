@@ -16,7 +16,7 @@ const Program3M = () => {
   ];
 
   return (
-    <section ref={ref} id="programa3m" className="bg-amber section-padding">
+    <section ref={ref} id="programa-fundacao" className="bg-amber section-padding">
       <div className="max-w-5xl mx-auto">
         <div className="fade-up text-center mb-12">
           <span className="inline-block border border-ivory/60 text-ivory label-uppercase text-xs px-4 py-2 mb-6">{t("program3m.badge")}</span>
