@@ -118,7 +118,7 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Program3M
   "program3m.badge": { pt: "Programa Signature", en: "Signature Program" },
-  "program3m.title": { pt: "Programa 3M", en: "3M Program" },
+  "program3m.title": { pt: "Programa Fundação", en: "Foundation Program" },
   "program3m.desc": { pt: "Tr\u00eas meses de acompanhamento real. Um protocolo constru\u00eddo \u00e0 tua medida, com a profundidade que o teu corpo merece.", en: "Three months of real follow-up. A protocol built to your measure, with the depth your body deserves." },
   "program3m.desc2": { pt: "Se fizer sentido ap\u00f3s a consulta inicial, proponho um plano estruturado para os teus sintomas espec\u00edficos. A decis\u00e3o \u00e9 sempre tua, depois de saberes exactamente o que envolve.", en: "If it makes sense after the initial consultation, I propose a structured plan for your specific symptoms. The decision is always yours, after knowing exactly what it involves." },
   "program3m.why": { pt: "Porque 3 meses?", en: "Why 3 months?" },
