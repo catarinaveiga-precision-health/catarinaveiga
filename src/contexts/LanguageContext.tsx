@@ -57,7 +57,7 @@ const translations: Record<string, Record<Language, string>> = {
   "marquee.7": { pt: "Endometriose", en: "Endometriosis" },
 
   // Manifesto
-  "manifesto.label": { pt: "A nossa filosofia", en: "Our philosophy" },
+  "manifesto.label": { pt: "A minha filosofia", en: "My philosophy" },
   "manifesto.quote1": { pt: "\u201COs teus exames s\u00e3o normais.\u201D", en: "\u201CYour tests are normal.\u201D" },
   "manifesto.quote2": { pt: "Mas tu sabes que n\u00e3o te sentes normal.", en: "But you know you don\u2019t feel normal." },
   "manifesto.p1": { pt: "A medicina convencional usa intervalos de refer\u00eancia definidos para popula\u00e7\u00f5es gerais. A medicina funcional usa crit\u00e9rios funcionais avan\u00e7ados \u2014 mais exigentes, mais pr\u00f3ximos do que o teu corpo precisa para funcionar de forma \u00f3ptima.", en: "Conventional medicine uses reference ranges defined for general populations. Functional medicine uses advanced functional criteria \u2014 more demanding, closer to what your body needs to function optimally." },
