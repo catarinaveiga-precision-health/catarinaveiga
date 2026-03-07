@@ -13,6 +13,7 @@ import BlogArticle from "./pages/BlogArticle";
 import Candidatura from "./pages/Candidatura";
 import ProgramaFundacao from "./pages/ProgramaFundacao";
 import Metodo from "./pages/Metodo";
+import Sobre from "./pages/Sobre";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/candidatura" element={<Candidatura />} />
           <Route path="/programa-fundacao" element={<ProgramaFundacao />} />
           <Route path="/metodo" element={<Metodo />} />
+          <Route path="/sobre" element={<Sobre />} />
           <Route path="/aviso-legal" element={<AvisoLegal />} />
           <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
           <Route path="/termos-utilizacao" element={<TermosUtilizacao />} />
