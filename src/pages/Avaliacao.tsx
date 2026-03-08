@@ -65,11 +65,28 @@ const STEP_TITLES = [
   "Ferro",
   "Inflamação",
   "Metabolismo",
-  "Os teus dados",
+  "Pré-resultado",
   "Resultados",
 ];
 
-const STEP_ICONS = [Activity, Heart, Shield, Droplets, Flame, Brain, Heart, CheckCircle];
+const STEP_ICONS = [Activity, Heart, Shield, Droplets, Flame, Brain, Activity, CheckCircle];
+
+const SYSTEM_LABELS: Record<string, string> = {
+  TSH: "Tiróide",
+  "T3 Livre": "Tiróide",
+  "T4 Livre": "Tiróide",
+  Ferritina: "Ferro",
+  "Ferro Sérico": "Ferro",
+  Transferrina: "Ferro",
+  PCR: "Inflamação",
+  "Homocisteína": "Inflamação",
+  VS: "Inflamação",
+  "Vitamina D": "Metabolismo",
+  "Vitamina B12": "Metabolismo",
+  "Ácido Fólico": "Metabolismo",
+  "Cortisol (manhã)": "Eixo HPA",
+  "DHEA-S": "Eixo HPA",
+};
 
 function evaluateResults(labValues: LabValues) {
   const findings: { marker: string; value: string; status: "optimal" | "suboptimal" | "flag"; note: string }[] = [];
@@ -239,6 +256,9 @@ const Avaliacao = () => {
         </h1>
         <p className="mt-6 text-muted-custom max-w-xl mx-auto text-base font-sans leading-relaxed">
           Insere os teus valores laboratoriais e descobre o que os intervalos de referência convencionais não te dizem.
+        </p>
+        <p className="mt-2 text-amber font-sans text-sm tracking-wide">
+          Mais de 15 biomarcadores analisados em menos de 2 minutos.
         </p>
       </section>
 
@@ -505,8 +525,8 @@ const Avaliacao = () => {
                 </Button>
               ) : <div />}
               <Button variant="hero" onClick={goNext} disabled={saving}>
-                {saving ? "A guardar..." : step === 6 ? "Ver resultados" : "Continuar"}{" "}
-                {!saving && <ArrowRight className="w-4 h-4 ml-2" />}
+                {saving ? "A guardar..." : step === 6 ? "Ver relatório completo →" : "Continuar"}{" "}
+                {!saving && step !== 6 && <ArrowRight className="w-4 h-4 ml-2" />}
               </Button>
             </div>
           )}
