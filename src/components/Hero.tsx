@@ -17,11 +17,16 @@ const Hero = () => {
             {t("hero.title1")}<br />{t("hero.title2")}
           </h1>
           <div className="w-[60px] h-[2px] bg-amber mb-6" />
+          <p className="text-muted-custom max-w-lg mb-2 font-sans font-light text-[15px] leading-relaxed">
+            Introduz alguns valores das tuas análises e descobre o que os intervalos de referência não mostram.
+          </p>
           <p className="text-muted-custom max-w-lg mb-8">{t("hero.desc")}</p>
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <Button variant="hero" size="lg" onClick={openAcuity}>{t("hero.cta")}</Button>
-            <Button variant="outline" size="lg" className="border-border text-foreground hover:bg-bone hover:text-foreground font-sans font-normal tracking-wide" asChild>
-              <a href="/candidatura">{t("hero.cta2")}</a>
+            <Button variant="heroAccent" size="lg" asChild>
+              <a href="/avaliacao">Começar avaliação funcional</a>
+            </Button>
+            <Button variant="ghost" size="lg" className="text-muted-foreground hover:text-foreground font-sans font-light tracking-wide text-sm" asChild>
+              <a href="https://catarinaveigaagendamento.as.me/" target="_blank" rel="noopener noreferrer">Ou marcar consulta — €120</a>
             </Button>
           </div>
           <div className="flex items-center gap-0 text-muted-custom text-sm font-sans">
