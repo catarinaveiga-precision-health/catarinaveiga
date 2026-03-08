@@ -79,6 +79,7 @@ const Index = () => {
         <FAQ />
         <Blog />
         <Contact />
+        <ClinicalPatterns />
         <RecognizeThis />
         <CTAFinal />
       </main>
