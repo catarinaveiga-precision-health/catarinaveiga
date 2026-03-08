@@ -595,7 +595,9 @@ const Avaliacao = () => {
                 <>
                   {/* Detailed biomarker results */}
                   <div className="space-y-3">
-                    {results.map((r, i) => (
+                    {results.map((r, i) => {
+                      const refs = BIOMARKER_REFERENCES[r.marker] || [];
+                      return (
                       <div key={i} className={`rounded-xl p-5 border ${
                         r.status === "optimal" ? "bg-green-50 border-green-200" :
                         r.status === "suboptimal" ? "bg-amber-50 border-amber-200" :
@@ -623,8 +625,10 @@ const Avaliacao = () => {
                           <p className="text-xs text-muted-custom font-sans mt-0.5 italic">{FUNCTIONAL_RANGES[r.marker]}</p>
                         )}
                         <p className="text-sm text-foreground/80 font-sans mt-1">{r.note}</p>
+                        {refs.length > 0 && <BiomarkerRefs refs={refs} />}
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
                   {/* System explanations as accordions */}
