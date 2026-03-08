@@ -78,6 +78,7 @@ const Index = () => {
         <FAQ />
         <Blog />
         <Contact />
+        <RecognizeThis />
         <CTAFinal />
       </main>
       <LegalBand />
