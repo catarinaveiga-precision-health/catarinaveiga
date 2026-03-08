@@ -205,8 +205,8 @@ const Avaliacao = () => {
         idade: form.idade ? parseInt(form.idade) : null,
         sexo: form.sexo || null,
         objetivos: form.objetivos,
-        valores_laboratoriais: form.labValues as Record<string, unknown>,
-        resultados: results as unknown as Record<string, unknown>[],
+        valores_laboratoriais: JSON.parse(JSON.stringify(form.labValues)),
+        resultados: JSON.parse(JSON.stringify(results)),
       }]);
       setSaving(false);
       if (dbError) {
