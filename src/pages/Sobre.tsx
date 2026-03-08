@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import catarinaPhoto from "@/assets/catarina-sobre.png";
+import catarinaPhoto from "@/assets/catarina-sobre-portrait.png";
 import Footer from "@/components/Footer";
 import LegalBand from "@/components/LegalBand";
 import MobileCTA from "@/components/MobileCTA";
@@ -26,7 +26,7 @@ const HeroSection = () => {
           <img
             src={catarinaPhoto}
             alt="Catarina Veiga — Especialista em Medicina Funcional Integrativa"
-            className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-2xl object-cover object-top"
+            className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-full object-cover object-top"
           />
         </div>
         <div className="fade-up">
