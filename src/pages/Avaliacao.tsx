@@ -65,11 +65,28 @@ const STEP_TITLES = [
   "Ferro",
   "Inflamação",
   "Metabolismo",
-  "Os teus dados",
+  "Pré-resultado",
   "Resultados",
 ];
 
-const STEP_ICONS = [Activity, Heart, Shield, Droplets, Flame, Brain, Heart, CheckCircle];
+const STEP_ICONS = [Activity, Heart, Shield, Droplets, Flame, Brain, Activity, CheckCircle];
+
+const SYSTEM_LABELS: Record<string, string> = {
+  TSH: "Tiróide",
+  "T3 Livre": "Tiróide",
+  "T4 Livre": "Tiróide",
+  Ferritina: "Ferro",
+  "Ferro Sérico": "Ferro",
+  Transferrina: "Ferro",
+  PCR: "Inflamação",
+  "Homocisteína": "Inflamação",
+  VS: "Inflamação",
+  "Vitamina D": "Metabolismo",
+  "Vitamina B12": "Metabolismo",
+  "Ácido Fólico": "Metabolismo",
+  "Cortisol (manhã)": "Eixo HPA",
+  "DHEA-S": "Eixo HPA",
+};
 
 function evaluateResults(labValues: LabValues) {
   const findings: { marker: string; value: string; status: "optimal" | "suboptimal" | "flag"; note: string }[] = [];
