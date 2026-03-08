@@ -31,15 +31,14 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t } = useLanguage();
 
-  const navLinks: { label: string; href: string; isButton: boolean; external?: boolean }[] = [
-    { label: "Início", href: "/", isButton: false },
-    { label: "Método", href: "/metodo", isButton: false },
-    { label: t("nav.programa3m"), href: "/programa-fundacao", isButton: false },
-    { label: "Avaliação", href: "/avaliacao", isButton: false },
-    { label: "Recursos", href: "/recursos", isButton: false },
-    { label: "Sobre", href: "/sobre", isButton: false },
-    { label: t("nav.blog"), href: "/blog", isButton: false },
-    { label: "Candidatura", href: "/candidatura", isButton: true },
+  const navLinks: { label: string; href: string; external?: boolean }[] = [
+    { label: "Início", href: "/" },
+    { label: "Método", href: "/metodo" },
+    { label: t("nav.programa3m"), href: "/programa-fundacao" },
+    { label: "Avaliação", href: "/avaliacao" },
+    { label: "Recursos", href: "/recursos" },
+    { label: "Sobre", href: "/sobre" },
+    { label: t("nav.blog"), href: "/blog" },
   ];
 
   useEffect(() => {
