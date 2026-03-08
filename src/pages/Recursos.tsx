@@ -30,6 +30,11 @@ const resources = [
     description: "Os 6 padrões biomarcadores mais frequentes em mulheres com cansaço inexplicado.",
     href: "/fadiga-exames-normais",
   },
+  {
+    title: "TSH normal mas com sintomas — o que investigar",
+    description: "O intervalo laboratorial aceita TSH até 4.5. A medicina funcional começa a investigar a partir de 2.0.",
+    href: "/tsh-normal-mas-com-sintomas",
+  },
 ];
 
 const ResourceCard = ({ title, description, href }: { title: string; description: string; href: string }) => {
