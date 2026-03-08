@@ -284,17 +284,28 @@ export async function generateFunctionalPDF(
 
   addAmberLine(doc, (pageW - 60) / 2, 215, 60);
 
+  // Disclaimer block before CTA
+  doc.setFontSize(10);
+  doc.setTextColor(MUTED);
+  doc.setFont("helvetica", "italic");
+  const disclaimerLines = doc.splitTextToSize(FOOTER_TEXT, pageW - 120);
+  const disclaimerStartY = 240;
+  doc.text(disclaimerLines, pageW / 2, disclaimerStartY, { align: "center" });
+  doc.setFont("helvetica", "normal");
+
+  const disclaimerEndY = disclaimerStartY + disclaimerLines.length * 14 + 30;
+
   doc.setFontSize(26);
   doc.setTextColor(DARK);
-  doc.text("Os teus exames podem estar normais.", pageW / 2, 290, { align: "center" });
+  doc.text("Os teus exames podem estar normais.", pageW / 2, disclaimerEndY, { align: "center" });
   doc.setFontSize(26);
-  doc.text("Mas não necessariamente funcionais.", pageW / 2, 325, { align: "center" });
+  doc.text("Mas não necessariamente funcionais.", pageW / 2, disclaimerEndY + 35, { align: "center" });
 
   // CTA button
   const btnW = 240;
   const btnH = 48;
   const btnX = (pageW - btnW) / 2;
-  const btnY = 390;
+  const btnY = disclaimerEndY + 70;
   doc.setFillColor(AMBER);
   doc.roundedRect(btnX, btnY, btnW, btnH, 8, 8, "F");
 
