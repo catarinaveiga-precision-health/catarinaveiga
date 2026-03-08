@@ -20,11 +20,14 @@ const resources = [
 const ResourceCard = ({ title, description, href }: { title: string; description: string; href: string }) => {
   const ref = useFadeUp();
   return (
-    <Link
-      to={href}
+    <div
       ref={ref}
-      className="fade-up block border border-bone rounded-lg p-8 bg-ivory hover:border-amber/40 transition-colors group"
+      className="fade-up"
     >
+      <Link
+        to={href}
+        className="block border border-bone rounded-lg p-8 bg-ivory hover:border-amber/40 transition-colors group"
+      >
       <h3 className="font-serif text-xl text-foreground mb-3 group-hover:text-amber transition-colors">
         {title}
       </h3>
