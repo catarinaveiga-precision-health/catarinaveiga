@@ -31,12 +31,12 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t } = useLanguage();
 
-  const navLinks = [
+  const navLinks: { label: string; href: string; isButton: boolean; external?: boolean }[] = [
     { label: "Início", href: "/", isButton: false },
     { label: "Método", href: "/metodo", isButton: false },
     { label: t("nav.programa3m"), href: "/programa-fundacao", isButton: false },
+    { label: "Leitura de Análises", href: "https://leiturafuncionaldeanalises.lovable.app", isButton: false, external: true },
     { label: "Sobre", href: "/sobre", isButton: false },
-    { label: "Análises", href: "/avaliacao", isButton: false },
     { label: t("nav.blog"), href: "/blog", isButton: false },
     { label: "Candidatura", href: "/candidatura", isButton: true },
   ];
@@ -82,6 +82,7 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="text-sm font-sans text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
@@ -121,6 +122,7 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
+              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="block text-sm font-sans text-muted-foreground hover:text-foreground"
               onClick={() => setMobileOpen(false)}
             >
