@@ -70,24 +70,14 @@ const Navbar = () => {
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            link.isButton ? (
-              <a
-                key={link.href}
-                href={link.href}
-                className="inline-block bg-amber text-ivory text-sm font-sans px-4 py-1.5 rounded-full hover:opacity-90 transition-opacity"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <a
-                key={link.href}
-                href={link.href}
-                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="font-sans font-normal text-[15px] tracking-[-0.02em] text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.label}
-              </a>
-            )
+            <a
+              key={link.href}
+              href={link.href}
+              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="font-sans font-normal text-[15px] tracking-[-0.02em] text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {link.label}
+            </a>
           ))}
         </div>
 
