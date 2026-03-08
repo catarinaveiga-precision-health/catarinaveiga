@@ -49,6 +49,7 @@ const App = () => (
             <Route path="/vitamina-d-valores-funcionais" element={<VitaminaD />} />
             <Route path="/insulina-jejum-o-que-significa" element={<InsulinaJejum />} />
             <Route path="/fadiga-exames-normais" element={<FadigaExamesNormais />} />
+            <Route path="/tsh-normal-mas-com-sintomas" element={<TshNormal />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
