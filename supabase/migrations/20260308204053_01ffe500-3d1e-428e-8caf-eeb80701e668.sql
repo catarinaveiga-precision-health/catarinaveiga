@@ -1,0 +1,1 @@
+ALTER TABLE public.leads_avaliacao ADD COLUMN follow_up_sent boolean NOT NULL DEFAULT false;
