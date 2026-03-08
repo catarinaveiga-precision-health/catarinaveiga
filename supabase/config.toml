@@ -2,3 +2,6 @@ project_id = "ujysejmzbotrlsypmpwd"
 
 [functions.send-emails]
 verify_jwt = false
+
+[functions.follow-up-48h]
+verify_jwt = false
