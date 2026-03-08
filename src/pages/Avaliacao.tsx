@@ -266,6 +266,22 @@ const Avaliacao = () => {
         return;
       }
       setSaved(true);
+
+      // Fire-and-forget: send transactional emails
+      supabase.functions.invoke('send-emails', {
+        body: {
+          table: 'leads_avaliacao',
+          record: {
+            nome: form.nome.trim(),
+            email: form.email.trim(),
+            idade: form.idade ? parseInt(form.idade) : null,
+            sexo: form.sexo || null,
+            objetivos: form.objetivos,
+            resultados: evalResults,
+            created_at: new Date().toISOString(),
+          },
+        },
+      }).catch((err) => console.error('Email send error:', err));
     }
 
     setStep((s) => Math.min(s + 1, 8));

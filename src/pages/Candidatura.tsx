@@ -137,6 +137,19 @@ const Candidatura = () => {
       setError("Ocorreu um erro ao enviar. Tenta novamente.");
     } else {
       setSubmitted(true);
+
+      // Fire-and-forget: send transactional emails
+      supabase.functions.invoke('send-emails', {
+        body: {
+          table: 'leads_candidatura',
+          record: {
+            nome: form.nome.trim(),
+            email: form.email.trim(),
+            telefone: null,
+            created_at: new Date().toISOString(),
+          },
+        },
+      }).catch((err) => console.error('Email send error:', err));
     }
   };
 
