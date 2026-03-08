@@ -255,6 +255,7 @@ const Avaliacao = () => {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [acuityOpen, setAcuityOpen] = useState(false);
 
   const updateLab = (key: keyof LabValues, value: string) => {
     setForm((prev) => ({ ...prev, labValues: { ...prev.labValues, [key]: value } }));
