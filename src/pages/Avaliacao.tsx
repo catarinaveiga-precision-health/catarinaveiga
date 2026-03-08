@@ -272,7 +272,7 @@ const Avaliacao = () => {
       const systemSummary = getSystemSummary(evalResults);
       let pdfBase64: string | undefined;
       try {
-        pdfBase64 = generatePDFBase64(form.nome.trim(), systemSummary, evalResults);
+        pdfBase64 = await generatePDFBase64(form.nome.trim(), systemSummary, evalResults);
       } catch (e) {
         console.error('PDF generation error:', e);
       }
