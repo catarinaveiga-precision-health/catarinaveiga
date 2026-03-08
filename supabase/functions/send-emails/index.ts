@@ -232,7 +232,7 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json();
-    const { table, record } = body;
+    const { table, record, pdf_attachment } = body;
 
     if (!table || !record) {
       return new Response(JSON.stringify({ error: 'Missing table or record' }), {
