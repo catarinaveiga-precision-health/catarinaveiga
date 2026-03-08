@@ -199,15 +199,15 @@ const Avaliacao = () => {
       // Save to Supabase before showing results
       setSaving(true);
       const results = evaluateResults(form.labValues);
-      const { error: dbError } = await supabase.from("leads_avaliacao").insert({
+      const { error: dbError } = await supabase.from("leads_avaliacao").insert([{
         nome: form.nome.trim(),
         email: form.email.trim(),
         idade: form.idade ? parseInt(form.idade) : null,
         sexo: form.sexo || null,
         objetivos: form.objetivos,
-        valores_laboratoriais: form.labValues,
-        resultados: results,
-      });
+        valores_laboratoriais: form.labValues as Record<string, unknown>,
+        resultados: results as unknown as Record<string, unknown>[],
+      }]);
       setSaving(false);
       if (dbError) {
         setError("Erro ao guardar. Tenta novamente.");
