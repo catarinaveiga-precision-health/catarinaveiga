@@ -17,6 +17,7 @@ import Sobre from "./pages/Sobre";
 import Avaliacao from "./pages/Avaliacao";
 import FerritinaBaixa from "./pages/FerritinaBaixa";
 import Recursos from "./pages/Recursos";
+import VitaminaD from "./pages/VitaminaD";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
