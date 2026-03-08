@@ -15,6 +15,11 @@ const resources = [
     description: "Descobre a diferença entre valores laboratoriais e funcionais de ferritina.",
     href: "/ferritina-baixa-sintomas",
   },
+  {
+    title: "Vitamina D: valores funcionais e sintomas",
+    description: "Percebe porque o valor 'normal' pode ainda assim ser insuficiente.",
+    href: "/vitamina-d-valores-funcionais",
+  },
 ];
 
 const ResourceCard = ({ title, description, href }: { title: string; description: string; href: string }) => {
