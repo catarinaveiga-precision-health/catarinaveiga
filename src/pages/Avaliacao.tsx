@@ -257,6 +257,9 @@ const Avaliacao = () => {
         <p className="mt-6 text-muted-custom max-w-xl mx-auto text-base font-sans leading-relaxed">
           Insere os teus valores laboratoriais e descobre o que os intervalos de referência convencionais não te dizem.
         </p>
+        <p className="mt-2 text-amber font-sans text-sm tracking-wide">
+          Mais de 15 biomarcadores analisados em menos de 2 minutos.
+        </p>
       </section>
 
       {/* Progress */}
