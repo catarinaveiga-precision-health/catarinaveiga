@@ -316,7 +316,7 @@ const Avaliacao = () => {
   const flagCount = systems.filter(([, s]) => s !== "optimal").length;
 
   const handleExportPDF = () => {
-    window.print();
+    downloadPDF(form.nome || "utilizador", systems, results);
   };
 
   return (
