@@ -554,11 +554,9 @@ const Avaliacao = () => {
                 <div className="space-y-2">
                   {systems.map(([name, status]) => (
                     <div key={name} className="flex items-center gap-3 py-2.5 px-4 rounded-lg bg-background/60">
-                      <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${
-                        status === "optimal" ? "bg-green-500" :
-                        status === "suboptimal" ? "bg-amber" :
-                        "bg-red-500"
-                      }`} />
+                      <span className="text-sm font-sans font-medium text-foreground mr-1">
+                        {status === "optimal" ? "\u25CF" : status === "suboptimal" ? "\u26A0" : "\u2193"}
+                      </span>
                       <span className="text-sm font-sans text-foreground">{name}</span>
                     </div>
                   ))}
