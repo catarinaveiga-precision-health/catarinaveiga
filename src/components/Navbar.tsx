@@ -35,7 +35,7 @@ const Navbar = () => {
     { label: "Início", href: "/", isButton: false },
     { label: "Método", href: "/metodo", isButton: false },
     { label: t("nav.programa3m"), href: "/programa-fundacao", isButton: false },
-    { label: "Leitura de Análises", href: "https://leiturafuncionaldeanalises.lovable.app", isButton: false, external: true },
+    { label: "Avaliação", href: "/avaliacao", isButton: false },
     { label: "Sobre", href: "/sobre", isButton: false },
     { label: t("nav.blog"), href: "/blog", isButton: false },
     { label: "Candidatura", href: "/candidatura", isButton: true },
