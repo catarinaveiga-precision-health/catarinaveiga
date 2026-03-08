@@ -16,6 +16,7 @@ import Metodo from "./pages/Metodo";
 import Sobre from "./pages/Sobre";
 import Avaliacao from "./pages/Avaliacao";
 import FerritinaBaixa from "./pages/FerritinaBaixa";
+import Recursos from "./pages/Recursos";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogArticle />} />
             <Route path="/ferritina-baixa-sintomas" element={<FerritinaBaixa />} />
+            <Route path="/recursos" element={<Recursos />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
