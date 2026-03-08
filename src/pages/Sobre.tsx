@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import catarinaPhoto from "@/assets/catarina-sobre.png";
 import Footer from "@/components/Footer";
 import LegalBand from "@/components/LegalBand";
 import MobileCTA from "@/components/MobileCTA";
