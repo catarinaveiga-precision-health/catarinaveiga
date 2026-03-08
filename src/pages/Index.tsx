@@ -10,6 +10,7 @@ import Symptoms from "@/components/Symptoms";
 import Testimonials from "@/components/Testimonials";
 import GoogleReviews from "@/components/GoogleReviews";
 import Services from "@/components/Services";
+import AnalysisTool from "@/components/AnalysisTool";
 import Program3M from "@/components/Program3M";
 import Specializations from "@/components/Specializations";
 import Process from "@/components/Process";
@@ -42,6 +43,7 @@ const Index = () => {
         <Testimonials />
         <GoogleReviews />
         <Services />
+        <AnalysisTool />
         <Program3M />
         <Specializations />
         <Process />
