@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle, AlertCircle, ArrowRight, ArrowLeft, Activity, Droplets, Flame, Shield, Heart, Brain } from "lucide-react";
+import { CheckCircle, AlertCircle, ArrowRight, ArrowLeft, Activity, Droplets, Flame, Shield, Heart, Brain, ChevronDown, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
@@ -18,23 +18,18 @@ const OBJECTIVES = [
 ];
 
 interface LabValues {
-  // Tiróide
   tsh?: string;
   t3_livre?: string;
   t4_livre?: string;
-  // Ferro
   ferritina?: string;
   ferro_serico?: string;
   transferrina?: string;
-  // Inflamação
   pcr?: string;
   homocisteina?: string;
   vsg?: string;
-  // Metabolismo
   vitamina_d?: string;
   vitamina_b12?: string;
   acido_folico?: string;
-  // Hormonal
   cortisol?: string;
   dhea?: string;
   estradiol?: string;
@@ -66,18 +61,19 @@ const STEP_TITLES = [
   "Inflamação",
   "Metabolismo",
   "Pré-resultado",
-  "Resultados",
+  "Relatório",
+  "Próximos passos",
 ];
 
-const STEP_ICONS = [Activity, Heart, Shield, Droplets, Flame, Brain, Activity, CheckCircle];
+const STEP_ICONS = [Activity, Heart, Shield, Droplets, Flame, Brain, Activity, CheckCircle, ArrowRight];
 
 const SYSTEM_LABELS: Record<string, string> = {
   TSH: "Tiróide",
   "T3 Livre": "Tiróide",
   "T4 Livre": "Tiróide",
-  Ferritina: "Ferro",
-  "Ferro Sérico": "Ferro",
-  Transferrina: "Ferro",
+  Ferritina: "Ferro e Energia",
+  "Ferro Sérico": "Ferro e Energia",
+  Transferrina: "Ferro e Energia",
   PCR: "Inflamação",
   "Homocisteína": "Inflamação",
   VS: "Inflamação",
@@ -88,6 +84,24 @@ const SYSTEM_LABELS: Record<string, string> = {
   "DHEA-S": "Eixo HPA",
 };
 
+const FUNCTIONAL_RANGES: Record<string, string> = {
+  TSH: "Intervalo funcional: 0.5–2.0 mUI/L",
+  Ferritina: "Intervalo funcional: 40–100 ng/mL",
+  PCR: "Intervalo funcional: < 1.0 mg/L",
+  "Vitamina D": "Intervalo funcional: 50–80 ng/mL",
+  "Vitamina B12": "Intervalo funcional: 500–900 pg/mL",
+  "Homocisteína": "Intervalo funcional: < 7 µmol/L",
+  "Cortisol (manhã)": "Intervalo funcional: 10–18 µg/dL",
+};
+
+const SYSTEM_EXPLANATIONS: Record<string, string> = {
+  "Tiróide": "A tiróide regula o metabolismo, energia e temperatura corporal. Valores sub-óptimos de TSH, T3 ou T4 podem explicar fadiga, ganho de peso e dificuldade de concentração — mesmo quando estão dentro do 'normal' laboratorial.",
+  "Ferro e Energia": "O ferro é essencial para o transporte de oxigénio e produção de energia celular. Ferritina funcionalmente baixa (< 40 ng/mL) é uma das causas mais comuns de fadiga crónica, queda de cabelo e intolerância ao frio.",
+  "Inflamação": "A inflamação crónica de baixo grau está na base de muitas patologias modernas. PCR elevada e homocisteína alta são sinais precoces que o corpo está sob stress — antes de qualquer diagnóstico convencional.",
+  "Metabolismo": "Vitamina D e B12 são cofactores essenciais para centenas de reações metabólicas, desde a imunidade à saúde neurológica. Níveis 'normais' podem ser insuficientes para um funcionamento óptimo.",
+  "Eixo HPA": "O eixo hipotálamo-hipófise-adrenal regula a resposta ao stress. Cortisol desregulado pode causar insónia, ansiedade, fadiga matinal e dificuldade de recuperação.",
+};
+
 function evaluateResults(labValues: LabValues) {
   const findings: { marker: string; value: string; status: "optimal" | "suboptimal" | "flag"; note: string }[] = [];
 
@@ -96,7 +110,6 @@ function evaluateResults(labValues: LabValues) {
     return raw ? parseFloat(raw.replace(",", ".")) : null;
   };
 
-  // TSH
   const tsh = v("tsh");
   if (tsh !== null) {
     if (tsh >= 0.5 && tsh <= 2.0) findings.push({ marker: "TSH", value: `${tsh} mUI/L`, status: "optimal", note: "Dentro do intervalo funcional óptimo." });
@@ -104,7 +117,6 @@ function evaluateResults(labValues: LabValues) {
     else findings.push({ marker: "TSH", value: `${tsh} mUI/L`, status: "flag", note: "Fora do intervalo de referência. Requer avaliação clínica." });
   }
 
-  // Ferritina
   const ferritina = v("ferritina");
   if (ferritina !== null) {
     if (ferritina >= 40 && ferritina <= 100) findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "optimal", note: "Nível óptimo para energia e função tiroideia." });
@@ -113,7 +125,6 @@ function evaluateResults(labValues: LabValues) {
     else findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "suboptimal", note: "Elevada — pode indicar inflamação." });
   }
 
-  // PCR
   const pcr = v("pcr");
   if (pcr !== null) {
     if (pcr < 1) findings.push({ marker: "PCR", value: `${pcr} mg/L`, status: "optimal", note: "Sem inflamação sistémica detectável." });
@@ -121,7 +132,6 @@ function evaluateResults(labValues: LabValues) {
     else findings.push({ marker: "PCR", value: `${pcr} mg/L`, status: "flag", note: "Inflamação elevada. Requer avaliação clínica." });
   }
 
-  // Vitamina D
   const vitD = v("vitamina_d");
   if (vitD !== null) {
     if (vitD >= 50 && vitD <= 80) findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "optimal", note: "Nível óptimo funcional." });
@@ -130,7 +140,6 @@ function evaluateResults(labValues: LabValues) {
     else findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "suboptimal", note: "Acima do intervalo óptimo." });
   }
 
-  // Vitamina B12
   const b12 = v("vitamina_b12");
   if (b12 !== null) {
     if (b12 >= 500 && b12 <= 900) findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "optimal", note: "Nível óptimo funcional." });
@@ -139,7 +148,6 @@ function evaluateResults(labValues: LabValues) {
     else findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "optimal", note: "Nível adequado." });
   }
 
-  // Homocisteína
   const hom = v("homocisteina");
   if (hom !== null) {
     if (hom < 7) findings.push({ marker: "Homocisteína", value: `${hom} µmol/L`, status: "optimal", note: "Nível óptimo." });
@@ -147,7 +155,6 @@ function evaluateResults(labValues: LabValues) {
     else findings.push({ marker: "Homocisteína", value: `${hom} µmol/L`, status: "flag", note: "Elevada — risco cardiovascular e neuroinflamatório." });
   }
 
-  // Cortisol
   const cortisol = v("cortisol");
   if (cortisol !== null) {
     if (cortisol >= 10 && cortisol <= 18) findings.push({ marker: "Cortisol (manhã)", value: `${cortisol} µg/dL`, status: "optimal", note: "Dentro do intervalo funcional." });
@@ -155,6 +162,18 @@ function evaluateResults(labValues: LabValues) {
   }
 
   return findings;
+}
+
+function getSystemSummary(results: ReturnType<typeof evaluateResults>) {
+  const systemMap = new Map<string, "optimal" | "suboptimal" | "flag">();
+  results.forEach((r) => {
+    const sys = SYSTEM_LABELS[r.marker] || r.marker;
+    const current = systemMap.get(sys);
+    if (!current || r.status === "flag" || (r.status === "suboptimal" && current === "optimal")) {
+      systemMap.set(sys, r.status);
+    }
+  });
+  return Array.from(systemMap.entries());
 }
 
 const LabInput = ({ label, unit, value, onChange, placeholder }: {
@@ -175,6 +194,23 @@ const LabInput = ({ label, unit, value, onChange, placeholder }: {
     </div>
   </div>
 );
+
+const Accordion = ({ title, children }: { title: string; children: React.ReactNode }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-bone rounded-lg overflow-hidden">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-4 py-3 text-sm font-sans text-foreground hover:bg-bone/50 transition-colors"
+      >
+        <span>{title}</span>
+        <ChevronDown className={`w-4 h-4 text-muted-custom transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && <div className="px-4 pb-4 text-sm font-sans text-muted-custom leading-relaxed">{children}</div>}
+    </div>
+  );
+};
 
 const Avaliacao = () => {
   const [step, setStep] = useState(0);
@@ -200,7 +236,7 @@ const Avaliacao = () => {
     if (step === 0) return form.objetivos.length > 0;
     if (step === 1) return form.sexo !== "";
     if (step === 6) return form.nome.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
-    return true; // lab steps are optional
+    return true;
   };
 
   const goNext = async () => {
@@ -213,9 +249,8 @@ const Avaliacao = () => {
     }
 
     if (step === 6) {
-      // Save to Supabase before showing results
       setSaving(true);
-      const results = evaluateResults(form.labValues);
+      const evalResults = evaluateResults(form.labValues);
       const { error: dbError } = await supabase.from("leads_avaliacao").insert([{
         nome: form.nome.trim(),
         email: form.email.trim(),
@@ -223,7 +258,7 @@ const Avaliacao = () => {
         sexo: form.sexo || null,
         objetivos: form.objetivos,
         valores_laboratoriais: JSON.parse(JSON.stringify(form.labValues)),
-        resultados: JSON.parse(JSON.stringify(results)),
+        resultados: JSON.parse(JSON.stringify(evalResults)),
       }]);
       setSaving(false);
       if (dbError) {
@@ -233,7 +268,7 @@ const Avaliacao = () => {
       setSaved(true);
     }
 
-    setStep((s) => Math.min(s + 1, 7));
+    setStep((s) => Math.min(s + 1, 8));
   };
 
   const goBack = () => {
@@ -242,7 +277,14 @@ const Avaliacao = () => {
   };
 
   const results = evaluateResults(form.labValues);
+  const systems = getSystemSummary(results);
   const hasAnyLabValue = Object.values(form.labValues).some((v) => v && v.trim() !== "");
+  const optimalCount = systems.filter(([, s]) => s === "optimal").length;
+  const flagCount = systems.filter(([, s]) => s !== "optimal").length;
+
+  const handleExportPDF = () => {
+    window.print();
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -257,7 +299,7 @@ const Avaliacao = () => {
         <p className="mt-6 text-muted-custom max-w-xl mx-auto text-base font-sans leading-relaxed">
           Insere os teus valores laboratoriais e descobre o que os intervalos de referência convencionais não te dizem.
         </p>
-        <p className="mt-2 text-amber font-sans text-sm tracking-wide">
+        <p className="mt-2 text-muted-custom font-sans text-sm">
           Mais de 15 biomarcadores analisados em menos de 2 minutos.
         </p>
       </section>
@@ -281,7 +323,7 @@ const Avaliacao = () => {
             })}
           </div>
           <div className="h-1 bg-bone rounded-full overflow-hidden">
-            <div className="h-full bg-amber rounded-full transition-all duration-500" style={{ width: `${((step + 1) / 8) * 100}%` }} />
+            <div className="h-full bg-amber rounded-full transition-all duration-500" style={{ width: `${((step + 1) / 9) * 100}%` }} />
           </div>
         </div>
       </section>
@@ -413,14 +455,60 @@ const Avaliacao = () => {
             </div>
           )}
 
-          {/* Step 6: Lead capture */}
+          {/* Step 6: PRÉ-RESULTADO + Lead capture */}
           {step === 6 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Quase lá — os teus dados</h2>
-              <p className="text-sm text-muted-custom font-sans">Para gerar o teu relatório personalizado, preciso do teu nome e email.</p>
-              <div className="space-y-4">
+            <div className="space-y-8">
+              {/* Summary card */}
+              <div className="bg-ivory rounded-2xl p-8 border border-bone space-y-6">
+                <h2 className="font-serif text-3xl md:text-4xl text-foreground text-center">
+                  A tua leitura funcional
+                </h2>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div className="bg-bone/50 rounded-xl py-4 px-2">
+                    <p className="font-serif text-3xl text-foreground">{systems.length}</p>
+                    <p className="text-xs text-muted-custom font-sans mt-1">Sistemas avaliados</p>
+                  </div>
+                  <div className="bg-bone/50 rounded-xl py-4 px-2">
+                    <p className="font-serif text-3xl text-foreground">{optimalCount}</p>
+                    <p className="text-xs text-muted-custom font-sans mt-1">No intervalo funcional</p>
+                  </div>
+                  <div className="bg-bone/50 rounded-xl py-4 px-2">
+                    <p className="font-serif text-3xl text-foreground">{flagCount}</p>
+                    <p className="text-xs text-muted-custom font-sans mt-1">Padrões a investigar</p>
+                  </div>
+                </div>
+
+                {/* System list with status dots only */}
+                <div className="space-y-2">
+                  {systems.map(([name, status]) => (
+                    <div key={name} className="flex items-center gap-3 py-2.5 px-4 rounded-lg bg-background/60">
+                      <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                        status === "optimal" ? "bg-green-500" :
+                        status === "suboptimal" ? "bg-amber" :
+                        "bg-red-500"
+                      }`} />
+                      <span className="text-sm font-sans text-foreground">{name}</span>
+                    </div>
+                  ))}
+                  {systems.length === 0 && (
+                    <p className="text-sm text-muted-custom font-sans text-center py-4">
+                      Nenhum valor laboratorial foi introduzido.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Information gap message */}
+              <p className="text-sm font-sans text-muted-custom italic text-center leading-relaxed max-w-[480px] mx-auto">
+                "Identificámos alguns padrões nos teus biomarcadores. Para ver a interpretação completa de cada marcador, os rácios calculados e os próximos passos possíveis, introduz o teu email."
+              </p>
+
+              {/* Lead capture form */}
+              <div className="space-y-4 max-w-sm mx-auto">
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-1 block">Nome *</label>
+                  <label className="text-sm font-sans text-foreground mb-1 block">Nome</label>
                   <Input
                     value={form.nome}
                     onChange={(e) => setForm((prev) => ({ ...prev, nome: e.target.value }))}
@@ -429,7 +517,7 @@ const Avaliacao = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-1 block">Email *</label>
+                  <label className="text-sm font-sans text-foreground mb-1 block">Email</label>
                   <Input
                     type="email"
                     value={form.email}
@@ -438,22 +526,30 @@ const Avaliacao = () => {
                     className="bg-bone border-bone focus:border-amber"
                   />
                 </div>
+                <Button
+                  variant="hero"
+                  size="lg"
+                  className="w-full"
+                  onClick={goNext}
+                  disabled={saving}
+                >
+                  {saving ? "A guardar..." : "Ver relatório completo →"}
+                </Button>
+                <p className="text-xs text-muted-custom font-sans text-center">
+                  Sem spam. Apenas a tua leitura.
+                </p>
               </div>
-              <p className="text-xs text-muted-custom font-sans">
-                Os teus dados são protegidos conforme a{" "}
-                <a href="/politica-privacidade" className="text-amber underline" target="_blank">Política de Privacidade</a>.
-              </p>
             </div>
           )}
 
-          {/* Step 7: Results */}
+          {/* Step 7: RESULTADO COMPLETO */}
           {step === 7 && (
             <div className="space-y-8">
               <div className="text-center">
                 <div className="w-14 h-14 rounded-full bg-amber/10 flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-7 h-7 text-amber" />
                 </div>
-                <h2 className="font-serif text-3xl text-foreground">O teu relatório funcional</h2>
+                <h2 className="font-serif text-3xl text-foreground">O teu relatório funcional completo</h2>
                 <p className="text-muted-custom font-sans mt-2">Análise baseada em intervalos funcionais — não apenas de referência.</p>
               </div>
 
@@ -462,28 +558,61 @@ const Avaliacao = () => {
                   <p className="text-muted-custom font-sans">Não foram introduzidos valores laboratoriais. Agenda uma consulta para uma avaliação completa.</p>
                 </div>
               ) : (
-                <div className="space-y-3">
-                  {results.map((r, i) => (
-                    <div key={i} className={`rounded-xl p-5 border ${
-                      r.status === "optimal" ? "bg-green-50 border-green-200" :
-                      r.status === "suboptimal" ? "bg-amber-50 border-amber-200" :
-                      "bg-red-50 border-red-200"
-                    }`}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="font-sans font-medium text-foreground text-sm">{r.marker}</span>
-                        <span className={`text-xs font-sans px-2 py-0.5 rounded-full ${
-                          r.status === "optimal" ? "bg-green-100 text-green-800" :
-                          r.status === "suboptimal" ? "bg-amber-100 text-amber-800" :
-                          "bg-red-100 text-red-800"
-                        }`}>
-                          {r.status === "optimal" ? "Óptimo" : r.status === "suboptimal" ? "Sub-óptimo" : "Atenção"}
-                        </span>
+                <>
+                  {/* Detailed biomarker results */}
+                  <div className="space-y-3">
+                    {results.map((r, i) => (
+                      <div key={i} className={`rounded-xl p-5 border ${
+                        r.status === "optimal" ? "bg-green-50 border-green-200" :
+                        r.status === "suboptimal" ? "bg-amber-50 border-amber-200" :
+                        "bg-red-50 border-red-200"
+                      }`}>
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-2">
+                            <span className={`w-2 h-2 rounded-full ${
+                              r.status === "optimal" ? "bg-green-500" :
+                              r.status === "suboptimal" ? "bg-amber" :
+                              "bg-red-500"
+                            }`} />
+                            <span className="font-sans font-medium text-foreground text-sm">{r.marker}</span>
+                          </div>
+                          <span className={`text-xs font-sans px-2 py-0.5 rounded-full ${
+                            r.status === "optimal" ? "bg-green-100 text-green-800" :
+                            r.status === "suboptimal" ? "bg-amber-100 text-amber-800" :
+                            "bg-red-100 text-red-800"
+                          }`}>
+                            {r.status === "optimal" ? "Óptimo" : r.status === "suboptimal" ? "Sub-óptimo" : "Atenção"}
+                          </span>
+                        </div>
+                        <p className="text-xs text-muted-custom font-sans">{r.value}</p>
+                        {FUNCTIONAL_RANGES[r.marker] && (
+                          <p className="text-xs text-muted-custom font-sans mt-0.5 italic">{FUNCTIONAL_RANGES[r.marker]}</p>
+                        )}
+                        <p className="text-sm text-foreground/80 font-sans mt-1">{r.note}</p>
                       </div>
-                      <p className="text-xs text-muted-custom font-sans">{r.value}</p>
-                      <p className="text-sm text-foreground/80 font-sans mt-1">{r.note}</p>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+
+                  {/* System explanations as accordions */}
+                  <div className="space-y-2">
+                    <h3 className="font-serif text-xl text-foreground mb-3">Saber mais sobre cada sistema</h3>
+                    {systems.map(([name]) => (
+                      SYSTEM_EXPLANATIONS[name] && (
+                        <Accordion key={name} title={name}>
+                          {SYSTEM_EXPLANATIONS[name]}
+                        </Accordion>
+                      )
+                    ))}
+                  </div>
+
+                  {/* PDF Export */}
+                  <div className="flex justify-center pt-2">
+                    <Button variant="outline" size="lg" onClick={handleExportPDF} className="gap-2">
+                      <Download className="w-4 h-4" />
+                      Exportar relatório (PDF)
+                    </Button>
+                  </div>
+                </>
               )}
 
               {/* Disclaimer */}
@@ -496,19 +625,33 @@ const Avaliacao = () => {
                 </p>
               </div>
 
-              {/* CTA */}
+              {/* Next step button */}
+              <div className="flex justify-center pt-4">
+                <Button variant="hero" size="lg" onClick={() => setStep(8)}>
+                  Ver próximos passos →
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 8: CONFIRMAÇÃO — Dark CTA */}
+          {step === 8 && (
+            <div className="bg-[#1F1A14] rounded-2xl p-10 md:p-14 text-center space-y-6">
+              <h2 className="font-serif text-3xl md:text-4xl text-ivory italic leading-tight">
+                Os teus exames contam uma história.<br />Queres ouvi-la?
+              </h2>
+              <p className="text-ivory/70 font-sans text-sm max-w-md mx-auto leading-relaxed">
+                Se identificaste padrões nos teus biomarcadores, o próximo passo é uma avaliação funcional personalizada com a nossa equipa clínica.
+              </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-                <Button
-                  variant="hero"
-                  size="lg"
-                  asChild
-                >
+                <Button variant="hero" size="lg" asChild>
                   <a href="/candidatura">Quero investigar as causas</a>
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
                   asChild
+                  className="border-ivory/30 text-ivory hover:bg-ivory/10"
                 >
                   <a href="/programa-fundacao">Conhecer o Programa Fundação</a>
                 </Button>
@@ -516,17 +659,16 @@ const Avaliacao = () => {
             </div>
           )}
 
-          {/* Navigation buttons */}
-          {step < 7 && (
+          {/* Navigation buttons (steps 0–5 only, step 6 has its own button) */}
+          {step < 6 && (
             <div className="flex justify-between pt-8">
               {step > 0 ? (
                 <Button variant="outline" onClick={goBack}>
                   <ArrowLeft className="w-4 h-4 mr-2" /> Anterior
                 </Button>
               ) : <div />}
-              <Button variant="hero" onClick={goNext} disabled={saving}>
-                {saving ? "A guardar..." : step === 6 ? "Ver relatório completo →" : "Continuar"}{" "}
-                {!saving && step !== 6 && <ArrowRight className="w-4 h-4 ml-2" />}
+              <Button variant="hero" onClick={goNext}>
+                Continuar <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
           )}
