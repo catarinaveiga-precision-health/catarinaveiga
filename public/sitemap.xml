@@ -41,6 +41,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://catarinaveiga.com/recursos</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://catarinaveiga.com/vitamina-d-valores-funcionais</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://catarinaveiga.com/insulina-jejum-o-que-significa</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://catarinaveiga.com/fadiga-exames-normais</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://catarinaveiga.com/tsh-normal-mas-com-sintomas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://catarinaveiga.com/aviso-legal</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
