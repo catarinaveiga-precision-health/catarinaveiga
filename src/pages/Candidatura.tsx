@@ -106,7 +106,21 @@ const Candidatura = () => {
     setLoading(true);
     setError(null);
 
-    const { error: dbError } = await supabase.from("applications").insert({
+    // Primary: save to leads_candidatura
+    const { error: dbError } = await supabase.from("leads_candidatura").insert({
+      nome: form.nome.trim(),
+      email: form.email.trim(),
+      telefone: null,
+      sintomas: form.sintomas,
+      historico: form.historico_tratamentos.trim() || null,
+      objetivos: form.diagnosticos.trim() || null,
+      informacao_adicional: form.duracao_sintomas
+        ? `Idade: ${form.idade || "—"}, País: ${form.pais || "—"}, Duração: ${form.duracao_sintomas}`
+        : `Idade: ${form.idade || "—"}, País: ${form.pais || "—"}`,
+    });
+
+    // Backup: also save to applications
+    supabase.from("applications").insert({
       nome: form.nome.trim(),
       email: form.email.trim(),
       idade: form.idade ? Number(form.idade) : null,
@@ -116,7 +130,7 @@ const Candidatura = () => {
       historico_tratamentos: form.historico_tratamentos.trim() || null,
       diagnosticos: form.diagnosticos.trim() || null,
       rgpd_aceite: form.rgpd_aceite,
-    });
+    }).then(() => {});
 
     setLoading(false);
     if (dbError) {
