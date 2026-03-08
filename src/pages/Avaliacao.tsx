@@ -525,8 +525,8 @@ const Avaliacao = () => {
                 </Button>
               ) : <div />}
               <Button variant="hero" onClick={goNext} disabled={saving}>
-                {saving ? "A guardar..." : step === 6 ? "Ver resultados" : "Continuar"}{" "}
-                {!saving && <ArrowRight className="w-4 h-4 ml-2" />}
+                {saving ? "A guardar..." : step === 6 ? "Ver relatório completo →" : "Continuar"}{" "}
+                {!saving && step !== 6 && <ArrowRight className="w-4 h-4 ml-2" />}
               </Button>
             </div>
           )}
