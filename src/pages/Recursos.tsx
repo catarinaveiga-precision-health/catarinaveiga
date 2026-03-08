@@ -25,6 +25,11 @@ const resources = [
     description: "Glicose normal com insulina elevada — o que significa e porque importa.",
     href: "/insulina-jejum-o-que-significa",
   },
+  {
+    title: "Fadiga com exames normais — o que investigar",
+    description: "Os 6 padrões biomarcadores mais frequentes em mulheres com cansaço inexplicado.",
+    href: "/fadiga-exames-normais",
+  },
 ];
 
 const ResourceCard = ({ title, description, href }: { title: string; description: string; href: string }) => {
