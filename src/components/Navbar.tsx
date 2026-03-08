@@ -39,7 +39,6 @@ const Navbar = () => {
     { label: "Análises", href: "/avaliacao", isButton: false },
     { label: t("nav.blog"), href: "/blog", isButton: false },
     { label: "Candidatura", href: "/candidatura", isButton: true },
-    { label: "Candidatura", href: "/candidatura", isButton: true },
   ];
 
   useEffect(() => {
