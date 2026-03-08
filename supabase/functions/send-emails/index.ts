@@ -248,6 +248,10 @@ Deno.serve(async (req) => {
       const leadEmail = record.email;
 
       if (leadEmail) {
+        const attachments: EmailAttachment[] = [];
+        if (pdf_attachment?.content && pdf_attachment?.filename) {
+          attachments.push({ content: pdf_attachment.content, filename: pdf_attachment.filename });
+        }
         const r1 = await sendEmail({
           from: FROM_EMAIL,
           to: [leadEmail],
@@ -255,6 +259,7 @@ Deno.serve(async (req) => {
           subject: 'Recebemos a tua leitura funcional',
           html: avaliacaoLeadHtml(name),
           text: avaliacaoLeadText(name),
+          attachments: attachments.length > 0 ? attachments : undefined,
         });
         results.push({ email: leadEmail, ...r1 });
       }
