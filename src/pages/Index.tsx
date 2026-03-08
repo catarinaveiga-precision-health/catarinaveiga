@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import RecognizeThis from "@/components/RecognizeThis";
+import ClinicalPatterns from "@/components/ClinicalPatterns";
 import Hero from "@/components/Hero";
 import CredentialsBand from "@/components/CredentialsBand";
 import ClinicalAssessment from "@/components/ClinicalAssessment";
