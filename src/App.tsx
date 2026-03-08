@@ -45,6 +45,7 @@ const App = () => (
             <Route path="/ferritina-baixa-sintomas" element={<FerritinaBaixa />} />
             <Route path="/recursos" element={<Recursos />} />
             <Route path="/vitamina-d-valores-funcionais" element={<VitaminaD />} />
+            <Route path="/insulina-jejum-o-que-significa" element={<InsulinaJejum />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
