@@ -15,32 +15,37 @@ import ProgramaFundacao from "./pages/ProgramaFundacao";
 import Metodo from "./pages/Metodo";
 import Sobre from "./pages/Sobre";
 import Avaliacao from "./pages/Avaliacao";
+import FerritinaBaixa from "./pages/FerritinaBaixa";
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/candidatura" element={<Candidatura />} />
-          <Route path="/programa-fundacao" element={<ProgramaFundacao />} />
-          <Route path="/metodo" element={<Metodo />} />
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/avaliacao" element={<Avaliacao />} />
-          <Route path="/aviso-legal" element={<AvisoLegal />} />
-          <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
-          <Route path="/termos-utilizacao" element={<TermosUtilizacao />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogArticle />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/candidatura" element={<Candidatura />} />
+            <Route path="/programa-fundacao" element={<ProgramaFundacao />} />
+            <Route path="/metodo" element={<Metodo />} />
+            <Route path="/sobre" element={<Sobre />} />
+            <Route path="/avaliacao" element={<Avaliacao />} />
+            <Route path="/aviso-legal" element={<AvisoLegal />} />
+            <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
+            <Route path="/termos-utilizacao" element={<TermosUtilizacao />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogArticle />} />
+            <Route path="/ferritina-baixa-sintomas" element={<FerritinaBaixa />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;
