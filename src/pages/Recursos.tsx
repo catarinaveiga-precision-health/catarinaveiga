@@ -20,24 +20,22 @@ const resources = [
 const ResourceCard = ({ title, description, href }: { title: string; description: string; href: string }) => {
   const ref = useFadeUp();
   return (
-    <div
-      ref={ref}
-      className="fade-up"
-    >
+    <div ref={ref} className="fade-up">
       <Link
         to={href}
         className="block border border-bone rounded-lg p-8 bg-ivory hover:border-amber/40 transition-colors group"
       >
-      <h3 className="font-serif text-xl text-foreground mb-3 group-hover:text-amber transition-colors">
-        {title}
-      </h3>
-      <p className="text-muted-foreground font-sans text-sm leading-relaxed mb-4">
-        {description}
-      </p>
-      <span className="inline-flex items-center gap-1 text-amber font-sans text-sm">
-        Ler mais <ArrowRight size={14} />
-      </span>
-    </Link>
+        <h3 className="font-serif text-xl text-foreground mb-3 group-hover:text-amber transition-colors">
+          {title}
+        </h3>
+        <p className="text-muted-foreground font-sans text-sm leading-relaxed mb-4">
+          {description}
+        </p>
+        <span className="inline-flex items-center gap-1 text-amber font-sans text-sm">
+          Ler mais <ArrowRight size={14} />
+        </span>
+      </Link>
+    </div>
   );
 };
 
