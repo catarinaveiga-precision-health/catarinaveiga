@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { downloadPDF, generatePDFBase64 } from "@/lib/generatePDF";
 
 const OBJECTIVES = [
   "Fadiga persistente",
@@ -267,7 +268,19 @@ const Avaliacao = () => {
       }
       setSaved(true);
 
-      // Fire-and-forget: send transactional emails
+      // Generate PDF base64 for email attachment
+      const systemSummary = getSystemSummary(evalResults);
+      let pdfBase64: string | undefined;
+      try {
+        pdfBase64 = generatePDFBase64(form.nome.trim(), systemSummary, evalResults);
+      } catch (e) {
+        console.error('PDF generation error:', e);
+      }
+
+      const dateSafe = new Date().toISOString().slice(0, 10);
+      const safeName = form.nome.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+
+      // Fire-and-forget: send transactional emails with PDF attachment
       supabase.functions.invoke('send-emails', {
         body: {
           table: 'leads_avaliacao',
@@ -280,6 +293,10 @@ const Avaliacao = () => {
             resultados: evalResults,
             created_at: new Date().toISOString(),
           },
+          pdf_attachment: pdfBase64 ? {
+            content: pdfBase64,
+            filename: `leitura-funcional-${safeName}-${dateSafe}.pdf`,
+          } : undefined,
         },
       }).catch((err) => console.error('Email send error:', err));
     }
@@ -299,7 +316,7 @@ const Avaliacao = () => {
   const flagCount = systems.filter(([, s]) => s !== "optimal").length;
 
   const handleExportPDF = () => {
-    window.print();
+    downloadPDF(form.nome || "utilizador", systems, results);
   };
 
   return (

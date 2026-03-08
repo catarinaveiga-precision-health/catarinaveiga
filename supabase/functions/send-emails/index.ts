@@ -7,6 +7,11 @@ const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')!;
 const FROM_EMAIL = 'info@catarinaveiga.com';
 const INTERNAL_EMAIL = 'info@catarinaveiga.com';
 
+interface EmailAttachment {
+  content: string; // base64
+  filename: string;
+}
+
 interface EmailPayload {
   from: string;
   to: string[];
@@ -14,6 +19,7 @@ interface EmailPayload {
   subject: string;
   html: string;
   text: string;
+  attachments?: EmailAttachment[];
 }
 
 async function sendEmail(payload: EmailPayload): Promise<{ ok: boolean; error?: string }> {
@@ -226,7 +232,7 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json();
-    const { table, record } = body;
+    const { table, record, pdf_attachment } = body;
 
     if (!table || !record) {
       return new Response(JSON.stringify({ error: 'Missing table or record' }), {
@@ -242,6 +248,10 @@ Deno.serve(async (req) => {
       const leadEmail = record.email;
 
       if (leadEmail) {
+        const attachments: EmailAttachment[] = [];
+        if (pdf_attachment?.content && pdf_attachment?.filename) {
+          attachments.push({ content: pdf_attachment.content, filename: pdf_attachment.filename });
+        }
         const r1 = await sendEmail({
           from: FROM_EMAIL,
           to: [leadEmail],
@@ -249,6 +259,7 @@ Deno.serve(async (req) => {
           subject: 'Recebemos a tua leitura funcional',
           html: avaliacaoLeadHtml(name),
           text: avaliacaoLeadText(name),
+          attachments: attachments.length > 0 ? attachments : undefined,
         });
         results.push({ email: leadEmail, ...r1 });
       }
