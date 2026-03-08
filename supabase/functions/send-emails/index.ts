@@ -7,6 +7,11 @@ const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')!;
 const FROM_EMAIL = 'info@catarinaveiga.com';
 const INTERNAL_EMAIL = 'info@catarinaveiga.com';
 
+interface EmailAttachment {
+  content: string; // base64
+  filename: string;
+}
+
 interface EmailPayload {
   from: string;
   to: string[];
@@ -14,6 +19,7 @@ interface EmailPayload {
   subject: string;
   html: string;
   text: string;
+  attachments?: EmailAttachment[];
 }
 
 async function sendEmail(payload: EmailPayload): Promise<{ ok: boolean; error?: string }> {
