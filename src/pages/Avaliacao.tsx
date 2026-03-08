@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { CheckCircle, AlertCircle, ArrowRight, ArrowLeft, Activity, Droplets, Flame, Shield, Heart, Brain, ChevronDown, Download } from "lucide-react";
+import { CheckCircle, AlertCircle, ArrowRight, ArrowLeft, Activity, Droplets, Flame, Shield, Heart, Brain, ChevronDown, Download, BookOpen } from "lucide-react";
+import { BIOMARKER_REFERENCES } from "@/data/biomarkerReferences";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
