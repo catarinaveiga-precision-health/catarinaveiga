@@ -315,8 +315,8 @@ const Avaliacao = () => {
   const optimalCount = systems.filter(([, s]) => s === "optimal").length;
   const flagCount = systems.filter(([, s]) => s !== "optimal").length;
 
-  const handleExportPDF = () => {
-    downloadPDF(form.nome || "utilizador", systems, results);
+  const handleExportPDF = async () => {
+    await downloadPDF(form.nome || "utilizador", systems, results);
   };
 
   return (
