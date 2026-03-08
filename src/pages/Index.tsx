@@ -38,7 +38,7 @@ const AnalysisToolSection = () => {
           Os teus exames estão normais.<br />Mas podem não estar ideais.
         </h2>
         <p className="fade-up text-muted-foreground mb-8">
-          Introduz os valores das tuas análises e recebe uma leitura funcional dos principais sistemas do corpo.
+          Introduz os valores das tuas análises e recebe uma leitura funcional dos principais sistemas do corpo. Gratuito. Demora 2 minutos.
         </p>
         <div className="fade-up">
           <Button variant="heroAccent" size="lg" asChild>
