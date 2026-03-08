@@ -26,7 +26,7 @@ const HeroSection = () => {
           <img
             src={catarinaPhoto}
             alt="Catarina Veiga — Especialista em Medicina Funcional Integrativa"
-            className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-2xl object-cover object-top"
+            className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-full object-cover object-top"
           />
         </div>
         <div className="fade-up">
