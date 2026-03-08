@@ -762,6 +762,7 @@ const Avaliacao = () => {
         </div>
       </section>
 
+      <AcuityModal open={acuityOpen} onClose={() => setAcuityOpen(false)} />
       <Footer />
     </div>
   );
