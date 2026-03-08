@@ -9,8 +9,11 @@ const MUTED = "#8C8279";
 const BONE = "#E8E2DA";
 const WHITE = "#ffffff";
 
-const FOOTER_TEXT =
-  "Esta ferramenta apresenta uma leitura educativa baseada em intervalos funcionais frequentemente utilizados em medicina funcional e literatura científica associada. Não constitui diagnóstico médico, nem substitui avaliação clínica individual. Os resultados baseiam-se exclusivamente nos valores introduzidos pelo utilizador. Erros de introdução ou ausência de contexto clínico podem alterar significativamente a interpretação.";
+const PAGE_DISCLAIMER =
+  "Leitura educativa baseada em intervalos funcionais. Não constitui diagnóstico médico.";
+
+const COVER_DISCLAIMER =
+  "Este relatório apresenta uma leitura educativa baseada em intervalos funcionais descritos na literatura científica. Não constitui diagnóstico médico nem substitui avaliação clínica individual.";
 
 const FUNCTIONAL_RANGES_DATA: Record<string, { min: string; max: string; unit: string }> = {
   TSH: { min: "0.5", max: "2.0", unit: "mUI/L" },
@@ -20,7 +23,51 @@ const FUNCTIONAL_RANGES_DATA: Record<string, { min: string; max: string; unit: s
   "Vitamina B12": { min: "500", max: "900", unit: "pg/mL" },
   "Homocisteína": { min: "0", max: "7", unit: "µmol/L" },
   "Cortisol (manhã)": { min: "10", max: "18", unit: "µg/dL" },
+  Insulina: { min: "2", max: "5", unit: "µUI/mL" },
+  Glicose: { min: "70", max: "90", unit: "mg/dL" },
 };
+
+const BIOMARKER_INTERPRETATIONS: Record<string, Record<string, string>> = {
+  Ferritina: {
+    low: "A ferritina reflecte as reservas de ferro no organismo. Valores baixos podem associar-se a fadiga persistente, queda de cabelo, dificuldade de concentração e intolerância ao exercício. Em medicina funcional, valores abaixo de 50 ng/mL podem indicar reservas insuficientes mesmo quando o hemograma permanece dentro dos intervalos convencionais.",
+    optimal: "",
+  },
+  TSH: {
+    high: "O TSH regula a actividade da tiróide. Valores elevados podem reflectir aumento do estímulo da hipófise para produzir hormonas tiroideias. Sintomas como fadiga, intolerância ao frio, dificuldade em perder peso ou queda de cabelo podem surgir antes de alterações evidentes nas hormonas tiroideias.",
+    optimal: "",
+  },
+  "Vitamina D": {
+    low: "A vitamina D actua como hormona em múltiplos sistemas. Valores baixos associam-se a fadiga, maior susceptibilidade a infecções, alterações do humor e disfunção imune. A maioria da população europeia apresenta défice funcional, especialmente nos meses de inverno.",
+    optimal: "",
+  },
+  "Vitamina B12": {
+    low: "A vitamina B12 é essencial para função neurológica, produção de glóbulos vermelhos e metabolismo energético. Valores baixo-normais podem associar-se a fadiga, nevoeiro mental, formigueiros e alterações do humor, mesmo sem anemia manifesta.",
+    optimal: "",
+  },
+  PCR: {
+    high: "A proteína C reactiva é um marcador de inflamação sistémica. Valores elevados, mesmo dentro do intervalo laboratorial, podem indicar inflamação crónica de baixo grau associada a risco cardiovascular, resistência à insulina e disfunção imune.",
+    optimal: "",
+  },
+  "Homocisteína": {
+    high: "A homocisteína é um aminoácido cujos níveis elevados se associam a risco cardiovascular, disfunção cognitiva e défice de vitaminas do complexo B. É sensível ao estado nutricional e ao metabolismo do folato e B12.",
+    optimal: "",
+  },
+  Insulina: {
+    high: "A insulina em jejum é um marcador precoce de resistência metabólica. Valores elevados, mesmo com glicose normal, podem indicar hiperinsulinemia compensatória — frequentemente associada a fadiga pós-prandial, dificuldade em perder peso e cravings de açúcar.",
+    optimal: "",
+  },
+  Glicose: {
+    high: "A glicose em jejum reflecte a capacidade de regulação do metabolismo dos hidratos de carbono. Valores no limite superior do normal podem indicar redução da sensibilidade à insulina antes de critérios formais de pré-diabetes.",
+    optimal: "",
+  },
+  "Cortisol (manhã)": {
+    high: "",
+    low: "",
+    optimal: "",
+  },
+};
+
+const OPTIMAL_TEXT = "Valor dentro do intervalo funcional. A interpretação clínica completa considera este resultado em conjunto com sintomas e outros biomarcadores.";
 
 interface Finding {
   marker: string;
@@ -76,20 +123,18 @@ function addSectionTitle(doc: jsPDF, title: string, y: number): number {
   return y + 36;
 }
 
-function addFooter(doc: jsPDF, pageNum: number, totalPages: number) {
+function addPageFooter(doc: jsPDF, pageNum: number, totalPages: number) {
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
 
-  // Subtle top border for footer area
   doc.setDrawColor(BONE);
   doc.setLineWidth(0.5);
-  doc.line(50, pageH - 55, pageW - 50, pageH - 55);
+  doc.line(50, pageH - 35, pageW - 50, pageH - 35);
 
   doc.setFontSize(8);
   doc.setTextColor(MUTED);
   doc.setFont("helvetica", "italic");
-  const lines = doc.splitTextToSize(FOOTER_TEXT, pageW - 100);
-  doc.text(lines, 50, pageH - 48);
+  doc.text(PAGE_DISCLAIMER, 50, pageH - 24);
   doc.setFont("helvetica", "normal");
 
   doc.setFontSize(8);
@@ -97,12 +142,37 @@ function addFooter(doc: jsPDF, pageNum: number, totalPages: number) {
   doc.text(`${pageNum} / ${totalPages}`, pageW - 50, pageH - 15, { align: "right" });
 }
 
-function statusDot(status: string): string {
-  return status === "optimal" ? "🟢" : status === "suboptimal" ? "🟡" : "🔴";
+export function statusSymbol(status: string): string {
+  return status === "optimal" ? "\u25CF" : status === "suboptimal" ? "\u26A0" : "\u2193";
 }
 
-function statusLabel(status: string): string {
-  return status === "optimal" ? "Óptimo" : status === "suboptimal" ? "Subóptimo" : "Atenção";
+function statusSymbolForDirection(status: string, marker: string): string {
+  if (status === "optimal") return "\u25CF"; // ●
+  // Determine direction based on marker interpretation availability
+  const interp = BIOMARKER_INTERPRETATIONS[marker];
+  if (interp) {
+    if (interp.high && !interp.low) return "\u2191"; // ↑
+    if (interp.low && !interp.high) return "\u2193"; // ↓
+  }
+  // For suboptimal that could be high or low, use ⚠
+  if (status === "suboptimal") return "\u26A0"; // ⚠
+  return "\u26A0"; // ⚠ default for flag
+}
+
+function getInterpretation(marker: string, status: string): string {
+  if (status === "optimal") return OPTIMAL_TEXT;
+  const interp = BIOMARKER_INTERPRETATIONS[marker];
+  if (!interp) return OPTIMAL_TEXT;
+  // Try high first, then low
+  if (interp.high && interp.high.length > 0) return interp.high;
+  if (interp.low && interp.low.length > 0) return interp.low;
+  return OPTIMAL_TEXT;
+}
+
+function systemStatusLabel(status: string): string {
+  if (status === "optimal") return "\u25CF Dentro do intervalo funcional";
+  if (status === "suboptimal") return "\u26A0 Padrão a monitorizar";
+  return "\u2193 Tendência para défice";
 }
 
 export async function generateFunctionalPDF(
@@ -114,79 +184,79 @@ export async function generateFunctionalPDF(
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const today = new Date().toLocaleDateString("pt-PT");
-  const totalPages = 5;
+  const totalPages = 4;
 
   const logoData = await getLogoBase64();
 
-  // ── PAGE 1: Cover ──
+  // ── PAGE 1: Header ──
   addPageBg(doc);
-
-  // Top decorative amber band
   doc.setFillColor(AMBER);
   doc.rect(0, 0, pageW, 4, "F");
 
-  // Logo
   if (logoData) {
     try {
       doc.addImage(logoData, "PNG", (pageW - 180) / 2, 100, 180, 50);
-    } catch { /* logo failed, continue without */ }
+    } catch { /* continue */ }
   }
 
-  // Decorative amber line below logo
   addAmberLine(doc, (pageW - 60) / 2, 170, 60);
 
-  // Title block — centered vertically
-  doc.setFontSize(36);
+  doc.setFontSize(32);
   doc.setTextColor(DARK);
-  doc.text("Leitura Funcional", pageW / 2, 290, { align: "center" });
-  doc.text("de Análises", pageW / 2, 330, { align: "center" });
+  doc.text("Avaliação Funcional", pageW / 2, 260, { align: "center" });
+  doc.text("de Biomarcadores", pageW / 2, 298, { align: "center" });
 
   doc.setFontSize(13);
   doc.setTextColor(MUTED);
-  doc.text("Resumo dos padrões fisiológicos identificados", pageW / 2, 370, { align: "center" });
+  doc.text("Relatório educativo automatizado", pageW / 2, 340, { align: "center" });
 
-  // Name & date in a subtle card
-  const cardW = 260;
-  const cardH = 70;
+  // Info card
+  const cardW = 280;
+  const cardH = 90;
   const cardX = (pageW - cardW) / 2;
-  const cardY = 420;
+  const cardY = 390;
   doc.setFillColor(BONE);
   doc.roundedRect(cardX, cardY, cardW, cardH, 4, 4, "F");
 
-  doc.setFontSize(11);
+  doc.setFontSize(12);
   doc.setTextColor(DARK);
-  doc.text(name, pageW / 2, cardY + 28, { align: "center" });
+  doc.text(name, pageW / 2, cardY + 24, { align: "center" });
   doc.setFontSize(10);
   doc.setTextColor(MUTED);
-  doc.text(today, pageW / 2, cardY + 48, { align: "center" });
+  doc.text(today, pageW / 2, cardY + 42, { align: "center" });
+  doc.text(`Biomarcadores analisados: ${results.length}`, pageW / 2, cardY + 60, { align: "center" });
 
-  // Bottom decorative amber band
+  // Cover disclaimer
+  doc.setFontSize(9);
+  doc.setTextColor(MUTED);
+  doc.setFont("helvetica", "italic");
+  const disclaimerLines = doc.splitTextToSize(COVER_DISCLAIMER, pageW - 120);
+  doc.text(disclaimerLines, pageW / 2, cardY + 120, { align: "center" });
+  doc.setFont("helvetica", "normal");
+
   doc.setFillColor(AMBER);
   doc.rect(0, pageH - 4, pageW, 4, "F");
+  addPageFooter(doc, 1, totalPages);
 
-  addFooter(doc, 1, totalPages);
-
-  // ── PAGE 2: System summary ──
+  // ── PAGE 2: Systems summary ──
   doc.addPage();
   addPageBg(doc);
   doc.setFillColor(AMBER);
   doc.rect(0, 0, pageW, 4, "F");
 
-  let y = addSectionTitle(doc, "Resumo por sistema", 55);
+  let y = addSectionTitle(doc, "Resumo por sistemas", 55);
 
   doc.setFontSize(11);
-  systems.forEach(([sysName, status]) => {
-    // Row background alternating
-    const rowBg = systems.indexOf([sysName, status] as any) % 2 === 0;
-    if (rowBg) {
+  systems.forEach(([sysName, status], idx) => {
+    if (idx % 2 === 0) {
       doc.setFillColor(BONE);
       doc.rect(45, y - 14, pageW - 90, 26, "F");
     }
     doc.setTextColor(DARK);
-    doc.text(`${statusDot(status)}  ${sysName}`, 60, y);
-    doc.setFontSize(9);
+    doc.text(systemStatusLabel(status), 60, y);
+    doc.setFontSize(10);
     doc.setTextColor(MUTED);
-    doc.text(statusLabel(status), pageW - 60, y, { align: "right" });
+    doc.text(sysName, pageW - 60, y, { align: "right" });
     doc.setFontSize(11);
     y += 30;
   });
@@ -196,7 +266,7 @@ export async function generateFunctionalPDF(
     doc.text("Nenhum valor laboratorial introduzido.", 60, y);
   }
 
-  addFooter(doc, 2, totalPages);
+  addPageFooter(doc, 2, totalPages);
 
   // ── PAGE 3: Biomarkers detail ──
   doc.addPage();
@@ -207,8 +277,14 @@ export async function generateFunctionalPDF(
   y = addSectionTitle(doc, "Biomarcadores introduzidos", 55);
 
   results.forEach((r, idx) => {
-    if (y > 700) {
-      addFooter(doc, 3, totalPages);
+    // Estimate space needed
+    const interpretation = getInterpretation(r.marker, r.status);
+    const interpLines = doc.splitTextToSize(interpretation, pageW - 120);
+    const range = FUNCTIONAL_RANGES_DATA[r.marker];
+    const blockHeight = 24 + 14 + (range ? 14 : 0) + 14 + interpLines.length * 12 + 16;
+
+    if (y + blockHeight > pageH - 60) {
+      addPageFooter(doc, 3, totalPages);
       doc.addPage();
       addPageBg(doc);
       doc.setFillColor(AMBER);
@@ -216,115 +292,111 @@ export async function generateFunctionalPDF(
       y = 55;
     }
 
-    // Card-like row
-    const range = FUNCTIONAL_RANGES_DATA[r.marker];
-    const cardHeight = range ? 58 : 42;
-
     if (idx % 2 === 0) {
       doc.setFillColor(BONE);
-      doc.roundedRect(45, y - 12, pageW - 90, cardHeight, 3, 3, "F");
+      doc.roundedRect(45, y - 12, pageW - 90, blockHeight, 3, 3, "F");
     }
 
+    const symbol = statusSymbolForDirection(r.status, r.marker);
     doc.setTextColor(DARK);
     doc.setFontSize(12);
-    doc.text(`${statusDot(r.status)}  ${r.marker}`, 60, y + 4);
+    doc.text(`${symbol}  ${r.marker}`, 60, y + 4);
 
     doc.setFontSize(9);
     doc.setTextColor(MUTED);
     doc.text(`Valor introduzido: ${r.value}`, 80, y + 20);
 
+    let lineY = y + 20;
     if (range) {
+      lineY += 14;
       doc.setTextColor(AMBER);
-      doc.text(`Intervalo funcional: ${range.min} – ${range.max} ${range.unit}`, 80, y + 34);
+      doc.text(`Intervalo funcional: ${range.min} - ${range.max} ${range.unit}`, 80, lineY);
     }
 
-    y += cardHeight + 8;
+    lineY += 16;
+    doc.setTextColor(DARK);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "italic");
+    doc.text("Interpretação teórica:", 80, lineY);
+    doc.setFont("helvetica", "normal");
+    lineY += 12;
+    doc.setTextColor(MUTED);
+    doc.text(interpLines, 80, lineY);
+
+    y += blockHeight + 8;
   });
 
-  addFooter(doc, 3, totalPages);
+  addPageFooter(doc, 3, totalPages);
 
-  // ── PAGE 4: Educational text ──
+  // ── PAGE 4: Context + CTA ──
   doc.addPage();
   addPageBg(doc);
   doc.setFillColor(AMBER);
   doc.rect(0, 0, pageW, 4, "F");
 
-  y = addSectionTitle(doc, "O que estes padrões podem indicar", 55);
-
-  doc.setFontSize(12);
-  doc.setTextColor(DARK);
-
-  const eduText1 =
-    "Padrões fora do intervalo funcional podem estar associados a sintomas como fadiga persistente, alterações hormonais, stress fisiológico ou dificuldades metabólicas.";
-  const eduText2 =
-    "Alguns padrões identificados merecem análise clínica mais aprofundada — a interpretação completa requer integração com sintomas, história clínica e outros factores fisiológicos.";
-
-  const lines1 = doc.splitTextToSize(eduText1, pageW - 100);
-  doc.text(lines1, 50, y);
-
-  addAmberLine(doc, 50, y + lines1.length * 18 + 10, 40);
-
-  const lines2 = doc.splitTextToSize(eduText2, pageW - 100);
-  doc.text(lines2, 50, y + lines1.length * 18 + 30);
-
-  addFooter(doc, 4, totalPages);
-
-  // ── PAGE 5: CTA ──
-  doc.addPage();
-  addPageBg(doc);
-  doc.setFillColor(AMBER);
-  doc.rect(0, 0, pageW, 4, "F");
-
-  // Logo on CTA page
   if (logoData) {
     try {
-      doc.addImage(logoData, "PNG", (pageW - 140) / 2, 160, 140, 38);
+      doc.addImage(logoData, "PNG", (pageW - 140) / 2, 60, 140, 38);
     } catch { /* continue */ }
   }
 
-  addAmberLine(doc, (pageW - 60) / 2, 215, 60);
+  addAmberLine(doc, (pageW - 60) / 2, 115, 60);
 
-  // Disclaimer block before CTA
-  doc.setFontSize(10);
-  doc.setTextColor(MUTED);
-  doc.setFont("helvetica", "italic");
-  const disclaimerLines = doc.splitTextToSize(FOOTER_TEXT, pageW - 120);
-  const disclaimerStartY = 240;
-  doc.text(disclaimerLines, pageW / 2, disclaimerStartY, { align: "center" });
-  doc.setFont("helvetica", "normal");
+  y = addSectionTitle(doc, "O que significa este relatório", 150);
 
-  const disclaimerEndY = disclaimerStartY + disclaimerLines.length * 14 + 30;
+  const contextText1 = "Este relatório identifica padrões possíveis, mas não permite determinar causas clínicas. Alterações laboratoriais podem resultar de estado nutricional, stress fisiológico, inflamação, alterações hormonais ou factores individuais.";
+  const contextText2 = "Uma avaliação clínica completa considera história médica, sintomas, exames adicionais e contexto metabólico individual.";
 
-  doc.setFontSize(26);
+  doc.setFontSize(11);
   doc.setTextColor(DARK);
-  doc.text("Os teus exames podem estar normais.", pageW / 2, disclaimerEndY, { align: "center" });
-  doc.setFontSize(26);
-  doc.text("Mas não necessariamente funcionais.", pageW / 2, disclaimerEndY + 35, { align: "center" });
+  const ctxLines1 = doc.splitTextToSize(contextText1, pageW - 100);
+  doc.text(ctxLines1, 50, y);
+  y += ctxLines1.length * 16 + 12;
+
+  const ctxLines2 = doc.splitTextToSize(contextText2, pageW - 100);
+  doc.text(ctxLines2, 50, y);
+  y += ctxLines2.length * 16 + 30;
+
+  // Summary box
+  const optimalCount = results.filter((r) => r.status === "optimal").length;
+  const outsideCount = results.length - optimalCount;
+
+  const boxW = pageW - 100;
+  const boxH = 80;
+  const boxX = 50;
+  doc.setFillColor(BONE);
+  doc.roundedRect(boxX, y, boxW, boxH, 4, 4, "F");
+
+  doc.setFontSize(11);
+  doc.setTextColor(DARK);
+  doc.text(`Biomarcadores analisados: ${results.length}`, boxX + 20, y + 24);
+  doc.text(`Fora do intervalo funcional: ${outsideCount}`, boxX + 20, y + 42);
+  doc.text(`Dentro do intervalo funcional: ${optimalCount}`, boxX + 20, y + 60);
+
+  y += boxH + 30;
 
   // CTA button
   const btnW = 240;
   const btnH = 48;
   const btnX = (pageW - btnW) / 2;
-  const btnY = disclaimerEndY + 70;
   doc.setFillColor(AMBER);
-  doc.roundedRect(btnX, btnY, btnW, btnH, 8, 8, "F");
+  doc.roundedRect(btnX, y, btnW, btnH, 8, 8, "F");
 
   doc.setFontSize(13);
   doc.setTextColor(WHITE);
-  doc.textWithLink("Agendar consulta inicial", pageW / 2, btnY + 30, {
+  doc.textWithLink("Agendar consulta inicial", pageW / 2, y + 30, {
     align: "center",
     url: "https://catarinaveigaagendamento.as.me/",
   });
 
-  // Contact info
   doc.setFontSize(9);
   doc.setTextColor(MUTED);
-  doc.text("info@catarinaveiga.com  ·  catarinaveiga.com", pageW / 2, btnY + 80, { align: "center" });
+  doc.text("info@catarinaveiga.com  ·  catarinaveiga.com", pageW / 2, y + 70, { align: "center" });
 
   doc.setFillColor(AMBER);
   doc.rect(0, pageH - 4, pageW, 4, "F");
 
-  addFooter(doc, 5, totalPages);
+  addPageFooter(doc, 4, totalPages);
 
   return doc;
 }

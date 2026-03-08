@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
-import { downloadPDF, generatePDFBase64 } from "@/lib/generatePDF";
+import { downloadPDF, generatePDFBase64, statusSymbol } from "@/lib/generatePDF";
+import AcuityModal from "@/components/AcuityModal";
 
 const OBJECTIVES = [
   "Fadiga persistente",
@@ -254,6 +255,7 @@ const Avaliacao = () => {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [acuityOpen, setAcuityOpen] = useState(false);
 
   const updateLab = (key: keyof LabValues, value: string) => {
     setForm((prev) => ({ ...prev, labValues: { ...prev.labValues, [key]: value } }));
@@ -552,11 +554,9 @@ const Avaliacao = () => {
                 <div className="space-y-2">
                   {systems.map(([name, status]) => (
                     <div key={name} className="flex items-center gap-3 py-2.5 px-4 rounded-lg bg-background/60">
-                      <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${
-                        status === "optimal" ? "bg-green-500" :
-                        status === "suboptimal" ? "bg-amber" :
-                        "bg-red-500"
-                      }`} />
+                      <span className="text-sm font-sans font-medium text-foreground mr-1">
+                        {status === "optimal" ? "\u25CF" : status === "suboptimal" ? "\u26A0" : "\u2193"}
+                      </span>
                       <span className="text-sm font-sans text-foreground">{name}</span>
                     </div>
                   ))}
@@ -639,11 +639,9 @@ const Avaliacao = () => {
                       }`}>
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2">
-                            <span className={`w-2 h-2 rounded-full ${
-                              r.status === "optimal" ? "bg-green-500" :
-                              r.status === "suboptimal" ? "bg-amber" :
-                              "bg-red-500"
-                            }`} />
+                            <span className="text-sm font-sans font-bold">
+                              {r.status === "optimal" ? "\u25CF" : r.status === "suboptimal" ? "\u26A0" : "\u2193"}
+                            </span>
                             <span className="font-sans font-medium text-foreground text-sm">{r.marker}</span>
                           </div>
                           <span className={`text-xs font-sans px-2 py-0.5 rounded-full ${
@@ -651,7 +649,7 @@ const Avaliacao = () => {
                             r.status === "suboptimal" ? "bg-amber-100 text-amber-800" :
                             "bg-red-100 text-red-800"
                           }`}>
-                            {r.status === "optimal" ? "Óptimo" : r.status === "suboptimal" ? "Sub-óptimo" : "Atenção"}
+                            {r.status === "optimal" ? "Funcional" : r.status === "suboptimal" ? "Sub-óptimo" : "Atenção"}
                           </span>
                         </div>
                         <p className="text-xs text-muted-custom font-sans">{r.value}</p>
@@ -681,6 +679,18 @@ const Avaliacao = () => {
                       )
                     ))}
                   </div>
+
+                  {/* Post-generation summary */}
+                  {flagCount > 0 && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 space-y-4">
+                      <p className="text-sm font-sans text-foreground leading-relaxed">
+                        Encontrámos <strong>{flagCount}</strong> biomarcador{flagCount > 1 ? "es" : ""} fora do intervalo funcional. Estes padrões podem associar-se a sintomas como fadiga, alterações hormonais ou dificuldade de recuperação. Uma consulta clínica permite interpretar estes padrões no seu contexto individual.
+                      </p>
+                      <Button variant="hero" size="sm" onClick={() => setAcuityOpen(true)}>
+                        Agendar consulta inicial →
+                      </Button>
+                    </div>
+                  )}
 
                   {/* PDF Export */}
                   <div className="flex justify-center pt-2">
@@ -752,6 +762,7 @@ const Avaliacao = () => {
         </div>
       </section>
 
+      <AcuityModal open={acuityOpen} onClose={() => setAcuityOpen(false)} />
       <Footer />
     </div>
   );
