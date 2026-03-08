@@ -680,6 +680,18 @@ const Avaliacao = () => {
                     ))}
                   </div>
 
+                  {/* Post-generation summary */}
+                  {flagCount > 0 && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 space-y-4">
+                      <p className="text-sm font-sans text-foreground leading-relaxed">
+                        Encontrámos <strong>{flagCount}</strong> biomarcador{flagCount > 1 ? "es" : ""} fora do intervalo funcional. Estes padrões podem associar-se a sintomas como fadiga, alterações hormonais ou dificuldade de recuperação. Uma consulta clínica permite interpretar estes padrões no seu contexto individual.
+                      </p>
+                      <Button variant="hero" size="sm" onClick={() => setAcuityOpen(true)}>
+                        Agendar consulta inicial →
+                      </Button>
+                    </div>
+                  )}
+
                   {/* PDF Export */}
                   <div className="flex justify-center pt-2">
                     <Button variant="outline" size="lg" onClick={handleExportPDF} className="gap-2">
