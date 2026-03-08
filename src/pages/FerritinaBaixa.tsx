@@ -406,6 +406,13 @@ const FerritinaBaixa = () => {
       <Section5 />
       <Section6 />
       <CTASection />
+      <div className="bg-ivory py-8 px-6">
+        <div className="max-w-4xl mx-auto">
+          <Link to="/avaliacao" className="text-amber font-sans text-sm hover:underline">
+            ← Voltar à avaliação completa
+          </Link>
+        </div>
+      </div>
       <LegalBand />
       <Footer />
       <MobileCTA />
