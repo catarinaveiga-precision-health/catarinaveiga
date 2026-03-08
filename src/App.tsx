@@ -18,6 +18,7 @@ import Avaliacao from "./pages/Avaliacao";
 import FerritinaBaixa from "./pages/FerritinaBaixa";
 import Recursos from "./pages/Recursos";
 import VitaminaD from "./pages/VitaminaD";
+import InsulinaJejum from "./pages/InsulinaJejum";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
