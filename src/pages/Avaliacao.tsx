@@ -660,6 +660,11 @@ const Avaliacao = () => {
                         )}
                         <p className="text-sm text-foreground/80 font-sans mt-1">{r.note}</p>
                         {refs.length > 0 && <BiomarkerRefs refs={refs} />}
+                        {r.marker === "Ferritina" && (
+                          <a href="/ferritina-baixa-sintomas" className="inline-block text-amber font-sans text-xs hover:underline mt-2">
+                            Saber mais sobre ferritina →
+                          </a>
+                        )}
                       </div>
                       );
                     })}
