@@ -56,6 +56,78 @@ export type Database = {
         }
         Relationships: []
       }
+      leads_avaliacao: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          idade: number | null
+          nome: string | null
+          objetivos: string[] | null
+          resultados: Json | null
+          sexo: string | null
+          valores_laboratoriais: Json | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          idade?: number | null
+          nome?: string | null
+          objetivos?: string[] | null
+          resultados?: Json | null
+          sexo?: string | null
+          valores_laboratoriais?: Json | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          idade?: number | null
+          nome?: string | null
+          objetivos?: string[] | null
+          resultados?: Json | null
+          sexo?: string | null
+          valores_laboratoriais?: Json | null
+        }
+        Relationships: []
+      }
+      leads_candidatura: {
+        Row: {
+          created_at: string
+          email: string | null
+          historico: string | null
+          id: string
+          informacao_adicional: string | null
+          nome: string | null
+          objetivos: string | null
+          sintomas: string[] | null
+          telefone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          historico?: string | null
+          id?: string
+          informacao_adicional?: string | null
+          nome?: string | null
+          objetivos?: string | null
+          sintomas?: string[] | null
+          telefone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          historico?: string | null
+          id?: string
+          informacao_adicional?: string | null
+          nome?: string | null
+          objetivos?: string | null
+          sintomas?: string[] | null
+          telefone?: string | null
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string
