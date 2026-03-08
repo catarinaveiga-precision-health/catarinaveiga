@@ -38,6 +38,8 @@ const HeroSection = () => {
             Especialista em Medicina Funcional Integrativa.
             <br />
             22 anos de prática clínica.
+            <br />
+            Trabalho com mulheres com sintomas persistentes e análises aparentemente normais.
           </p>
         </div>
       </div>
