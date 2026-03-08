@@ -124,7 +124,7 @@ const Navbar = () => {
               key={link.href}
               href={link.href}
               {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="block text-sm font-sans text-muted-foreground hover:text-foreground"
+              className="block font-sans font-normal text-[15px] tracking-[-0.02em] text-muted-foreground hover:text-foreground"
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
