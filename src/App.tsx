@@ -18,6 +18,7 @@ import Avaliacao from "./pages/Avaliacao";
 import FerritinaBaixa from "./pages/FerritinaBaixa";
 import Recursos from "./pages/Recursos";
 import VitaminaD from "./pages/VitaminaD";
+import InsulinaJejum from "./pages/InsulinaJejum";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/ferritina-baixa-sintomas" element={<FerritinaBaixa />} />
             <Route path="/recursos" element={<Recursos />} />
             <Route path="/vitamina-d-valores-funcionais" element={<VitaminaD />} />
+            <Route path="/insulina-jejum-o-que-significa" element={<InsulinaJejum />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -20,6 +20,11 @@ const resources = [
     description: "Percebe porque o valor 'normal' pode ainda assim ser insuficiente.",
     href: "/vitamina-d-valores-funcionais",
   },
+  {
+    title: "Insulina em jejum: o marcador que aparece antes do diagnóstico",
+    description: "Glicose normal com insulina elevada — o que significa e porque importa.",
+    href: "/insulina-jejum-o-que-significa",
+  },
 ];
 
 const ResourceCard = ({ title, description, href }: { title: string; description: string; href: string }) => {
