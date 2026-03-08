@@ -214,6 +214,40 @@ const Accordion = ({ title, children }: { title: string; children: React.ReactNo
   );
 };
 
+const BiomarkerRefs = ({ refs }: { refs: { authors: string; journal: string; year: string; pmid: string }[] }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-2">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1 text-[11px] text-muted-custom hover:text-foreground/60 transition-colors font-sans"
+      >
+        <BookOpen className="w-3 h-3" />
+        <span>Ver estudos</span>
+        <ChevronDown className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <ul className="mt-1.5 space-y-1 pl-4">
+          {refs.map((ref) => (
+            <li key={ref.pmid} className="text-[10px] text-muted-custom font-sans leading-relaxed">
+              {ref.authors} <span className="italic">{ref.journal}</span>. {ref.year}.{" "}
+              <a
+                href={`https://pubmed.ncbi.nlm.nih.gov/${ref.pmid}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-foreground/60"
+              >
+                PMID: {ref.pmid}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
 const Avaliacao = () => {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormState>(initialForm);
