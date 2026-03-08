@@ -41,6 +41,7 @@ const App = () => (
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogArticle />} />
             <Route path="/ferritina-baixa-sintomas" element={<FerritinaBaixa />} />
+            <Route path="/recursos" element={<Recursos />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
