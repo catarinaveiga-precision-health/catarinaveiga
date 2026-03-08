@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { downloadPDF, generatePDFBase64 } from "@/lib/generatePDF";
 
 const OBJECTIVES = [
   "Fadiga persistente",
