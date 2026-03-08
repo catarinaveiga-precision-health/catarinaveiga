@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import RecognizeThis from "@/components/RecognizeThis";
 import Hero from "@/components/Hero";
 import CredentialsBand from "@/components/CredentialsBand";
 import ClinicalAssessment from "@/components/ClinicalAssessment";
@@ -77,6 +78,7 @@ const Index = () => {
         <FAQ />
         <Blog />
         <Contact />
+        <RecognizeThis />
         <CTAFinal />
       </main>
       <LegalBand />
