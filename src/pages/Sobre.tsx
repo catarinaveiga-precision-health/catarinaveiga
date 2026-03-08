@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import catarinaPhoto from "@/assets/catarina-sobre.png";
 import Footer from "@/components/Footer";
 import LegalBand from "@/components/LegalBand";
 import MobileCTA from "@/components/MobileCTA";
@@ -21,10 +22,12 @@ const HeroSection = () => {
   return (
     <section ref={ref} className="bg-ivory section-padding">
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        <div className="fade-up aspect-[3/4] bg-bone flex items-center justify-center">
-          <span className="label-uppercase text-muted-custom text-xs">
-            Fotografia em breve
-          </span>
+        <div className="fade-up flex justify-center md:justify-start">
+          <img
+            src={catarinaPhoto}
+            alt="Catarina Veiga — Especialista em Medicina Funcional Integrativa"
+            className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-2xl object-cover object-top"
+          />
         </div>
         <div className="fade-up">
           <h1 className="font-serif text-5xl md:text-6xl text-foreground leading-tight">
