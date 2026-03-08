@@ -85,10 +85,12 @@ function addFooter(doc: jsPDF, pageNum: number, totalPages: number) {
   doc.setLineWidth(0.5);
   doc.line(50, pageH - 55, pageW - 50, pageH - 55);
 
-  doc.setFontSize(6.5);
+  doc.setFontSize(8);
   doc.setTextColor(MUTED);
+  doc.setFont("helvetica", "italic");
   const lines = doc.splitTextToSize(FOOTER_TEXT, pageW - 100);
-  doc.text(lines, 50, pageH - 45);
+  doc.text(lines, 50, pageH - 48);
+  doc.setFont("helvetica", "normal");
 
   doc.setFontSize(8);
   doc.setTextColor(AMBER_LIGHT);
