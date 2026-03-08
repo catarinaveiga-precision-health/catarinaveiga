@@ -31,15 +31,14 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t } = useLanguage();
 
-  const navLinks: { label: string; href: string; isButton: boolean; external?: boolean }[] = [
-    { label: "Início", href: "/", isButton: false },
-    { label: "Método", href: "/metodo", isButton: false },
-    { label: t("nav.programa3m"), href: "/programa-fundacao", isButton: false },
-    { label: "Avaliação", href: "/avaliacao", isButton: false },
-    { label: "Recursos", href: "/recursos", isButton: false },
-    { label: "Sobre", href: "/sobre", isButton: false },
-    { label: t("nav.blog"), href: "/blog", isButton: false },
-    { label: "Candidatura", href: "/candidatura", isButton: true },
+  const navLinks: { label: string; href: string; external?: boolean }[] = [
+    { label: "Início", href: "/" },
+    { label: "Método", href: "/metodo" },
+    { label: t("nav.programa3m"), href: "/programa-fundacao" },
+    { label: "Avaliação", href: "/avaliacao" },
+    { label: "Recursos", href: "/recursos" },
+    { label: "Sobre", href: "/sobre" },
+    { label: t("nav.blog"), href: "/blog" },
   ];
 
   useEffect(() => {
@@ -71,24 +70,14 @@ const Navbar = () => {
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            link.isButton ? (
-              <a
-                key={link.href}
-                href={link.href}
-                className="inline-block bg-amber text-ivory text-sm font-sans px-4 py-1.5 rounded-full hover:opacity-90 transition-opacity"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <a
-                key={link.href}
-                href={link.href}
-                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="font-sans font-normal text-[15px] tracking-[-0.02em] text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.label}
-              </a>
-            )
+            <a
+              key={link.href}
+              href={link.href}
+              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="font-sans font-normal text-[15px] tracking-[-0.02em] text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {link.label}
+            </a>
           ))}
         </div>
 
