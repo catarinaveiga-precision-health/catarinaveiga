@@ -11,17 +11,15 @@ const Hero = () => {
   return (
     <section ref={ref} className="bg-ivory pt-32 pb-20 md:pt-40 md:pb-28 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-        <div className="fade-up">
-          <p className="label-uppercase text-amber mb-6">{t("hero.label")}</p>
-          <h1 className="font-serif text-5xl md:text-7xl leading-[1.1] text-foreground mb-4">
-            {t("hero.title1")}<br />{t("hero.title2")}
+        <div className="fade-up text-center md:text-left">
+          <h1 className="font-serif font-light text-4xl md:text-6xl lg:text-7xl leading-[1.2] text-foreground mb-8">
+            Os teus exames podem dizer que está tudo bem.<br />
+            O teu corpo diz outra coisa.<br /><br />
+            Há sempre uma razão para sentires o que sentes.<br />
+            <em>Vamos encontrá-la juntas.</em>
           </h1>
-          <div className="w-[60px] h-[2px] bg-amber mb-6" />
-          <p className="text-muted-custom max-w-lg mb-2 font-sans font-light text-[15px] leading-relaxed">
-            Introduz alguns valores das tuas análises e descobre o que os intervalos de referência não mostram.
-          </p>
-          <p className="text-muted-custom max-w-lg mb-8">{t("hero.desc")}</p>
-          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+          <div className="w-[60px] h-[2px] bg-amber mb-8 mx-auto md:mx-0" />
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center md:justify-start">
             <Button variant="heroAccent" size="lg" asChild>
               <a href="/avaliacao">Começar avaliação funcional</a>
             </Button>
