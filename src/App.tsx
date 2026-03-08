@@ -14,6 +14,7 @@ import Candidatura from "./pages/Candidatura";
 import ProgramaFundacao from "./pages/ProgramaFundacao";
 import Metodo from "./pages/Metodo";
 import Sobre from "./pages/Sobre";
+import Avaliacao from "./pages/Avaliacao";
 
 const queryClient = new QueryClient();
 
