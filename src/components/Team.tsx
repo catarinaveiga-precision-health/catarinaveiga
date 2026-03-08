@@ -16,7 +16,7 @@ const Team = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {/* Card 1 — Catarina (destaque) */}
           <div className="fade-up bg-dark border border-amber p-8">
-            <img src={catarinaTeam} alt="Catarina Veiga" className="w-16 h-16 rounded-full object-cover object-top mb-5" loading="lazy" />
+            <img src={catarinaTeam} alt="Catarina Veiga" className="w-16 h-16 rounded-full object-cover object-[center_30%] mb-5" loading="lazy" />
             <h3 className="font-serif text-2xl text-ivory mb-1">Catarina Veiga</h3>
             <p className="label-uppercase text-amber text-xs mb-4">{t("team.catarina.role")}</p>
             <p className="text-ivory/80 text-sm leading-relaxed">{t("team.catarina.desc")}</p>
