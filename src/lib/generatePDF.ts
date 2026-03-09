@@ -159,14 +159,27 @@ function statusSymbolForDirection(status: string, marker: string): string {
   return "\u26A0"; // ⚠ default for flag
 }
 
-function getInterpretation(marker: string, status: string): string {
+function getInterpretation(marker: string, status: string, value?: string): string {
   if (status === "optimal") return OPTIMAL_TEXT;
   const interp = BIOMARKER_INTERPRETATIONS[marker];
-  if (!interp) return OPTIMAL_TEXT;
-  // Try high first, then low
+  if (!interp) return "Valor fora do intervalo funcional. A interpretação clínica completa requer avaliação individualizada.";
+  
+  // Determine direction from the value vs functional range
+  const range = FUNCTIONAL_RANGES_DATA[marker];
+  if (range && value) {
+    const numVal = parseFloat(value.replace(",", "."));
+    if (!isNaN(numVal)) {
+      const max = parseFloat(range.max);
+      const min = parseFloat(range.min);
+      if (numVal > max && interp.high && interp.high.length > 0) return interp.high;
+      if (numVal < min && interp.low && interp.low.length > 0) return interp.low;
+    }
+  }
+  
+  // Fallback: try high then low
   if (interp.high && interp.high.length > 0) return interp.high;
   if (interp.low && interp.low.length > 0) return interp.low;
-  return OPTIMAL_TEXT;
+  return "Valor fora do intervalo funcional. A interpretação clínica completa requer avaliação individualizada.";
 }
 
 function systemStatusLabel(status: string): string {
