@@ -13,10 +13,8 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         <div className="fade-up text-center md:text-left">
           <h1 className="font-serif font-light text-4xl md:text-6xl lg:text-7xl leading-[1.2] text-foreground mb-8">
-            Os teus exames podem dizer que está tudo bem.<br />
-            O teu corpo diz outra coisa.<br /><br />
-            Há sempre uma razão para sentires o que sentes.<br />
-            <em>Vamos encontrá-la juntas.</em>
+            Os teus exames estão normais.<br />
+            O teu corpo não.
           </h1>
           <div className="w-[60px] h-[2px] bg-amber mb-8 mx-auto md:mx-0" />
           <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center md:justify-start">
