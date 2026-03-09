@@ -27,6 +27,14 @@ const FUNCTIONAL_RANGES_DATA: Record<string, { min: string; max: string; unit: s
   Glicose: { min: "70", max: "90", unit: "mg/dL" },
 };
 
+const SYSTEM_EXPLANATIONS_PDF: Record<string, string> = {
+  "Tiróide": "A tiróide regula o metabolismo, energia e temperatura corporal. Valores sub-óptimos de TSH, T3 ou T4 podem explicar fadiga, ganho de peso e dificuldade de concentração — mesmo quando estão dentro do 'normal' laboratorial.",
+  "Ferro e Energia": "O ferro é essencial para o transporte de oxigénio e produção de energia celular. Ferritina funcionalmente baixa (< 40 ng/mL) é uma das causas mais comuns de fadiga crónica, queda de cabelo e intolerância ao frio.",
+  "Inflamação": "A inflamação crónica de baixo grau está na base de muitas patologias modernas. PCR elevada e homocisteína alta são sinais precoces que o corpo está sob stress — antes de qualquer diagnóstico convencional.",
+  "Metabolismo": "Vitamina D e B12 são cofactores essenciais para centenas de reações metabólicas, desde a imunidade à saúde neurológica. Níveis 'normais' podem ser insuficientes para um funcionamento óptimo.",
+  "Eixo HPA": "O eixo hipotálamo-hipófise-adrenal regula a resposta ao stress. Cortisol desregulado pode causar insónia, ansiedade, fadiga matinal e dificuldade de recuperação.",
+};
+
 const BIOMARKER_INTERPRETATIONS: Record<string, Record<string, string>> = {
   Ferritina: {
     low: "A ferritina reflecte as reservas de ferro no organismo. Valores baixos podem associar-se a fadiga persistente, queda de cabelo, dificuldade de concentração e intolerância ao exercício. Em medicina funcional, valores abaixo de 50 ng/mL podem indicar reservas insuficientes mesmo quando o hemograma permanece dentro dos intervalos convencionais.",
@@ -61,8 +69,8 @@ const BIOMARKER_INTERPRETATIONS: Record<string, Record<string, string>> = {
     optimal: "",
   },
   "Cortisol (manhã)": {
-    high: "",
-    low: "",
+    high: "O cortisol matinal elevado pode reflectir activação crónica do eixo HPA, associada a stress prolongado, insónia, ansiedade e resistência à insulina. Valores persistentemente altos merecem avaliação do padrão circadiano completo.",
+    low: "Cortisol matinal baixo pode indicar fadiga adrenal funcional, associada a exaustão, dificuldade em acordar, hipotensão e baixa tolerância ao stress. Este padrão surge frequentemente após períodos prolongados de stress crónico.",
     optimal: "",
   },
 };
@@ -159,14 +167,27 @@ function statusSymbolForDirection(status: string, marker: string): string {
   return "\u26A0"; // ⚠ default for flag
 }
 
-function getInterpretation(marker: string, status: string): string {
+function getInterpretation(marker: string, status: string, value?: string): string {
   if (status === "optimal") return OPTIMAL_TEXT;
   const interp = BIOMARKER_INTERPRETATIONS[marker];
-  if (!interp) return OPTIMAL_TEXT;
-  // Try high first, then low
+  if (!interp) return "Valor fora do intervalo funcional. A interpretação clínica completa requer avaliação individualizada.";
+  
+  // Determine direction from the value vs functional range
+  const range = FUNCTIONAL_RANGES_DATA[marker];
+  if (range && value) {
+    const numVal = parseFloat(value.replace(",", "."));
+    if (!isNaN(numVal)) {
+      const max = parseFloat(range.max);
+      const min = parseFloat(range.min);
+      if (numVal > max && interp.high && interp.high.length > 0) return interp.high;
+      if (numVal < min && interp.low && interp.low.length > 0) return interp.low;
+    }
+  }
+  
+  // Fallback: try high then low
   if (interp.high && interp.high.length > 0) return interp.high;
   if (interp.low && interp.low.length > 0) return interp.low;
-  return OPTIMAL_TEXT;
+  return "Valor fora do intervalo funcional. A interpretação clínica completa requer avaliação individualizada.";
 }
 
 function systemStatusLabel(status: string): string {
@@ -247,18 +268,42 @@ export async function generateFunctionalPDF(
   let y = addSectionTitle(doc, "Resumo por sistemas", 55);
 
   doc.setFontSize(11);
-  systems.forEach(([sysName, status], idx) => {
-    if (idx % 2 === 0) {
-      doc.setFillColor(BONE);
-      doc.rect(45, y - 14, pageW - 90, 26, "F");
+  systems.forEach(([sysName, status]) => {
+    // Estimate block height
+    const explanation = SYSTEM_EXPLANATIONS_PDF[sysName] || "";
+    const explLines = explanation ? doc.splitTextToSize(explanation, pageW - 140) : [];
+    const blockHeight = 28 + (explLines.length > 0 ? explLines.length * 12 + 8 : 0);
+
+    if (y + blockHeight > pageH - 60) {
+      addPageFooter(doc, 2, totalPages);
+      doc.addPage();
+      addPageBg(doc);
+      doc.setFillColor(AMBER);
+      doc.rect(0, 0, pageW, 4, "F");
+      y = 55;
     }
+
+    // System status row with background
+    doc.setFillColor(BONE);
+    doc.roundedRect(45, y - 14, pageW - 90, blockHeight, 3, 3, "F");
+
+    doc.setFontSize(11);
     doc.setTextColor(DARK);
     doc.text(systemStatusLabel(status), 60, y);
     doc.setFontSize(10);
     doc.setTextColor(MUTED);
     doc.text(sysName, pageW - 60, y, { align: "right" });
-    doc.setFontSize(11);
-    y += 30;
+
+    // System interpretation text
+    if (explLines.length > 0 && status !== "optimal") {
+      doc.setFontSize(9);
+      doc.setTextColor(MUTED);
+      doc.setFont("helvetica", "italic");
+      doc.text(explLines, 70, y + 16);
+      doc.setFont("helvetica", "normal");
+    }
+
+    y += blockHeight + 8;
   });
 
   if (systems.length === 0) {
@@ -278,7 +323,7 @@ export async function generateFunctionalPDF(
 
   results.forEach((r, idx) => {
     // Estimate space needed
-    const interpretation = getInterpretation(r.marker, r.status);
+    const interpretation = getInterpretation(r.marker, r.status, r.value);
     const interpLines = doc.splitTextToSize(interpretation, pageW - 120);
     const range = FUNCTIONAL_RANGES_DATA[r.marker];
     const blockHeight = 24 + 14 + (range ? 14 : 0) + 14 + interpLines.length * 12 + 16;
