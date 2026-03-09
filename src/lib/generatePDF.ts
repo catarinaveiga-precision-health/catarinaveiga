@@ -291,7 +291,7 @@ export async function generateFunctionalPDF(
 
   results.forEach((r, idx) => {
     // Estimate space needed
-    const interpretation = getInterpretation(r.marker, r.status);
+    const interpretation = getInterpretation(r.marker, r.status, r.value);
     const interpLines = doc.splitTextToSize(interpretation, pageW - 120);
     const range = FUNCTIONAL_RANGES_DATA[r.marker];
     const blockHeight = 24 + 14 + (range ? 14 : 0) + 14 + interpLines.length * 12 + 16;
