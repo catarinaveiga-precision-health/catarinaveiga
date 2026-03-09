@@ -268,18 +268,42 @@ export async function generateFunctionalPDF(
   let y = addSectionTitle(doc, "Resumo por sistemas", 55);
 
   doc.setFontSize(11);
-  systems.forEach(([sysName, status], idx) => {
-    if (idx % 2 === 0) {
-      doc.setFillColor(BONE);
-      doc.rect(45, y - 14, pageW - 90, 26, "F");
+  systems.forEach(([sysName, status]) => {
+    // Estimate block height
+    const explanation = SYSTEM_EXPLANATIONS_PDF[sysName] || "";
+    const explLines = explanation ? doc.splitTextToSize(explanation, pageW - 140) : [];
+    const blockHeight = 28 + (explLines.length > 0 ? explLines.length * 12 + 8 : 0);
+
+    if (y + blockHeight > pageH - 60) {
+      addPageFooter(doc, 2, totalPages);
+      doc.addPage();
+      addPageBg(doc);
+      doc.setFillColor(AMBER);
+      doc.rect(0, 0, pageW, 4, "F");
+      y = 55;
     }
+
+    // System status row with background
+    doc.setFillColor(BONE);
+    doc.roundedRect(45, y - 14, pageW - 90, blockHeight, 3, 3, "F");
+
+    doc.setFontSize(11);
     doc.setTextColor(DARK);
     doc.text(systemStatusLabel(status), 60, y);
     doc.setFontSize(10);
     doc.setTextColor(MUTED);
     doc.text(sysName, pageW - 60, y, { align: "right" });
-    doc.setFontSize(11);
-    y += 30;
+
+    // System interpretation text
+    if (explLines.length > 0 && status !== "optimal") {
+      doc.setFontSize(9);
+      doc.setTextColor(MUTED);
+      doc.setFont("helvetica", "italic");
+      doc.text(explLines, 70, y + 16);
+      doc.setFont("helvetica", "normal");
+    }
+
+    y += blockHeight + 8;
   });
 
   if (systems.length === 0) {
