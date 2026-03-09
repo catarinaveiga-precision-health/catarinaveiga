@@ -27,6 +27,14 @@ const FUNCTIONAL_RANGES_DATA: Record<string, { min: string; max: string; unit: s
   Glicose: { min: "70", max: "90", unit: "mg/dL" },
 };
 
+const SYSTEM_EXPLANATIONS_PDF: Record<string, string> = {
+  "Tiróide": "A tiróide regula o metabolismo, energia e temperatura corporal. Valores sub-óptimos de TSH, T3 ou T4 podem explicar fadiga, ganho de peso e dificuldade de concentração — mesmo quando estão dentro do 'normal' laboratorial.",
+  "Ferro e Energia": "O ferro é essencial para o transporte de oxigénio e produção de energia celular. Ferritina funcionalmente baixa (< 40 ng/mL) é uma das causas mais comuns de fadiga crónica, queda de cabelo e intolerância ao frio.",
+  "Inflamação": "A inflamação crónica de baixo grau está na base de muitas patologias modernas. PCR elevada e homocisteína alta são sinais precoces que o corpo está sob stress — antes de qualquer diagnóstico convencional.",
+  "Metabolismo": "Vitamina D e B12 são cofactores essenciais para centenas de reações metabólicas, desde a imunidade à saúde neurológica. Níveis 'normais' podem ser insuficientes para um funcionamento óptimo.",
+  "Eixo HPA": "O eixo hipotálamo-hipófise-adrenal regula a resposta ao stress. Cortisol desregulado pode causar insónia, ansiedade, fadiga matinal e dificuldade de recuperação.",
+};
+
 const BIOMARKER_INTERPRETATIONS: Record<string, Record<string, string>> = {
   Ferritina: {
     low: "A ferritina reflecte as reservas de ferro no organismo. Valores baixos podem associar-se a fadiga persistente, queda de cabelo, dificuldade de concentração e intolerância ao exercício. Em medicina funcional, valores abaixo de 50 ng/mL podem indicar reservas insuficientes mesmo quando o hemograma permanece dentro dos intervalos convencionais.",
