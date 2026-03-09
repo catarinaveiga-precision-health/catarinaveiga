@@ -61,8 +61,8 @@ const BIOMARKER_INTERPRETATIONS: Record<string, Record<string, string>> = {
     optimal: "",
   },
   "Cortisol (manhã)": {
-    high: "",
-    low: "",
+    high: "O cortisol matinal elevado pode reflectir activação crónica do eixo HPA, associada a stress prolongado, insónia, ansiedade e resistência à insulina. Valores persistentemente altos merecem avaliação do padrão circadiano completo.",
+    low: "Cortisol matinal baixo pode indicar fadiga adrenal funcional, associada a exaustão, dificuldade em acordar, hipotensão e baixa tolerância ao stress. Este padrão surge frequentemente após períodos prolongados de stress crónico.",
     optimal: "",
   },
 };
