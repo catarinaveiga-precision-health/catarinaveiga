@@ -596,29 +596,29 @@ const Avaliacao = () => {
               </div>
 
               {/* Information gap message */}
-              <p className="text-sm font-sans text-muted-custom italic text-center leading-relaxed max-w-[480px] mx-auto">
+              <p className="text-sm font-sans text-muted-foreground italic text-center leading-relaxed max-w-[480px] mx-auto">
                 "Identificámos alguns padrões nos teus biomarcadores. Para ver a interpretação completa de cada marcador, os rácios calculados e os próximos passos possíveis, introduz o teu email."
               </p>
 
               {/* Lead capture form */}
               <div className="space-y-4 max-w-sm mx-auto">
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-1 block">Nome</label>
+                  <label className="text-sm font-sans text-muted-foreground mb-1 block">Nome</label>
                   <Input
                     value={form.nome}
                     onChange={(e) => setForm((prev) => ({ ...prev, nome: e.target.value }))}
                     placeholder="Nome completo"
-                    className="bg-bone border-bone focus:border-amber"
+                    className="bg-transparent border-matcha/30 focus:border-matcha"
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-1 block">Email</label>
+                  <label className="text-sm font-sans text-muted-foreground mb-1 block">Email</label>
                   <Input
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
                     placeholder="email@exemplo.com"
-                    className="bg-bone border-bone focus:border-amber"
+                    className="bg-transparent border-matcha/30 focus:border-matcha"
                   />
                 </div>
                 <Button
