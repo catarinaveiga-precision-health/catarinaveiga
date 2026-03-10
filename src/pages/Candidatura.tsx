@@ -284,7 +284,7 @@ const Candidatura = () => {
                         </select>
                       </FieldGroup>
                       <div className="flex justify-end pt-4">
-                        <Button variant="hero" onClick={handleNext}>Continuar →</Button>
+                        <Button variant="eclipse" onClick={handleNext}>Continuar →</Button>
                       </div>
                     </StepWrapper>
                   )}
