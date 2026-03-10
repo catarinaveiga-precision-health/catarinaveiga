@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle, AlertCircle, ArrowRight, ArrowLeft, Activity, Droplets, Flame, Shield, Heart, Brain, ChevronDown, Download, BookOpen } from "lucide-react";
+import { CheckCircle, AlertCircle, ArrowRight, ArrowLeft, ChevronDown, Download, BookOpen } from "lucide-react";
 import { BIOMARKER_REFERENCES } from "@/data/biomarkerReferences";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -68,7 +68,7 @@ const STEP_TITLES = [
   "Próximos passos",
 ];
 
-const STEP_ICONS = [Activity, Heart, Shield, Droplets, Flame, Brain, Activity, CheckCircle, ArrowRight];
+// Step icons removed — using numbered tabs instead
 
 const SYSTEM_LABELS: Record<string, string> = {
   TSH: "Tiróide",
@@ -182,8 +182,8 @@ function getSystemSummary(results: ReturnType<typeof evaluateResults>) {
 const LabInput = ({ label, unit, value, onChange, placeholder }: {
   label: string; unit: string; value: string; onChange: (v: string) => void; placeholder?: string;
 }) => (
-  <div className="space-y-1">
-    <label className="text-sm font-sans text-foreground">{label}</label>
+  <div className="space-y-1.5">
+    <label className="text-sm font-sans text-muted-foreground">{label}</label>
     <div className="flex items-center gap-2">
       <Input
         type="text"
@@ -191,9 +191,9 @@ const LabInput = ({ label, unit, value, onChange, placeholder }: {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder || "—"}
-        className="bg-bone border-bone focus:border-amber"
+        className="bg-transparent border-matcha/30 focus:border-matcha"
       />
-      <span className="text-xs text-muted-custom font-sans whitespace-nowrap">{unit}</span>
+      <span className="text-xs text-muted-foreground font-sans whitespace-nowrap">{unit}</span>
     </div>
   </div>
 );
@@ -362,7 +362,7 @@ const Avaliacao = () => {
 
       {/* Hero */}
       <section className="pt-32 pb-12 px-6 text-center bg-background">
-        <p className="label-uppercase text-amber mb-4 tracking-widest text-xs">Avaliação Funcional</p>
+        <p className="label-uppercase text-matcha mb-4 tracking-widest text-xs">Avaliação Funcional</p>
         <h1 className="font-serif text-4xl md:text-5xl text-foreground leading-tight max-w-3xl mx-auto">
           Os teus exames estão normais.<br />O teu corpo não.
         </h1>
@@ -374,26 +374,44 @@ const Avaliacao = () => {
         </p>
       </section>
 
-      {/* Progress */}
+      {/* Progress — numbered tabs */}
       <section className="px-6 pb-8">
         <div className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-between mb-2">
-            {STEP_TITLES.map((title, i) => {
-              const Icon = STEP_ICONS[i];
+          {/* Tabs */}
+          <div className="flex items-end gap-0 overflow-x-auto pb-0 mb-3">
+            {STEP_TITLES.slice(0, 7).map((title, i) => {
+              const isActive = i === step;
+              const isPast = i < step;
               return (
-                <div key={i} className="flex flex-col items-center gap-1">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-                    i <= step ? "bg-amber text-primary-foreground" : "bg-bone text-muted-custom"
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => { if (isPast) { setError(null); setStep(i); } }}
+                  className={`flex-1 min-w-0 flex flex-col items-center gap-1 pb-2 border-b-2 transition-all ${
+                    isActive
+                      ? "border-matcha"
+                      : isPast
+                        ? "border-transparent cursor-pointer hover:border-matcha/30"
+                        : "border-transparent cursor-default"
+                  }`}
+                >
+                  <span className={`font-sans text-sm font-medium transition-colors ${
+                    isActive ? "text-matcha" : isPast ? "text-foreground/60" : "text-muted-foreground/40"
                   }`}>
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <span className="text-[10px] font-sans text-muted-custom hidden md:block">{title}</span>
-                </div>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className={`hidden md:block label-uppercase text-[10px] transition-colors ${
+                    isActive ? "text-matcha" : isPast ? "text-foreground/50" : "text-muted-foreground/30"
+                  }`}>
+                    {title}
+                  </span>
+                </button>
               );
             })}
           </div>
-          <div className="h-1 bg-bone rounded-full overflow-hidden">
-            <div className="h-full bg-amber rounded-full transition-all duration-500" style={{ width: `${((step + 1) / 9) * 100}%` }} />
+          {/* Linear progress bar */}
+          <div className="h-[2px] bg-bone rounded-full overflow-hidden">
+            <div className="h-full bg-matcha rounded-full transition-all duration-500 ease-out" style={{ width: `${((step + 1) / 9) * 100}%` }} />
           </div>
         </div>
       </section>
@@ -410,18 +428,19 @@ const Avaliacao = () => {
 
           {/* Step 0: Objectives */}
           {step === 0 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Quais são os teus principais objetivos?</h2>
-              <div className="flex flex-wrap gap-2">
+            <div className="space-y-8">
+              <h2 className="font-serif text-3xl text-foreground">Quais são os teus principais objetivos?</h2>
+              <p className="text-sm text-muted-foreground font-sans">Seleciona todos os que se aplicam.</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {OBJECTIVES.map((obj) => (
                   <button
                     key={obj}
                     type="button"
                     onClick={() => toggleObjective(obj)}
-                    className={`px-4 py-2 rounded-full text-sm font-sans transition-all duration-200 border ${
+                    className={`h-[52px] px-4 rounded text-sm font-sans transition-all duration-200 border text-center ${
                       form.objetivos.includes(obj)
-                        ? "bg-amber text-primary-foreground border-amber"
-                        : "bg-background text-foreground border-bone hover:border-amber/50"
+                        ? "bg-eclipse text-white border-eclipse"
+                        : "bg-transparent text-foreground border-matcha/40 hover:border-matcha"
                     }`}
                   >
                     {obj}
@@ -433,21 +452,21 @@ const Avaliacao = () => {
 
           {/* Step 1: Profile */}
           {step === 1 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Perfil básico</h2>
-              <div className="space-y-4">
+            <div className="space-y-8">
+              <h2 className="font-serif text-3xl text-foreground">Perfil básico</h2>
+              <div className="space-y-6">
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-2 block">Sexo biológico</label>
-                  <div className="flex gap-3">
+                  <label className="text-sm font-sans text-muted-foreground mb-3 block">Sexo biológico</label>
+                  <div className="grid grid-cols-2 gap-3 max-w-xs">
                     {["Feminino", "Masculino"].map((s) => (
                       <button
                         key={s}
                         type="button"
                         onClick={() => setForm((prev) => ({ ...prev, sexo: s }))}
-                        className={`px-6 py-2 rounded-full text-sm font-sans transition-all border ${
+                        className={`h-[52px] px-6 rounded text-sm font-sans transition-all border text-center ${
                           form.sexo === s
-                            ? "bg-amber text-primary-foreground border-amber"
-                            : "bg-background text-foreground border-bone hover:border-amber/50"
+                            ? "bg-eclipse text-white border-eclipse"
+                            : "bg-transparent text-foreground border-matcha/40 hover:border-matcha"
                         }`}
                       >
                         {s}
@@ -456,7 +475,7 @@ const Avaliacao = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-1 block">Idade (opcional)</label>
+                  <label className="text-sm font-sans text-muted-foreground mb-1 block">Idade (opcional)</label>
                   <Input
                     type="number"
                     min={18}
@@ -464,7 +483,7 @@ const Avaliacao = () => {
                     value={form.idade}
                     onChange={(e) => setForm((prev) => ({ ...prev, idade: e.target.value }))}
                     placeholder="Ex: 38"
-                    className="bg-bone border-bone focus:border-amber max-w-[120px]"
+                    className="bg-transparent border-matcha/40 focus:border-matcha max-w-[120px]"
                   />
                 </div>
               </div>
@@ -473,9 +492,11 @@ const Avaliacao = () => {
 
           {/* Step 2: Thyroid */}
           {step === 2 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Painel Tiroideu</h2>
-              <p className="text-sm text-muted-custom font-sans">Preenche apenas os valores que tens disponíveis.</p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="font-serif text-3xl text-foreground">Painel Tiroideu</h2>
+                <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <LabInput label="TSH" unit="mUI/L" value={form.labValues.tsh || ""} onChange={(v) => updateLab("tsh", v)} placeholder="Ex: 2.5" />
                 <LabInput label="T3 Livre" unit="pg/mL" value={form.labValues.t3_livre || ""} onChange={(v) => updateLab("t3_livre", v)} placeholder="Ex: 3.1" />
@@ -486,9 +507,11 @@ const Avaliacao = () => {
 
           {/* Step 3: Iron */}
           {step === 3 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Painel de Ferro</h2>
-              <p className="text-sm text-muted-custom font-sans">Preenche apenas os valores que tens disponíveis.</p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="font-serif text-3xl text-foreground">Painel de Ferro</h2>
+                <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <LabInput label="Ferritina" unit="ng/mL" value={form.labValues.ferritina || ""} onChange={(v) => updateLab("ferritina", v)} placeholder="Ex: 45" />
                 <LabInput label="Ferro Sérico" unit="µg/dL" value={form.labValues.ferro_serico || ""} onChange={(v) => updateLab("ferro_serico", v)} placeholder="Ex: 80" />
@@ -499,9 +522,11 @@ const Avaliacao = () => {
 
           {/* Step 4: Inflammation */}
           {step === 4 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Marcadores Inflamatórios</h2>
-              <p className="text-sm text-muted-custom font-sans">Preenche apenas os valores que tens disponíveis.</p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="font-serif text-3xl text-foreground">Marcadores Inflamatórios</h2>
+                <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <LabInput label="PCR (Proteína C-Reactiva)" unit="mg/L" value={form.labValues.pcr || ""} onChange={(v) => updateLab("pcr", v)} placeholder="Ex: 0.5" />
                 <LabInput label="Homocisteína" unit="µmol/L" value={form.labValues.homocisteina || ""} onChange={(v) => updateLab("homocisteina", v)} placeholder="Ex: 8" />
@@ -512,9 +537,11 @@ const Avaliacao = () => {
 
           {/* Step 5: Metabolism */}
           {step === 5 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Metabolismo e Hormonas</h2>
-              <p className="text-sm text-muted-custom font-sans">Preenche apenas os valores que tens disponíveis.</p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="font-serif text-3xl text-foreground">Metabolismo e Hormonas</h2>
+                <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <LabInput label="Vitamina D" unit="ng/mL" value={form.labValues.vitamina_d || ""} onChange={(v) => updateLab("vitamina_d", v)} placeholder="Ex: 35" />
                 <LabInput label="Vitamina B12" unit="pg/mL" value={form.labValues.vitamina_b12 || ""} onChange={(v) => updateLab("vitamina_b12", v)} placeholder="Ex: 400" />
@@ -569,29 +596,29 @@ const Avaliacao = () => {
               </div>
 
               {/* Information gap message */}
-              <p className="text-sm font-sans text-muted-custom italic text-center leading-relaxed max-w-[480px] mx-auto">
+              <p className="text-sm font-sans text-muted-foreground italic text-center leading-relaxed max-w-[480px] mx-auto">
                 "Identificámos alguns padrões nos teus biomarcadores. Para ver a interpretação completa de cada marcador, os rácios calculados e os próximos passos possíveis, introduz o teu email."
               </p>
 
               {/* Lead capture form */}
               <div className="space-y-4 max-w-sm mx-auto">
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-1 block">Nome</label>
+                  <label className="text-sm font-sans text-muted-foreground mb-1 block">Nome</label>
                   <Input
                     value={form.nome}
                     onChange={(e) => setForm((prev) => ({ ...prev, nome: e.target.value }))}
                     placeholder="Nome completo"
-                    className="bg-bone border-bone focus:border-amber"
+                    className="bg-transparent border-matcha/30 focus:border-matcha"
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-1 block">Email</label>
+                  <label className="text-sm font-sans text-muted-foreground mb-1 block">Email</label>
                   <Input
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
                     placeholder="email@exemplo.com"
-                    className="bg-bone border-bone focus:border-amber"
+                    className="bg-transparent border-matcha/30 focus:border-matcha"
                   />
                 </div>
                 <Button
