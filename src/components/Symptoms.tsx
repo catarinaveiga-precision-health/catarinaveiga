@@ -1,6 +1,5 @@
 import { useFadeUp } from "@/hooks/useFadeUp";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Symptoms = () => {
