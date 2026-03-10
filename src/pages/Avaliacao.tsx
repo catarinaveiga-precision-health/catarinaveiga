@@ -374,26 +374,44 @@ const Avaliacao = () => {
         </p>
       </section>
 
-      {/* Progress */}
+      {/* Progress — numbered tabs */}
       <section className="px-6 pb-8">
         <div className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-between mb-2">
-            {STEP_TITLES.map((title, i) => {
-              const Icon = STEP_ICONS[i];
+          {/* Tabs */}
+          <div className="flex items-end gap-0 overflow-x-auto pb-0 mb-3">
+            {STEP_TITLES.slice(0, 7).map((title, i) => {
+              const isActive = i === step;
+              const isPast = i < step;
               return (
-                <div key={i} className="flex flex-col items-center gap-1">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-                    i <= step ? "bg-amber text-primary-foreground" : "bg-bone text-muted-custom"
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => { if (isPast) { setError(null); setStep(i); } }}
+                  className={`flex-1 min-w-0 flex flex-col items-center gap-1 pb-2 border-b-2 transition-all ${
+                    isActive
+                      ? "border-matcha"
+                      : isPast
+                        ? "border-transparent cursor-pointer hover:border-matcha/30"
+                        : "border-transparent cursor-default"
+                  }`}
+                >
+                  <span className={`font-sans text-sm font-medium transition-colors ${
+                    isActive ? "text-matcha" : isPast ? "text-foreground/60" : "text-muted-foreground/40"
                   }`}>
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <span className="text-[10px] font-sans text-muted-custom hidden md:block">{title}</span>
-                </div>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className={`hidden md:block label-uppercase text-[10px] transition-colors ${
+                    isActive ? "text-matcha" : isPast ? "text-foreground/50" : "text-muted-foreground/30"
+                  }`}>
+                    {title}
+                  </span>
+                </button>
               );
             })}
           </div>
-          <div className="h-1 bg-bone rounded-full overflow-hidden">
-            <div className="h-full bg-amber rounded-full transition-all duration-500" style={{ width: `${((step + 1) / 9) * 100}%` }} />
+          {/* Linear progress bar */}
+          <div className="h-[2px] bg-bone rounded-full overflow-hidden">
+            <div className="h-full bg-matcha rounded-full transition-all duration-500 ease-out" style={{ width: `${((step + 1) / 9) * 100}%` }} />
           </div>
         </div>
       </section>
