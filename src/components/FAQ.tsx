@@ -18,7 +18,7 @@ const FAQ = () => {
   ];
 
   return (
-    <section ref={ref} id="faq" className="bg-ivory section-padding">
+    <section ref={ref} id="faq" className="bg-background section-padding">
       <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-12">
         <div className="fade-up md:col-span-2">
           <h2 className="font-serif text-4xl md:text-5xl text-foreground md:sticky md:top-32">{t("faq.title")}</h2>
@@ -26,9 +26,9 @@ const FAQ = () => {
         <div className="fade-up md:col-span-3">
           <Accordion type="single" collapsible className="space-y-2">
             {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="border-b border-bone">
+              <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
                 <AccordionTrigger className="text-left font-sans font-normal text-foreground py-5 hover:no-underline">{faq.q}</AccordionTrigger>
-                <AccordionContent className="text-muted-custom text-[15px] pb-5">{faq.a}</AccordionContent>
+                <AccordionContent className="text-muted-foreground text-[15px] pb-5">{faq.a}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

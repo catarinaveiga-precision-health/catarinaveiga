@@ -4,7 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const tags = [
   "Medicina Funcional",
-  "Sa\u00fade da Mulher",
+  "Saúde da Mulher",
   "Medicina Integrativa",
   "Online",
   "PT",
@@ -16,7 +16,7 @@ const About = () => {
   const { t } = useLanguage();
 
   return (
-    <section ref={ref} id="sobre" className="bg-bone section-padding">
+    <section ref={ref} id="sobre" className="bg-muted section-padding">
       <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-start">
         <div className="fade-up md:col-span-3">
           <img src={heroImage} alt="Catarina Veiga" className="w-full h-auto object-cover max-h-[600px]" loading="lazy" />
@@ -24,8 +24,8 @@ const About = () => {
         <div className="fade-up md:col-span-2">
           <p className="label-uppercase text-amber mb-4">{t("about.label")}</p>
           <h2 className="font-serif text-4xl text-foreground mb-2">Catarina Veiga</h2>
-          <p className="text-muted-custom text-sm mb-6">{t("about.role")}</p>
-          <div className="space-y-4 text-muted-custom text-[15px]">
+          <p className="text-muted-foreground text-sm mb-6">{t("about.role")}</p>
+          <div className="space-y-4 text-muted-foreground text-[15px]">
             <p>{t("about.p1")}</p>
             <p>{t("about.p2")}</p>
             <p>{t("about.p3")}</p>
@@ -33,7 +33,7 @@ const About = () => {
           </div>
           <div className="flex flex-wrap gap-2 mt-8">
             {tags.map((tag) => (
-              <span key={tag} className="border border-amber text-amber label-uppercase text-[10px] px-3 py-1">{tag}</span>
+              <span key={tag} className="border border-border text-foreground label-uppercase text-[10px] px-3 py-1">{tag}</span>
             ))}
           </div>
         </div>

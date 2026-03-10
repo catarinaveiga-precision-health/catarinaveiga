@@ -19,7 +19,7 @@ const Blog = () => {
     });
 
   return (
-    <section ref={ref} id="blog" className="section-padding bg-bone">
+    <section ref={ref} id="blog" className="section-padding bg-muted">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-end justify-between mb-12">
           <div>
@@ -28,7 +28,7 @@ const Blog = () => {
           </div>
           <Link
             to="/blog"
-            className="fade-up hidden md:inline-flex items-center gap-2 text-amber hover:text-amber-light transition-colors font-sans text-sm"
+            className="fade-up hidden md:inline-flex items-center gap-2 text-foreground hover:text-amber transition-colors font-sans text-sm"
           >
             {t("blog.viewall")} <ArrowRight size={16} />
           </Link>
@@ -37,7 +37,7 @@ const Blog = () => {
         {isLoading ? (
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-ivory rounded-2xl animate-pulse aspect-[4/3]" />
+              <div key={i} className="bg-background animate-pulse aspect-[4/3]" />
             ))}
           </div>
         ) : (
@@ -46,28 +46,25 @@ const Blog = () => {
               <Link
                 key={post._id}
                 to={`/blog/${post.slug.current}`}
-                className="fade-up group relative block rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02]"
-                style={{
-                  boxShadow: "0 4px 20px -4px hsl(30 17% 9% / 0.08)",
-                }}
+                className="fade-up group relative block overflow-hidden border border-border transition-all duration-300 hover:border-foreground/20"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-bone rounded-2xl">
+                <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   {post.mainImage?.asset?.url ? (
                     <img
                       src={post.mainImage.asset.url}
                       alt={post.mainImage.alt || post.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
                   ) : (
-                    <div className="w-full h-full bg-bone" />
+                    <div className="w-full h-full bg-muted" />
                   )}
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
                   <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
                     <div className="flex justify-end">
-                      <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-sans text-white border border-white/30">
+                      <span className="px-3 py-1 bg-white/20 backdrop-blur-md text-xs font-sans text-white border border-white/30">
                         {formatDate(post.publishedAt)}
                       </span>
                     </div>
@@ -76,7 +73,7 @@ const Blog = () => {
                       <h3 className="text-white text-lg md:text-xl font-serif leading-snug flex-1">
                         {post.title}
                       </h3>
-                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shrink-0 group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
+                      <div className="w-10 h-10 border border-white/30 flex items-center justify-center text-white shrink-0 group-hover:bg-white/10 transition-all duration-300">
                         <ArrowUpRight className="w-4 h-4" />
                       </div>
                     </div>
@@ -90,7 +87,7 @@ const Blog = () => {
         <div className="fade-up text-center mt-10 md:hidden">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-amber hover:text-amber-light transition-colors font-sans text-sm"
+            className="inline-flex items-center gap-2 text-foreground hover:text-amber transition-colors font-sans text-sm"
           >
             {t("blog.viewall")} <ArrowRight size={16} />
           </Link>

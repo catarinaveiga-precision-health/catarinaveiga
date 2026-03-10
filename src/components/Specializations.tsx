@@ -10,7 +10,7 @@ const Specializations = () => {
   ];
 
   return (
-    <section ref={ref} className="bg-bone section-padding">
+    <section ref={ref} className="bg-muted section-padding">
       <div className="max-w-4xl mx-auto">
         <p className="fade-up label-uppercase text-amber mb-4">{t("specs.label")}</p>
         <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-12">{t("specs.title")}</h2>

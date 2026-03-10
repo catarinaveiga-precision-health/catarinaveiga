@@ -6,7 +6,7 @@ const Manifesto = () => {
   const { t } = useLanguage();
 
   return (
-    <section ref={ref} id="abordagem" className="bg-bone py-[160px] px-6">
+    <section ref={ref} id="abordagem" className="bg-muted py-[160px] px-6">
       <div className="max-w-4xl mx-auto text-center">
         <blockquote className="fade-up font-serif text-3xl md:text-5xl italic text-foreground leading-tight mb-6">
           {t("manifesto.quote1")}

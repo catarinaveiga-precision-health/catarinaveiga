@@ -21,7 +21,7 @@ const CredentialsBand = () => {
   );
 
   return (
-    <section className="bg-bone py-5 overflow-hidden">
+    <section className="bg-muted py-5 overflow-hidden">
       <div className="flex animate-marquee">
         <MarqueeContent />
         <MarqueeContent />

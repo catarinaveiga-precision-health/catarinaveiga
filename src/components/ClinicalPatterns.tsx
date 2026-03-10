@@ -22,7 +22,7 @@ const ClinicalPatterns = () => {
   const ref = useFadeUp();
 
   return (
-    <section ref={ref} className="bg-ivory section-padding">
+    <section ref={ref} className="bg-background section-padding">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <p className="fade-up label-uppercase text-amber mb-4">Análise funcional</p>
@@ -35,21 +35,21 @@ const ClinicalPatterns = () => {
           {cases.map((c, i) => (
             <div
               key={i}
-              className="bg-background rounded-lg p-6 border border-bone"
+              className="bg-background p-6 border border-border"
             >
               <p className="label-uppercase text-amber text-[11px] mb-5">Caso clínico</p>
 
               <div className="mb-4">
                 <p className="text-muted-foreground text-xs font-sans uppercase tracking-wider mb-1">Sintomas</p>
-                <p className="font-sans font-light text-foreground text-[15px] leading-relaxed">{c.sintomas}</p>
+                <p className="font-sans text-foreground text-[15px] leading-relaxed">{c.sintomas}</p>
               </div>
 
               <div className="mb-4">
                 <p className="text-muted-foreground text-xs font-sans uppercase tracking-wider mb-1">Padrão</p>
-                <p className="font-sans font-light text-foreground text-[15px] leading-relaxed">{c.padrao}</p>
+                <p className="font-sans text-foreground text-[15px] leading-relaxed">{c.padrao}</p>
               </div>
 
-              <div className="w-full h-px bg-bone my-4" />
+              <div className="w-full h-px bg-border my-4" />
 
               <div>
                 <p className="text-muted-foreground text-xs font-sans uppercase tracking-wider mb-1">Resultado</p>
@@ -59,7 +59,7 @@ const ClinicalPatterns = () => {
           ))}
         </div>
 
-        <p className="fade-up text-center text-muted-foreground text-[11px] font-sans font-light mt-8">
+        <p className="fade-up text-center text-muted-foreground text-[11px] font-sans mt-8">
           Dados ilustrativos baseados em padrões clínicos reais. Não constituem casos identificáveis.
         </p>
       </div>
