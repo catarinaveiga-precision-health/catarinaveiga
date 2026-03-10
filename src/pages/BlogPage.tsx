@@ -18,12 +18,14 @@ const BlogPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const formatDate = (dateStr: string) =>
-    new Date(dateStr).toLocaleDateString(lang === "pt" ? "pt-PT" : "en-GB", {
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return "";
+    return new Date(dateStr).toLocaleDateString(lang === "pt" ? "pt-PT" : "en-GB", {
       year: "numeric",
       month: "long",
       day: "numeric",
     });
+  };
 
   const filtered = posts?.filter((post) => {
     if (activeCategory && post.category !== activeCategory) return false;
