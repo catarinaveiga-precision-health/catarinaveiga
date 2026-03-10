@@ -68,7 +68,7 @@ const STEP_TITLES = [
   "Próximos passos",
 ];
 
-const STEP_ICONS = [Activity, Heart, Shield, Droplets, Flame, Brain, Activity, CheckCircle, ArrowRight];
+// Step icons removed — using numbered tabs instead
 
 const SYSTEM_LABELS: Record<string, string> = {
   TSH: "Tiróide",
