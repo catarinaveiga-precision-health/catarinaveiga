@@ -428,18 +428,19 @@ const Avaliacao = () => {
 
           {/* Step 0: Objectives */}
           {step === 0 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Quais são os teus principais objetivos?</h2>
-              <div className="flex flex-wrap gap-2">
+            <div className="space-y-8">
+              <h2 className="font-serif text-3xl text-foreground">Quais são os teus principais objetivos?</h2>
+              <p className="text-sm text-muted-foreground font-sans">Seleciona todos os que se aplicam.</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {OBJECTIVES.map((obj) => (
                   <button
                     key={obj}
                     type="button"
                     onClick={() => toggleObjective(obj)}
-                    className={`px-4 py-2 rounded-full text-sm font-sans transition-all duration-200 border ${
+                    className={`h-[52px] px-4 rounded text-sm font-sans transition-all duration-200 border text-center ${
                       form.objetivos.includes(obj)
-                        ? "bg-amber text-primary-foreground border-amber"
-                        : "bg-background text-foreground border-bone hover:border-amber/50"
+                        ? "bg-eclipse text-white border-eclipse"
+                        : "bg-transparent text-foreground border-matcha/40 hover:border-matcha"
                     }`}
                   >
                     {obj}
