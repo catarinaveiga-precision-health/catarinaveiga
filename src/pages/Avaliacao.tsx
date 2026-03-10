@@ -362,7 +362,7 @@ const Avaliacao = () => {
 
       {/* Hero */}
       <section className="pt-32 pb-12 px-6 text-center bg-background">
-        <p className="label-uppercase text-amber mb-4 tracking-widest text-xs">Avaliação Funcional</p>
+        <p className="label-uppercase text-matcha mb-4 tracking-widest text-xs">Avaliação Funcional</p>
         <h1 className="font-serif text-4xl md:text-5xl text-foreground leading-tight max-w-3xl mx-auto">
           Os teus exames estão normais.<br />O teu corpo não.
         </h1>
