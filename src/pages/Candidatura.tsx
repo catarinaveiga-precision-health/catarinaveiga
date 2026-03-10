@@ -284,7 +284,7 @@ const Candidatura = () => {
                         </select>
                       </FieldGroup>
                       <div className="flex justify-end pt-4">
-                        <Button variant="hero" onClick={handleNext}>Continuar →</Button>
+                        <Button variant="eclipse" onClick={handleNext}>Continuar →</Button>
                       </div>
                     </StepWrapper>
                   )}
@@ -323,7 +323,7 @@ const Candidatura = () => {
                       </FieldGroup>
                       <div className="flex justify-between pt-4">
                         <Button variant="outline" onClick={goBack}>← Anterior</Button>
-                        <Button variant="hero" onClick={handleNext}>Continuar →</Button>
+                        <Button variant="eclipse" onClick={handleNext}>Continuar →</Button>
                       </div>
                     </StepWrapper>
                   )}
@@ -355,7 +355,7 @@ const Candidatura = () => {
                       </FieldGroup>
                       <div className="flex justify-between pt-4">
                         <Button variant="outline" onClick={goBack}>← Anterior</Button>
-                        <Button variant="hero" onClick={handleNext}>Continuar →</Button>
+                        <Button variant="eclipse" onClick={handleNext}>Continuar →</Button>
                       </div>
                     </StepWrapper>
                   )}

@@ -18,6 +18,7 @@ const buttonVariants = cva(
         hero: "bg-primary text-primary-foreground hover:bg-primary/80 transition-all duration-200 font-sans font-medium tracking-wide rounded-sm",
         heroAccent: "bg-primary text-primary-foreground hover:bg-primary/80 transition-all duration-200 font-sans font-medium tracking-wide rounded-sm",
         amber: "border border-foreground/20 text-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 font-sans font-medium rounded-sm",
+        eclipse: "bg-eclipse text-white hover:bg-eclipse/90 transition-all duration-200 font-sans font-medium rounded-sm",
       },
       size: {
         default: "h-10 px-5 py-2",
