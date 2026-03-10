@@ -46,6 +46,11 @@
     --amber-light: 33 39% 64%;
     --text-muted: 33 8% 44%;
 
+    /* SEO pages — Goop-inspired */
+    --matcha: 120 12% 45%;
+    --eclipse: 180 38% 15%;
+    --almond: 35 38% 72%;
+
     --sidebar-background: 37 33% 96%;
     --sidebar-foreground: 30 17% 9%;
     --sidebar-primary: 31 27% 48%;
