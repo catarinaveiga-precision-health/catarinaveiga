@@ -182,8 +182,8 @@ function getSystemSummary(results: ReturnType<typeof evaluateResults>) {
 const LabInput = ({ label, unit, value, onChange, placeholder }: {
   label: string; unit: string; value: string; onChange: (v: string) => void; placeholder?: string;
 }) => (
-  <div className="space-y-1">
-    <label className="text-sm font-sans text-foreground">{label}</label>
+  <div className="space-y-1.5">
+    <label className="text-sm font-sans text-muted-foreground">{label}</label>
     <div className="flex items-center gap-2">
       <Input
         type="text"
@@ -191,9 +191,9 @@ const LabInput = ({ label, unit, value, onChange, placeholder }: {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder || "—"}
-        className="bg-bone border-bone focus:border-amber"
+        className="bg-transparent border-matcha/30 focus:border-matcha"
       />
-      <span className="text-xs text-muted-custom font-sans whitespace-nowrap">{unit}</span>
+      <span className="text-xs text-muted-foreground font-sans whitespace-nowrap">{unit}</span>
     </div>
   </div>
 );
