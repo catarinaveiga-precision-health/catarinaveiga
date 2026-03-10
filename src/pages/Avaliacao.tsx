@@ -492,9 +492,11 @@ const Avaliacao = () => {
 
           {/* Step 2: Thyroid */}
           {step === 2 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Painel Tiroideu</h2>
-              <p className="text-sm text-muted-custom font-sans">Preenche apenas os valores que tens disponíveis.</p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="font-serif text-3xl text-foreground">Painel Tiroideu</h2>
+                <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <LabInput label="TSH" unit="mUI/L" value={form.labValues.tsh || ""} onChange={(v) => updateLab("tsh", v)} placeholder="Ex: 2.5" />
                 <LabInput label="T3 Livre" unit="pg/mL" value={form.labValues.t3_livre || ""} onChange={(v) => updateLab("t3_livre", v)} placeholder="Ex: 3.1" />
@@ -505,9 +507,11 @@ const Avaliacao = () => {
 
           {/* Step 3: Iron */}
           {step === 3 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Painel de Ferro</h2>
-              <p className="text-sm text-muted-custom font-sans">Preenche apenas os valores que tens disponíveis.</p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="font-serif text-3xl text-foreground">Painel de Ferro</h2>
+                <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <LabInput label="Ferritina" unit="ng/mL" value={form.labValues.ferritina || ""} onChange={(v) => updateLab("ferritina", v)} placeholder="Ex: 45" />
                 <LabInput label="Ferro Sérico" unit="µg/dL" value={form.labValues.ferro_serico || ""} onChange={(v) => updateLab("ferro_serico", v)} placeholder="Ex: 80" />
@@ -518,9 +522,11 @@ const Avaliacao = () => {
 
           {/* Step 4: Inflammation */}
           {step === 4 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Marcadores Inflamatórios</h2>
-              <p className="text-sm text-muted-custom font-sans">Preenche apenas os valores que tens disponíveis.</p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="font-serif text-3xl text-foreground">Marcadores Inflamatórios</h2>
+                <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <LabInput label="PCR (Proteína C-Reactiva)" unit="mg/L" value={form.labValues.pcr || ""} onChange={(v) => updateLab("pcr", v)} placeholder="Ex: 0.5" />
                 <LabInput label="Homocisteína" unit="µmol/L" value={form.labValues.homocisteina || ""} onChange={(v) => updateLab("homocisteina", v)} placeholder="Ex: 8" />
@@ -531,9 +537,11 @@ const Avaliacao = () => {
 
           {/* Step 5: Metabolism */}
           {step === 5 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Metabolismo e Hormonas</h2>
-              <p className="text-sm text-muted-custom font-sans">Preenche apenas os valores que tens disponíveis.</p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="font-serif text-3xl text-foreground">Metabolismo e Hormonas</h2>
+                <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <LabInput label="Vitamina D" unit="ng/mL" value={form.labValues.vitamina_d || ""} onChange={(v) => updateLab("vitamina_d", v)} placeholder="Ex: 35" />
                 <LabInput label="Vitamina B12" unit="pg/mL" value={form.labValues.vitamina_b12 || ""} onChange={(v) => updateLab("vitamina_b12", v)} placeholder="Ex: 400" />
