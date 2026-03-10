@@ -38,7 +38,8 @@ export const ALL_POSTS_QUERY = `*[_type == "post" && !(_id in path("drafts.**"))
   category,
   tags,
   mainImage { asset->{ url }, alt },
-  excerpt
+  excerpt,
+  "author": author->{ name }
 }`;
 
 export const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
@@ -50,7 +51,8 @@ export const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug &&
   tags,
   mainImage { asset->{ url }, alt },
   excerpt,
-  body
+  body,
+  "author": author->{ name }
 }`;
 
 export const CATEGORIES_QUERY = `array::unique(*[_type == "post" && defined(category) && !(_id in path("drafts.**"))].category)`;
