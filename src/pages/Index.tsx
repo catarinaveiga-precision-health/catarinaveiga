@@ -33,7 +33,7 @@ import { useAcuityModal } from "@/hooks/useAcuityModal";
 const AnalysisToolSection = () => {
   const ref = useFadeUp();
   return (
-    <section ref={ref} className="bg-bone section-padding">
+    <section ref={ref} className="bg-muted section-padding">
       <div className="max-w-2xl mx-auto text-center">
         <p className="fade-up label-uppercase text-amber mb-4">FERRAMENTA GRATUITA</p>
         <h2 className="fade-up font-serif text-3xl md:text-4xl text-foreground mb-6">
