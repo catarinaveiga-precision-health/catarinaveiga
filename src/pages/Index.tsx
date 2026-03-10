@@ -48,7 +48,7 @@ const AnalysisToolSection = () => {
           </Button>
         </div>
         <p className="fade-up mt-4">
-          <Link to="/ferritina-baixa-sintomas" className="text-muted-custom font-sans text-sm hover:text-amber transition-colors underline underline-offset-4 decoration-bone hover:decoration-amber">
+          <Link to="/ferritina-baixa-sintomas" className="text-muted-foreground font-sans text-sm hover:text-amber transition-colors underline underline-offset-4 decoration-border hover:decoration-amber">
             Ferritina baixa com exames normais — o que significa?
           </Link>
         </p>
