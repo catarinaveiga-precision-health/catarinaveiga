@@ -9,7 +9,7 @@ const Hero = () => {
   const { t } = useLanguage();
 
   return (
-    <section ref={ref} className="bg-ivory pt-32 pb-20 md:pt-40 md:pb-28 px-6">
+    <section ref={ref} className="bg-background pt-32 pb-20 md:pt-40 md:pb-28 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         <div className="fade-up text-center md:text-left">
           <h1 className="font-serif font-light text-4xl md:text-6xl lg:text-7xl leading-[1.2] text-foreground mb-8">

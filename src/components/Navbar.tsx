@@ -49,8 +49,8 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-ivory ${
-        scrolled ? "border-b border-bone shadow-sm" : ""
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background ${
+        scrolled ? "border-b border-border" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
@@ -107,7 +107,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-ivory border-t border-bone px-6 py-6 space-y-4">
+        <div className="lg:hidden bg-background border-t border-border px-6 py-6 space-y-4">
           {navLinks.map((link) => (
             <a
               key={link.href}
