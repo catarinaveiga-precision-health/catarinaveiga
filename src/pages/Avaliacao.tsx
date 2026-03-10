@@ -781,7 +781,7 @@ const Avaliacao = () => {
                   <ArrowLeft className="w-4 h-4 mr-2" /> Anterior
                 </Button>
               ) : <div />}
-              <Button variant="hero" onClick={goNext}>
+              <Button variant="eclipse" onClick={goNext}>
                 Continuar <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
