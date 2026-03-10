@@ -57,6 +57,9 @@ export default {
         "dark-footer": "hsl(var(--dark-footer))",
         amber: "hsl(var(--amber))",
         "amber-light": "hsl(var(--amber-light))",
+        matcha: "hsl(var(--matcha))",
+        eclipse: "hsl(var(--eclipse))",
+        almond: "hsl(var(--almond))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
