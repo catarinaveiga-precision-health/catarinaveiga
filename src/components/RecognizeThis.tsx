@@ -11,14 +11,14 @@ const RecognizeThis = () => {
   const ref = useFadeUp();
 
   return (
-    <section ref={ref} className="bg-bone section-padding">
+    <section ref={ref} className="bg-muted section-padding">
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-10">
           Reconheces isto?
         </h2>
         <ul className="fade-up space-y-4 text-left max-w-md mx-auto mb-10">
           {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 font-sans font-light text-foreground">
+            <li key={i} className="flex items-start gap-3 font-sans text-foreground">
               <span className="text-amber mt-1.5 text-xs">●</span>
               <span>{item}</span>
             </li>

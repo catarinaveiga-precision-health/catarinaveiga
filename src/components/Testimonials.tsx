@@ -21,18 +21,18 @@ const Testimonials = () => {
   ];
 
   return (
-    <section ref={ref} className="bg-ivory section-padding">
+    <section ref={ref} className="bg-background section-padding">
       <div className="max-w-6xl mx-auto">
         <p className="fade-up label-uppercase text-amber mb-4">{t("testimonials.label")}</p>
         <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-12">{t("testimonials.title")}</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {testimonials.map((te, i) => (
-            <div key={i} className="fade-up border border-bone p-8 bg-ivory">
+            <div key={i} className="fade-up border border-border p-8">
               <Stars />
               <blockquote className="font-serif italic text-lg md:text-xl text-foreground leading-relaxed mb-6">
                 &ldquo;{te.quote}&rdquo;
               </blockquote>
-              <p className="label-uppercase text-muted-custom text-xs">
+              <p className="label-uppercase text-muted-foreground text-xs">
                 &mdash; {te.name}, {te.city}
               </p>
             </div>

@@ -7,14 +7,14 @@ const Contact = () => {
   const { t } = useLanguage();
 
   return (
-    <section ref={ref} id="contacto" className="bg-ivory section-padding">
+    <section ref={ref} id="contacto" className="bg-background section-padding">
       <div className="max-w-6xl mx-auto">
         <p className="fade-up label-uppercase text-amber mb-4">{t("contact.label")}</p>
         <h2 className="fade-up font-serif text-4xl md:text-5xl text-foreground mb-4">{t("contact.title")}</h2>
-        <p className="fade-up text-muted-custom mb-12 max-w-2xl">{t("contact.desc")}</p>
+        <p className="fade-up text-muted-foreground mb-12 max-w-2xl">{t("contact.desc")}</p>
         <div className="grid md:grid-cols-2 gap-12">
           <div className="fade-up">
-            <iframe src="https://tally.so/r/ZjNMvy" width="100%" height="500" frameBorder={0} title="Contact form" className="border border-bone" />
+            <iframe src="https://tally.so/r/ZjNMvy" width="100%" height="500" frameBorder={0} title="Contact form" className="border border-border" />
           </div>
           <div className="fade-up space-y-6">
             <div className="flex items-start gap-4">
