@@ -452,21 +452,21 @@ const Avaliacao = () => {
 
           {/* Step 1: Profile */}
           {step === 1 && (
-            <div className="space-y-6">
-              <h2 className="font-serif text-2xl text-foreground">Perfil básico</h2>
-              <div className="space-y-4">
+            <div className="space-y-8">
+              <h2 className="font-serif text-3xl text-foreground">Perfil básico</h2>
+              <div className="space-y-6">
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-2 block">Sexo biológico</label>
-                  <div className="flex gap-3">
+                  <label className="text-sm font-sans text-muted-foreground mb-3 block">Sexo biológico</label>
+                  <div className="grid grid-cols-2 gap-3 max-w-xs">
                     {["Feminino", "Masculino"].map((s) => (
                       <button
                         key={s}
                         type="button"
                         onClick={() => setForm((prev) => ({ ...prev, sexo: s }))}
-                        className={`px-6 py-2 rounded-full text-sm font-sans transition-all border ${
+                        className={`h-[52px] px-6 rounded text-sm font-sans transition-all border text-center ${
                           form.sexo === s
-                            ? "bg-amber text-primary-foreground border-amber"
-                            : "bg-background text-foreground border-bone hover:border-amber/50"
+                            ? "bg-eclipse text-white border-eclipse"
+                            : "bg-transparent text-foreground border-matcha/40 hover:border-matcha"
                         }`}
                       >
                         {s}
@@ -475,7 +475,7 @@ const Avaliacao = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-sans text-foreground mb-1 block">Idade (opcional)</label>
+                  <label className="text-sm font-sans text-muted-foreground mb-1 block">Idade (opcional)</label>
                   <Input
                     type="number"
                     min={18}
@@ -483,7 +483,7 @@ const Avaliacao = () => {
                     value={form.idade}
                     onChange={(e) => setForm((prev) => ({ ...prev, idade: e.target.value }))}
                     placeholder="Ex: 38"
-                    className="bg-bone border-bone focus:border-amber max-w-[120px]"
+                    className="bg-transparent border-matcha/40 focus:border-matcha max-w-[120px]"
                   />
                 </div>
               </div>
