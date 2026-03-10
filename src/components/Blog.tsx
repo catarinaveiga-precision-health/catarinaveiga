@@ -11,12 +11,14 @@ const Blog = () => {
 
   const displayPosts = posts?.slice(0, 3) ?? [];
 
-  const formatDate = (dateStr: string) =>
-    new Date(dateStr).toLocaleDateString(lang === "pt" ? "pt-PT" : "en-GB", {
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return "";
+    return new Date(dateStr).toLocaleDateString(lang === "pt" ? "pt-PT" : "en-GB", {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
+  };
 
   return (
     <section ref={ref} id="blog" className="section-padding bg-muted">
