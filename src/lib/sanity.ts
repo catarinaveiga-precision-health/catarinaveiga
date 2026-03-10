@@ -4,15 +4,16 @@ export interface SanityPost {
   _id: string;
   title: string;
   slug: { current: string };
-  publishedAt: string;
+  publishedAt: string | null;
   category?: string;
   tags?: string[];
   mainImage?: {
     asset: { url: string };
     alt?: string;
   };
-  excerpt?: string;
+  excerpt?: string | null;
   body?: any[];
+  author?: { name: string };
 }
 
 export const sanityQuery = async <T = any>(
