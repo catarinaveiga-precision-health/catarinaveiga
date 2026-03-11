@@ -193,9 +193,16 @@ const BlogPage = () => {
                             </span>
                           </div>
                           <div className="flex items-end justify-between gap-4">
-                            <h3 className="text-white text-lg md:text-xl font-serif leading-snug flex-1">
-                              {post.title}
-                            </h3>
+                            <div className="flex-1">
+                              <h3 className="text-white text-lg md:text-xl font-serif leading-snug">
+                                {post.title}
+                              </h3>
+                              {post.excerpt && (
+                                <p className="text-white/60 text-xs md:text-sm font-sans font-light mt-1.5 line-clamp-2">
+                                  {post.excerpt}
+                                </p>
+                              )}
+                            </div>
                             <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shrink-0 group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
                               <ArrowUpRight className="w-4 h-4" />
                             </div>
