@@ -4,6 +4,9 @@ export function useFadeUp() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const container = ref.current;
+    if (!container) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -15,10 +18,21 @@ export function useFadeUp() {
       { threshold: 0.1 }
     );
 
-    const elements = ref.current?.querySelectorAll(".fade-up");
-    elements?.forEach((el) => observer.observe(el));
+    const observe = () => {
+      const elements = container.querySelectorAll(".fade-up:not(.visible)");
+      elements.forEach((el) => observer.observe(el));
+    };
 
-    return () => observer.disconnect();
+    observe();
+
+    // Re-observe when new children are added (e.g. async data)
+    const mutation = new MutationObserver(observe);
+    mutation.observe(container, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutation.disconnect();
+    };
   }, []);
 
   return ref;
