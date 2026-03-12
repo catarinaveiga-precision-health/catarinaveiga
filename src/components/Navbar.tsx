@@ -119,14 +119,6 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <Button
-            variant="hero"
-            size="sm"
-            className="w-full mt-4"
-            onClick={() => { openAcuity(); setMobileOpen(false); }}
-          >
-            {t("nav.cta")}
-          </Button>
         </div>
       )}
     </nav>
