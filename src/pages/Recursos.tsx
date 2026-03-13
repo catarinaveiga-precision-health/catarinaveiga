@@ -48,16 +48,16 @@ const ResourceCard = ({ title, description, href }: { title: string; description
     <div ref={ref} className="fade-up">
       <Link
         to={href}
-        className="block border border-bone rounded-lg p-8 bg-ivory hover:border-amber/40 transition-colors group"
+        className="block border border-[#E8E2D9] rounded-[2px] p-10 bg-white hover:border-[#D6BD98]/60 transition-colors group"
       >
-        <h3 className="font-serif text-xl text-foreground mb-3 group-hover:text-amber transition-colors">
+        <h3 className="font-serif text-[20px] font-medium text-foreground mb-3 group-hover:text-amber transition-colors leading-snug">
           {title}
         </h3>
-        <p className="text-muted-foreground font-sans text-sm leading-relaxed mb-4">
+        <p className="text-[#6B6560] font-sans text-[13px] leading-[1.6] mb-5">
           {description}
         </p>
-        <span className="inline-flex items-center gap-1 text-amber font-sans text-sm">
-          Ler mais <ArrowRight size={14} />
+        <span className="font-sans text-[11px] tracking-[0.1em] uppercase text-[#8C6E50]">
+          Ler mais
         </span>
       </Link>
     </div>
