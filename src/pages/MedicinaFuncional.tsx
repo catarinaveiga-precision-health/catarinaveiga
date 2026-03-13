@@ -178,7 +178,7 @@ const MedicinaFuncional = () => {
 
       <SEOCTA
         title="Por onde começar"
-        subtitle="Muitas mulheres chegam aqui depois de anos a ouvir que "está tudo normal". A avaliação funcional serve exactamente para investigar esses casos — com os biomarcadores certos, os intervalos certos, e o contexto clínico que falta."
+        subtitle={"Muitas mulheres chegam aqui depois de anos a ouvir que \"está tudo normal\". A avaliação funcional serve exactamente para investigar esses casos — com os biomarcadores certos, os intervalos certos, e o contexto clínico que falta."}
         buttonText="Faz a tua avaliação funcional inicial"
         buttonTo="/avaliacao"
         note=""
