@@ -6,7 +6,7 @@ import AcuityModal from "@/components/AcuityModal";
 import { useAcuityModal } from "@/hooks/useAcuityModal";
 import { useFadeUp } from "@/hooks/useFadeUp";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { Helmet } from "react-helmet-async";
 
 const resources = [
