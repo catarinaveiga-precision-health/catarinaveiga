@@ -58,14 +58,12 @@ const Navbar = () => {
         {/* Logo */}
         <a href="#" className="flex items-center gap-3">
           <img src={logoIcon} alt="Catarina Veiga" className="h-9 w-9" />
-          <div className="flex flex-col">
-            <span className="font-serif text-xl text-foreground leading-tight">
-              Catarina Veiga
-            </span>
-            <span className="label-uppercase text-muted-custom text-[10px]">
-              {t("nav.subtitle")}
-            </span>
-          </div>
+          <span className="font-serif text-xl text-foreground leading-tight">
+            Catarina Veiga
+          </span>
+          <span className="label-uppercase text-muted-custom text-[10px] hidden xl:inline">
+            {t("nav.subtitle")}
+          </span>
         </a>
 
         {/* Desktop links */}

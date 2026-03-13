@@ -47,9 +47,9 @@ const ResourceCard = ({ title, description, href }: { title: string; description
     <div ref={ref} className="fade-up">
       <Link
         to={href}
-        className="block border border-[#E8E2D9] rounded-[2px] p-10 bg-white hover:border-[#D6BD98]/60 transition-colors group"
+        className="block border border-[#E8E2D9] rounded-none p-10 bg-white transition-colors group"
       >
-        <h3 className="font-serif text-[20px] font-medium text-foreground mb-3 group-hover:text-amber transition-colors leading-snug">
+        <h3 className="font-serif text-[20px] font-medium text-[#1F1A14] mb-3 leading-snug">
           {title}
         </h3>
         <p className="text-[#6B6560] font-sans text-[13px] leading-[1.6] mb-5">
@@ -93,7 +93,7 @@ const Recursos = () => {
 
         {/* Cards */}
         <section className="bg-[#F5F2ED] section-padding">
-          <div className="max-w-4xl mx-auto grid gap-6 grid-cols-1 md:grid-cols-2">
+          <div className="max-w-4xl mx-auto grid gap-6 grid-cols-1 md:grid-cols-2 md:gap-y-6">
             {resources.map((r) => (
               <ResourceCard key={r.href} {...r} />
             ))}
