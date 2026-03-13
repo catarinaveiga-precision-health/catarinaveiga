@@ -88,6 +88,8 @@ const BlogArticle = () => {
   const { data: allPosts } = useSanityPosts();
   const [email, setEmail] = useState("");
   const [subscribing, setSubscribing] = useState(false);
+  const faqItems = useMemo(() => extractFaqFromBody(post?.body), [post?.body]);
+  const faqJsonLd = useMemo(() => buildFaqJsonLd(faqItems), [faqItems]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -157,9 +159,6 @@ const BlogArticle = () => {
   });
 
   const relatedPosts = allPosts?.filter((p) => p.slug.current !== post.slug.current).slice(0, 3) ?? [];
-
-  const faqItems = useMemo(() => extractFaqFromBody(post?.body), [post?.body]);
-  const faqJsonLd = useMemo(() => buildFaqJsonLd(faqItems), [faqItems]);
 
   return (
     <div className="min-h-screen bg-ivory">
