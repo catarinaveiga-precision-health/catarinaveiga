@@ -11,29 +11,34 @@ import { Helmet } from "react-helmet-async";
 
 const resources = [
   {
-    title: "Ferritina baixa: sintomas e interpretação funcional",
-    description: "Descobre a diferença entre valores laboratoriais e funcionais de ferritina.",
+    title: "Ferritina Baixa: sintomas e o que os exames não mostram",
+    description: "Descobre a diferença entre valores laboratoriais e funcionais de ferritina — e porque podes ter sintomas mesmo com resultados 'normais'.",
     href: "/ferritina-baixa-sintomas",
   },
   {
-    title: "Vitamina D: valores funcionais e sintomas",
-    description: "Percebe porque o valor 'normal' pode ainda assim ser insuficiente.",
+    title: "TSH Normal Mas Com Sintomas: o que pode estar a acontecer",
+    description: "O intervalo laboratorial aceita TSH até 4.5. A medicina funcional começa a investigar a partir de 2.0.",
+    href: "/tsh-normal-mas-com-sintomas",
+  },
+  {
+    title: "Vitamina D: porque o intervalo normal pode não ser suficiente",
+    description: "Percebe porque o valor 'normal' pode ainda assim ser insuficiente para a tua saúde e energia.",
     href: "/vitamina-d-valores-funcionais",
   },
   {
-    title: "Insulina em jejum: o marcador que aparece antes do diagnóstico",
-    description: "Glicose normal com insulina elevada — o que significa e porque importa.",
+    title: "Insulina em Jejum: o marcador que aparece antes da diabetes",
+    description: "Glicose normal com insulina elevada — o que significa e porque importa investigar cedo.",
     href: "/insulina-jejum-o-que-significa",
   },
   {
-    title: "Fadiga com exames normais — o que investigar",
+    title: "Fadiga Com Exames Normais: causas funcionais",
     description: "Os 6 padrões biomarcadores mais frequentes em mulheres com cansaço inexplicado.",
     href: "/fadiga-exames-normais",
   },
   {
-    title: "TSH normal mas com sintomas — o que investigar",
-    description: "O intervalo laboratorial aceita TSH até 4.5. A medicina funcional começa a investigar a partir de 2.0.",
-    href: "/tsh-normal-mas-com-sintomas",
+    title: "O Que É a Medicina Funcional Integrativa",
+    description: "Uma abordagem personalizada à saúde que investiga causas — não apenas sintomas.",
+    href: "/medicina-funcional",
   },
 ];
 
