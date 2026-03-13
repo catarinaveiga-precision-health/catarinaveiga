@@ -81,6 +81,7 @@ const FAQSection = () => {
 };
 
 const MedicinaFuncional = () => {
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
