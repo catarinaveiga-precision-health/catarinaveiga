@@ -21,6 +21,7 @@ import VitaminaD from "./pages/VitaminaD";
 import InsulinaJejum from "./pages/InsulinaJejum";
 import FadigaExamesNormais from "./pages/FadigaExamesNormais";
 import TshNormal from "./pages/TshNormal";
+import MedicinaFuncional from "./pages/MedicinaFuncional";
 import { HelmetProvider } from "react-helmet-async";
 import SEOCanonical from "./components/SEOCanonical";
 

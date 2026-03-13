@@ -34,6 +34,7 @@ const Navbar = () => {
   const navLinks: { label: string; href: string; external?: boolean }[] = [
     { label: "Início", href: "/" },
     { label: "Método", href: "/metodo" },
+    { label: "Medicina Funcional", href: "/medicina-funcional" },
     { label: t("nav.programa3m"), href: "/programa-fundacao" },
     { label: "Avaliação", href: "/avaliacao" },
     { label: "Recursos", href: "/recursos" },
