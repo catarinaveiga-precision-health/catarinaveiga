@@ -19,6 +19,10 @@ export function useFadeUp() {
     );
 
     const observe = () => {
+      // Observe the container itself if it has .fade-up
+      if (container.classList.contains("fade-up") && !container.classList.contains("visible")) {
+        observer.observe(container);
+      }
       const elements = container.querySelectorAll(".fade-up:not(.visible)");
       elements.forEach((el) => observer.observe(el));
     };
