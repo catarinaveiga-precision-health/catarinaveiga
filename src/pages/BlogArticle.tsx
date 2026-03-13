@@ -5,12 +5,14 @@ import LegalBand from "@/components/LegalBand";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSanityPost, useSanityPosts } from "@/hooks/useSanityPosts";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextComponents } from "@portabletext/react";
+import { Helmet } from "react-helmet-async";
+import { extractFaqFromBody, buildFaqJsonLd } from "@/lib/extractFaqFromBody";
 
 const portableTextComponents: PortableTextComponents = {
   block: {
