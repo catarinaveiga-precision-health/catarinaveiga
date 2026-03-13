@@ -114,7 +114,7 @@ const MedicinaFuncional = () => {
       <SEOHero
         label="Medicina Funcional Integrativa"
         title="Medicina Funcional: o que é e quando pode ajudar"
-        intro="A medicina funcional é uma abordagem clínica que investiga as causas raiz de sintomas persistentes — especialmente quando os exames parecem "normais". Em vez de perguntar "qual é o diagnóstico?", pergunta "porque é que este corpo específico está a funcionar assim?""
+        intro={"A medicina funcional é uma abordagem clínica que investiga as causas raiz de sintomas persistentes — especialmente quando os exames parecem \"normais\". Em vez de perguntar \"qual é o diagnóstico?\", pergunta \"porque é que este corpo específico está a funcionar assim?\""}
         breadcrumb={[
           { label: "Início", to: "/" },
           { label: "Recursos", to: "/recursos" },
