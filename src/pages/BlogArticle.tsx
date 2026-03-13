@@ -158,9 +158,18 @@ const BlogArticle = () => {
 
   const relatedPosts = allPosts?.filter((p) => p.slug.current !== post.slug.current).slice(0, 3) ?? [];
 
+  const faqItems = useMemo(() => extractFaqFromBody(post?.body), [post?.body]);
+  const faqJsonLd = useMemo(() => buildFaqJsonLd(faqItems), [faqItems]);
+
   return (
     <div className="min-h-screen bg-ivory">
       <Navbar />
+
+      {faqJsonLd && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+        </Helmet>
+      )}
 
       {/* Hero image */}
       {coverUrl && (
