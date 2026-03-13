@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AvisoLegal from "./pages/AvisoLegal";
@@ -52,6 +52,7 @@ const App = () => (
             <Route path="/insulina-jejum-o-que-significa" element={<InsulinaJejum />} />
             <Route path="/fadiga-exames-normais" element={<FadigaExamesNormais />} />
             <Route path="/tsh-normal-mas-com-sintomas" element={<TshNormal />} />
+            <Route path="/10-formas-de-estimular-o-nervo-vago-e-reequilibrar-o-sistema-nervoso" element={<Navigate to="/blog/nervo-vago-como-ativar-mulher" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
