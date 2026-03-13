@@ -53,6 +53,8 @@ const App = () => (
             <Route path="/insulina-jejum-o-que-significa" element={<InsulinaJejum />} />
             <Route path="/fadiga-exames-normais" element={<FadigaExamesNormais />} />
             <Route path="/tsh-normal-mas-com-sintomas" element={<TshNormal />} />
+            <Route path="/medicina-funcional" element={<MedicinaFuncional />} />
+            <Route path="/especialidades/medicina-funcional/" element={<Navigate to="/medicina-funcional" replace />} />
             <Route path="/10-formas-de-estimular-o-nervo-vago-e-reequilibrar-o-sistema-nervoso" element={<Navigate to="/blog/nervo-vago-como-ativar-mulher" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
