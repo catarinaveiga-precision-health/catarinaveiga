@@ -59,17 +59,15 @@ const Hero = () => {
 
         {/* Mobile CTA - after image */}
         <div className="fade-up flex flex-col items-center gap-3 order-3 md:hidden">
-          <Button variant="heroAccent" size="lg" className="rounded-[4px] max-w-[280px] w-full" asChild>
-            <a href="/avaliacao">Começar avaliação funcional</a>
+          <p className="text-muted-foreground text-sm font-sans leading-relaxed text-center max-w-xs">
+            A maioria das pessoas com fadiga tem exames "normais". Mas biomarcadores fora dos intervalos funcionais.
+          </p>
+          <Button variant="heroAccent" size="lg" className="rounded-[4px] max-w-[380px] w-full" asChild>
+            <a href="#avaliacao-funcional">Descobre o que os teus exames não estão a mostrar</a>
           </Button>
-          <a
-            href="https://catarinaveigaagendamento.as.me/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground text-xs font-sans tracking-wide hover:text-foreground transition-colors"
-          >
-            Ou marcar consulta — €120
-          </a>
+          <p className="text-muted-foreground/60 text-xs font-sans tracking-wide">
+            Gratuito · 2 minutos · sem consulta
+          </p>
         </div>
       </div>
     </section>
