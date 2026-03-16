@@ -25,17 +25,15 @@ const Hero = () => {
           <div className="hidden md:block w-[60px] h-[2px] bg-amber mb-10" />
           {/* CTA - desktop only (mobile CTA is after image) */}
           <div className="hidden md:flex flex-col items-start gap-3 mb-10">
-            <Button variant="heroAccent" size="lg" className="rounded-[4px] max-w-[280px] w-full" asChild>
-              <a href="/avaliacao">Começar avaliação funcional</a>
+            <p className="text-muted-foreground text-sm font-sans leading-relaxed max-w-md">
+              A maioria das pessoas com fadiga tem exames "normais". Mas biomarcadores fora dos intervalos funcionais.
+            </p>
+            <Button variant="heroAccent" size="lg" className="rounded-[4px] max-w-[380px] w-full" asChild>
+              <a href="#avaliacao-funcional">Descobre o que os teus exames não estão a mostrar</a>
             </Button>
-            <a
-              href="https://catarinaveigaagendamento.as.me/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground text-xs font-sans tracking-wide hover:text-foreground transition-colors"
-            >
-              Ou marcar consulta — €120
-            </a>
+            <p className="text-muted-foreground/60 text-xs font-sans tracking-wide">
+              Gratuito · 2 minutos · sem consulta
+            </p>
           </div>
           <div className="hidden md:flex items-center gap-0 text-muted-custom text-sm font-sans">
             <span className="font-serif text-2xl text-foreground">{t("hero.stat1num")}</span>
