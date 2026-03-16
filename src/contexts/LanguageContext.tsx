@@ -19,13 +19,19 @@ export const useLanguage = () => {
 const translations: Record<string, Record<Language, string>> = {
   // Navbar
   "nav.abordagem": { pt: "Abordagem", en: "Approach" },
-  "nav.servicos": { pt: "Servi\u00e7os", en: "Services" },
+  "nav.servicos": { pt: "Serviços", en: "Services" },
   "nav.programa3m": { pt: "Programa Fundação", en: "Foundation Program" },
   "nav.equipa": { pt: "Equipa", en: "Team" },
   "nav.blog": { pt: "Blog", en: "Blog" },
   "nav.contacto": { pt: "Contacto", en: "Contact" },
-  "nav.subtitle": { pt: "Medicina Funcional \u00b7 Integrativa", en: "Functional \u00b7 Integrative Medicine" },
-  "nav.cta": { pt: "Agendar consulta inicial", en: "Book initial consultation" },
+  "nav.subtitle": { pt: "Medicina Funcional · Integrativa", en: "Functional · Integrative Medicine" },
+  "nav.cta": { pt: "Agendar Consulta", en: "Book Consultation" },
+  "nav.home": { pt: "Início", en: "Home" },
+  "nav.funcional": { pt: "Medicina Funcional", en: "Functional Medicine" },
+  "nav.programa": { pt: "Programa", en: "Program" },
+  "nav.biblioteca": { pt: "Biblioteca", en: "Library" },
+  "nav.sobre": { pt: "Sobre", en: "About" },
+  "nav.avaliacao": { pt: "Interpretar Análises", en: "Interpret Your Lab Results" },
 
   // Hero
   "hero.label": { pt: "Online \u00b7 Consultas em Portugu\u00eas e Ingl\u00eas", en: "Online \u00b7 Consultations in Portuguese and English" },

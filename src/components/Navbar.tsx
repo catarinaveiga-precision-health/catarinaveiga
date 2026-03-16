@@ -4,21 +4,22 @@ import { Menu, X } from "lucide-react";
 import { openAcuity } from "@/hooks/useAcuityModal";
 import logoIcon from "@/assets/logo-icon.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { NavLink } from "@/components/NavLink";
 
 const LanguageToggle = () => {
   const { lang, setLang } = useLanguage();
   return (
-    <div className="flex items-center gap-0 font-sans text-xs uppercase tracking-wider">
+    <div className="flex items-center gap-0 font-sans text-[10px] uppercase tracking-wider text-muted-foreground">
       <button
         onClick={() => setLang("pt")}
-        className={`px-1 transition-colors ${lang === "pt" ? "text-amber font-medium" : "text-muted-custom hover:text-foreground"}`}
+        className={`px-1 transition-colors ${lang === "pt" ? "text-accent font-medium" : "hover:text-foreground"}`}
       >
         PT
       </button>
-      <span className="text-muted-custom">|</span>
+      <span className="opacity-40">|</span>
       <button
         onClick={() => setLang("en")}
-        className={`px-1 transition-colors ${lang === "en" ? "text-amber font-medium" : "text-muted-custom hover:text-foreground"}`}
+        className={`px-1 transition-colors ${lang === "en" ? "text-accent font-medium" : "hover:text-foreground"}`}
       >
         EN
       </button>
@@ -31,15 +32,13 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t } = useLanguage();
 
-  const navLinks: { label: string; href: string; external?: boolean }[] = [
-    { label: "Início", href: "/" },
-    { label: "Método", href: "/metodo" },
-    { label: "Medicina Funcional", href: "/medicina-funcional" },
-    { label: t("nav.programa3m"), href: "/programa-fundacao" },
-    { label: "Avaliação", href: "/avaliacao" },
-    { label: "Recursos", href: "/recursos" },
-    { label: "Sobre", href: "/sobre" },
-    { label: t("nav.blog"), href: "/blog" },
+  const navLinks = [
+    { label: t("nav.home"), href: "/" },
+    { label: t("nav.funcional"), href: "/medicina-funcional" },
+    { label: t("nav.programa"), href: "/programa-fundacao" },
+    { label: t("nav.biblioteca"), href: "/recursos" },
+    { label: t("nav.sobre"), href: "/sobre" },
+    { label: t("nav.avaliacao"), href: "/avaliacao" },
   ];
 
   useEffect(() => {
@@ -47,6 +46,16 @@ const Navbar = () => {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
 
   return (
     <nav
@@ -56,37 +65,36 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-3">
+        <NavLink to="/" className="flex items-center gap-3 shrink-0">
           <img src={logoIcon} alt="Catarina Veiga" className="h-9 w-9" />
           <span className="font-serif text-xl text-foreground leading-tight">
             Catarina Veiga
           </span>
-          <span className="label-uppercase text-muted-custom text-[10px] hidden xl:inline">
-            {t("nav.subtitle")}
-          </span>
-        </a>
+        </NavLink>
 
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-8">
+        {/* Desktop links — centered */}
+        <div className="hidden lg:flex items-center justify-center gap-10 flex-1">
           {navLinks.map((link) => (
-            <a
+            <NavLink
               key={link.href}
-              href={link.href}
-              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="font-sans font-normal text-[11px] tracking-[0.12em] uppercase text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+              to={link.href}
+              className="relative font-sans font-normal text-[11px] tracking-[0.14em] uppercase text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap after:absolute after:left-0 after:bottom-[-2px] after:h-[1px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+              activeClassName="text-foreground after:w-full"
+              end={link.href === "/"}
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </div>
 
         {/* Desktop CTA + Language Toggle */}
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-5 shrink-0">
           <LanguageToggle />
           <Button
             variant="hero"
             size="sm"
             onClick={openAcuity}
+            className="text-[11px] tracking-[0.08em] uppercase"
           >
             {t("nav.cta")}
           </Button>
@@ -98,6 +106,7 @@ const Navbar = () => {
           <button
             className="text-foreground"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -106,18 +115,28 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-background border-t border-border px-6 py-6 space-y-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="block font-sans font-normal text-[15px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="lg:hidden fixed inset-0 top-20 bg-background z-40 flex flex-col px-8 pt-10 pb-8">
+          <div className="flex flex-col gap-6 flex-1">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.href}
+                to={link.href}
+                className="font-serif text-2xl text-muted-foreground hover:text-foreground transition-colors"
+                activeClassName="text-foreground"
+                onClick={() => setMobileOpen(false)}
+                end={link.href === "/"}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
+          <Button
+            variant="hero"
+            className="w-full mt-6"
+            onClick={() => { setMobileOpen(false); openAcuity(); }}
+          >
+            {t("nav.cta")}
+          </Button>
         </div>
       )}
     </nav>
