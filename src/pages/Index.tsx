@@ -33,14 +33,14 @@ import { useAcuityModal } from "@/hooks/useAcuityModal";
 const AnalysisToolSection = () => {
   const ref = useFadeUp();
   return (
-    <section ref={ref} className="bg-muted section-padding">
+    <section id="avaliacao-funcional" ref={ref} className="bg-muted section-padding scroll-mt-24">
       <div className="max-w-2xl mx-auto text-center">
         <p className="fade-up label-uppercase text-amber mb-4">FERRAMENTA GRATUITA</p>
         <h2 className="fade-up font-serif text-3xl md:text-4xl text-foreground mb-6">
           Os teus exames estão normais.<br />Mas podem não estar ideais.
         </h2>
         <p className="fade-up text-muted-foreground mb-8">
-          Introduz os valores das tuas análises e recebe uma leitura funcional dos principais sistemas do corpo. Gratuito. Demora 2 minutos.
+          Introduz os valores dos teus exames e recebe uma interpretação funcional imediata de mais de 15 biomarcadores.
         </p>
         <div className="fade-up">
           <Button variant="heroAccent" size="lg" asChild>
