@@ -55,7 +55,10 @@ const App = () => (
             <Route path="/tsh-normal-mas-com-sintomas" element={<TshNormal />} />
             <Route path="/medicina-funcional" element={<MedicinaFuncional />} />
             <Route path="/especialidades/medicina-funcional/" element={<Navigate to="/medicina-funcional" replace />} />
+            <Route path="/especialidades/" element={<Navigate to="/medicina-funcional" replace />} />
             <Route path="/10-formas-de-estimular-o-nervo-vago-e-reequilibrar-o-sistema-nervoso" element={<Navigate to="/blog/nervo-vago-como-ativar-mulher" replace />} />
+            <Route path="/adeus-obstipacao-dicas-naturais-para-um-intestino-feliz/" element={<Navigate to="/blog/intestino-preso-causas-hormonais-mulher" replace />} />
+            <Route path="/nsdr-descanso-profundo-sem-dormir-para-melhorar-saude-e-produtividade/" element={<Navigate to="/blog/nervo-vago-como-ativar-mulher" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
