@@ -57,7 +57,7 @@ const App = () => (
             <Route path="/medicina-funcional" element={<MedicinaFuncional />} />
             <Route path="/especialidades/medicina-funcional/" element={<Navigate to="/medicina-funcional" replace />} />
             <Route path="/especialidades/" element={<Navigate to="/medicina-funcional" replace />} />
-            <Route path="/vitamina-d" element={<Navigate to="/vitamina-d-valores-funcionais" replace />} />
+            
             <Route path="/insulina-jejum" element={<Navigate to="/insulina-jejum-o-que-significa" replace />} />
             <Route path="/10-formas-de-estimular-o-nervo-vago-e-reequilibrar-o-sistema-nervoso" element={<Navigate to="/blog/nervo-vago-como-ativar-mulher" replace />} />
             <Route path="/adeus-obstipacao-dicas-naturais-para-um-intestino-feliz/" element={<Navigate to="/blog/intestino-preso-causas-hormonais-mulher" replace />} />
