@@ -177,15 +177,33 @@ ${divider()}
   `);
 }
 
+function formatLabValuesText(labValues: Record<string, unknown> | undefined): string {
+  if (!labValues || typeof labValues !== 'object') return '—';
+  const labels: Record<string, string> = {
+    tsh: 'TSH', t3_livre: 'T3 Livre', t4_livre: 'T4 Livre',
+    ferritina: 'Ferritina', ferro_serico: 'Ferro Sérico', transferrina: 'Transferrina',
+    pcr: 'PCR', homocisteina: 'Homocisteína', vsg: 'VS',
+    vitamina_d: 'Vitamina D', vitamina_b12: 'Vitamina B12', acido_folico: 'Ácido Fólico',
+    cortisol: 'Cortisol (manhã)', dhea: 'DHEA-S', estradiol: 'Estradiol',
+  };
+  return Object.entries(labValues)
+    .filter(([, v]) => v && String(v).trim() !== '')
+    .map(([k, v]) => `${labels[k] || k}: ${v}`)
+    .join('\n') || '—';
+}
+
 function avaliacaoInternalText(data: Record<string, unknown>): string {
   const goals = Array.isArray(data.objetivos) ? data.objetivos.join(', ') : (data.objetivos || '—');
-  return `Nova avaliação funcional recebida.
+  return `Nova avaliação submetida.
 
 Nome: ${data.nome || '—'}
 Email: ${data.email || '—'}
 Idade: ${data.idade || '—'}
 Sexo: ${data.sexo || '—'}
-Objetivo: ${goals}
+Objetivos: ${goals}
+
+Valores laboratoriais:
+${formatLabValuesText(data.valores_laboratoriais as Record<string, unknown> | undefined)}
 
 Resumo: ${data.resultados ? JSON.stringify(data.resultados) : '—'}
 
