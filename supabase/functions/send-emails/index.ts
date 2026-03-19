@@ -314,8 +314,8 @@ Deno.serve(async (req) => {
           to: [leadEmail],
           reply_to: FROM_EMAIL,
           subject: 'Recebemos a tua leitura funcional',
-          html: avaliacaoLeadHtml(name),
-          text: avaliacaoLeadText(name),
+          html: avaliacaoLeadHtml(name, record.resultados),
+          text: avaliacaoLeadText(name, record.resultados),
           attachments: attachments.length > 0 ? attachments : undefined,
         });
         results.push({ email: leadEmail, ...r1 });
