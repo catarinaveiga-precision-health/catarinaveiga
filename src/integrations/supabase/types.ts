@@ -24,9 +24,13 @@ export type Database = {
           id: string
           idade: number | null
           nome: string
+          objetivos: string[] | null
           pais: string | null
+          resultados: Json | null
           rgpd_aceite: boolean
+          sexo: string | null
           sintomas: string[] | null
+          valores_laboratoriais: Json | null
         }
         Insert: {
           created_at?: string
@@ -37,9 +41,13 @@ export type Database = {
           id?: string
           idade?: number | null
           nome: string
+          objetivos?: string[] | null
           pais?: string | null
+          resultados?: Json | null
           rgpd_aceite?: boolean
+          sexo?: string | null
           sintomas?: string[] | null
+          valores_laboratoriais?: Json | null
         }
         Update: {
           created_at?: string
@@ -50,9 +58,13 @@ export type Database = {
           id?: string
           idade?: number | null
           nome?: string
+          objetivos?: string[] | null
           pais?: string | null
+          resultados?: Json | null
           rgpd_aceite?: boolean
+          sexo?: string | null
           sintomas?: string[] | null
+          valores_laboratoriais?: Json | null
         }
         Relationships: []
       }
