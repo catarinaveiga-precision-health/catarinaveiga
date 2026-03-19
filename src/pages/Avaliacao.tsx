@@ -289,7 +289,7 @@ const Avaliacao = () => {
     if (step === 6) {
       setSaving(true);
       const evalResults = evaluateResults(form.labValues);
-      const { error: dbError } = await supabase.from("leads_avaliacao").insert([{
+      const insertData = {
         nome: form.nome.trim(),
         email: form.email.trim(),
         idade: form.idade ? parseInt(form.idade) : null,
@@ -297,7 +297,23 @@ const Avaliacao = () => {
         objetivos: form.objetivos,
         valores_laboratoriais: JSON.parse(JSON.stringify(form.labValues)),
         resultados: JSON.parse(JSON.stringify(evalResults)),
-      }]);
+      };
+      const { error: dbError } = await supabase.from("leads_avaliacao").insert([insertData]);
+
+      // Also save to applications table as backup
+      await supabase.from("applications").insert([{
+        nome: insertData.nome,
+        email: insertData.email,
+        idade: insertData.idade,
+        sexo: insertData.sexo,
+        objetivos: insertData.objetivos,
+        valores_laboratoriais: insertData.valores_laboratoriais,
+        resultados: insertData.resultados,
+        rgpd_aceite: true,
+      }]).then(({ error }) => {
+        if (error) console.error('Applications backup insert error:', error);
+      });
+
       setSaving(false);
       if (dbError) {
         setError("Erro ao guardar. Tenta novamente.");
