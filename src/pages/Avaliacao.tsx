@@ -289,33 +289,47 @@ const Avaliacao = () => {
     if (step === 6) {
       setSaving(true);
       const evalResults = evaluateResults(form.labValues);
+      const localeCountryCode = typeof navigator !== "undefined" && navigator.language.includes("-")
+        ? navigator.language.split("-")[1]?.toUpperCase() ?? null
+        : null;
+
       const insertData = {
         nome: form.nome.trim(),
         email: form.email.trim(),
         idade: form.idade ? parseInt(form.idade) : null,
+        pais: localeCountryCode,
         sexo: form.sexo || null,
         objetivos: form.objetivos,
         valores_laboratoriais: JSON.parse(JSON.stringify(form.labValues)),
         resultados: JSON.parse(JSON.stringify(evalResults)),
       };
-      const { error: dbError } = await supabase.from("leads_avaliacao").insert([insertData]);
 
-      // Also save to applications table as backup
-      await supabase.from("applications").insert([{
-        nome: insertData.nome,
-        email: insertData.email,
-        idade: insertData.idade,
-        sexo: insertData.sexo,
-        objetivos: insertData.objetivos,
-        valores_laboratoriais: insertData.valores_laboratoriais,
-        resultados: insertData.resultados,
-        rgpd_aceite: true,
-      }]).then(({ error }) => {
-        if (error) console.error('Applications backup insert error:', error);
-      });
+      const [{ error: leadError }, { error: applicationsError }] = await Promise.all([
+        supabase.from("leads_avaliacao").insert([{
+          nome: insertData.nome,
+          email: insertData.email,
+          idade: insertData.idade,
+          sexo: insertData.sexo,
+          objetivos: insertData.objetivos,
+          valores_laboratoriais: insertData.valores_laboratoriais,
+          resultados: insertData.resultados,
+        }]),
+        supabase.from("applications").insert([{
+          nome: insertData.nome,
+          email: insertData.email,
+          idade: insertData.idade,
+          pais: insertData.pais,
+          sexo: insertData.sexo,
+          objetivos: insertData.objetivos,
+          valores_laboratoriais: insertData.valores_laboratoriais,
+          resultados: insertData.resultados,
+          rgpd_aceite: true,
+        }]),
+      ]);
 
       setSaving(false);
-      if (dbError) {
+      if (leadError || applicationsError) {
+        console.error("Avaliacao save error", { leadError, applicationsError });
         setError("Erro ao guardar. Tenta novamente.");
         return;
       }
