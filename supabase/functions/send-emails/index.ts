@@ -134,18 +134,40 @@ Catarina Veiga
 Medicina Funcional Integrativa`;
 }
 
+function formatLabValues(labValues: Record<string, unknown> | undefined): string {
+  if (!labValues || typeof labValues !== 'object') return '—';
+  const labels: Record<string, string> = {
+    tsh: 'TSH', t3_livre: 'T3 Livre', t4_livre: 'T4 Livre',
+    ferritina: 'Ferritina', ferro_serico: 'Ferro Sérico', transferrina: 'Transferrina',
+    pcr: 'PCR', homocisteina: 'Homocisteína', vsg: 'VS',
+    vitamina_d: 'Vitamina D', vitamina_b12: 'Vitamina B12', acido_folico: 'Ácido Fólico',
+    cortisol: 'Cortisol (manhã)', dhea: 'DHEA-S', estradiol: 'Estradiol',
+  };
+  const rows = Object.entries(labValues)
+    .filter(([, v]) => v && String(v).trim() !== '')
+    .map(([k, v]) => `<tr><td style="padding-right:12px;font-weight:400;">${labels[k] || k}:</td><td>${v}</td></tr>`)
+    .join('');
+  return rows || '—';
+}
+
 function avaliacaoInternalHtml(data: Record<string, unknown>): string {
   const goals = Array.isArray(data.objetivos) ? data.objetivos.join(', ') : (data.objetivos || '—');
   const resultSummary = data.resultados ? JSON.stringify(data.resultados, null, 2) : '—';
+  const labRows = formatLabValues(data.valores_laboratoriais as Record<string, unknown> | undefined);
   return emailWrapper(`
-${heading('🔔 Nova avaliação funcional submetida')}
+${heading('Nova avaliação submetida')}
 ${paragraph('Nova avaliação funcional recebida.')}
 <table style="font-family:'Jost',Arial,sans-serif;font-weight:300;font-size:14px;color:#3D3529;line-height:1.8;">
 <tr><td style="padding-right:12px;font-weight:400;">Nome:</td><td>${data.nome || '—'}</td></tr>
 <tr><td style="padding-right:12px;font-weight:400;">Email:</td><td>${data.email || '—'}</td></tr>
 <tr><td style="padding-right:12px;font-weight:400;">Idade:</td><td>${data.idade || '—'}</td></tr>
 <tr><td style="padding-right:12px;font-weight:400;">Sexo:</td><td>${data.sexo || '—'}</td></tr>
-<tr><td style="padding-right:12px;font-weight:400;">Objetivo:</td><td>${goals}</td></tr>
+<tr><td style="padding-right:12px;font-weight:400;">Objetivos:</td><td>${goals}</td></tr>
+</table>
+${divider()}
+${paragraph('<strong>Valores laboratoriais:</strong>')}
+<table style="font-family:'Jost',Arial,sans-serif;font-weight:300;font-size:14px;color:#3D3529;line-height:1.8;">
+${labRows}
 </table>
 ${divider()}
 ${paragraph('<strong>Resumo automático do sistema:</strong>')}
