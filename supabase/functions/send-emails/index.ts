@@ -289,7 +289,7 @@ Deno.serve(async (req) => {
       const r2 = await sendEmail({
         from: FROM_EMAIL,
         to: [INTERNAL_EMAIL],
-        subject: '🔔 Nova avaliação funcional submetida',
+        subject: 'Nova avaliação submetida',
         html: avaliacaoInternalHtml(record),
         text: avaliacaoInternalText(record),
       });
