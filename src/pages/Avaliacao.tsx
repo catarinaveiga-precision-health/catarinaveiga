@@ -327,6 +327,7 @@ const Avaliacao = () => {
             idade: form.idade ? parseInt(form.idade) : null,
             sexo: form.sexo || null,
             objetivos: form.objetivos,
+            valores_laboratoriais: form.labValues,
             resultados: evalResults,
             created_at: new Date().toISOString(),
           },
