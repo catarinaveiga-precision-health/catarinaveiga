@@ -150,9 +150,23 @@ function formatLabValues(labValues: Record<string, unknown> | undefined): string
   return rows || '—';
 }
 
+function formatResultsHtml(resultados: unknown): string {
+  if (!Array.isArray(resultados) || resultados.length === 0) return paragraph('Sem resultados.');
+  return resultados.map((r: { marker?: string; value?: string; note?: string }) =>
+    `<p style="font-family:'Jost',Arial,sans-serif;font-weight:400;font-size:14px;color:#1F1A14;margin:0 0 2px;"><strong>${r.marker || '—'}:</strong> ${r.value || '—'}</p>
+<p style="font-family:'Jost',Arial,sans-serif;font-weight:300;font-size:13px;color:#3D3529;margin:0 0 16px;">${r.note || ''}</p>`
+  ).join('');
+}
+
+function formatResultsText(resultados: unknown): string {
+  if (!Array.isArray(resultados) || resultados.length === 0) return 'Sem resultados.';
+  return resultados.map((r: { marker?: string; value?: string; note?: string }) =>
+    `${r.marker || '—'}: ${r.value || '—'}\n${r.note || ''}`
+  ).join('\n\n');
+}
+
 function avaliacaoInternalHtml(data: Record<string, unknown>): string {
   const goals = Array.isArray(data.objetivos) ? data.objetivos.join(', ') : (data.objetivos || '—');
-  const resultSummary = data.resultados ? JSON.stringify(data.resultados, null, 2) : '—';
   const labRows = formatLabValues(data.valores_laboratoriais as Record<string, unknown> | undefined);
   return emailWrapper(`
 ${heading('Nova avaliação submetida')}
@@ -170,8 +184,8 @@ ${paragraph('<strong>Valores laboratoriais:</strong>')}
 ${labRows}
 </table>
 ${divider()}
-${paragraph('<strong>Resumo automático do sistema:</strong>')}
-<pre style="font-family:monospace;font-size:12px;background:#F8F5F0;padding:16px;border-radius:6px;overflow-x:auto;white-space:pre-wrap;">${resultSummary}</pre>
+${paragraph('<strong>Resumo por marcador:</strong>')}
+${formatResultsHtml(data.resultados)}
 ${divider()}
 <p style="font-family:'Jost',Arial,sans-serif;font-weight:300;font-size:12px;color:#8C8279;">Data: ${data.created_at || new Date().toISOString()}</p>
   `);
