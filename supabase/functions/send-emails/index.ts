@@ -219,7 +219,8 @@ Objetivos: ${goals}
 Valores laboratoriais:
 ${formatLabValuesText(data.valores_laboratoriais as Record<string, unknown> | undefined)}
 
-Resumo: ${data.resultados ? JSON.stringify(data.resultados) : '—'}
+Resumo por marcador:
+${formatResultsText(data.resultados)}
 
 Data: ${data.created_at || new Date().toISOString()}`;
 }
