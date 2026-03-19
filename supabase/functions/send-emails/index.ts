@@ -114,7 +114,8 @@ ${signature()}
   `);
 }
 
-function avaliacaoLeadText(name: string): string {
+function avaliacaoLeadText(name: string, resultados?: unknown): string {
+  const resultsBlock = resultados ? `\n---\nResumo da tua leitura:\n${formatResultsText(resultados)}\n` : '';
   return `Olá ${name},
 
 Recebemos os dados da tua avaliação funcional de análises.
@@ -122,7 +123,7 @@ Recebemos os dados da tua avaliação funcional de análises.
 Os valores que introduziste foram analisados dentro de um modelo de medicina funcional, que procura identificar padrões fisiológicos entre biomarcadores — não apenas verificar se estão dentro dos valores laboratoriais de referência.
 
 Muitas pessoas descobrem que os seus exames estavam "normais", mas não necessariamente funcionais.
-
+${resultsBlock}
 Em alguns casos, estes padrões podem ajudar a explicar sintomas persistentes como fadiga, alterações hormonais, dificuldades digestivas ou stress fisiológico.
 
 Se quiseres uma leitura clínica completa — integrando sintomas, história clínica e exames — podes agendar uma consulta inicial aqui:
