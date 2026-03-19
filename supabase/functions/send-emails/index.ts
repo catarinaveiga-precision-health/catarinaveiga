@@ -98,13 +98,14 @@ function signature(): string {
 
 // ── AVALIAÇÃO EMAILS ──
 
-function avaliacaoLeadHtml(name: string): string {
+function avaliacaoLeadHtml(name: string, resultados?: unknown): string {
   return emailWrapper(`
 ${heading('Recebemos a tua leitura funcional')}
 ${paragraph(`Olá ${name},`)}
 ${paragraph('Recebemos os dados da tua avaliação funcional de análises.')}
 ${paragraph('Os valores que introduziste foram analisados dentro de um modelo de medicina funcional, que procura identificar padrões fisiológicos entre biomarcadores — não apenas verificar se estão dentro dos valores laboratoriais de referência.')}
 ${paragraph('Muitas pessoas descobrem que os seus exames estavam "normais", mas não necessariamente funcionais.')}
+${resultados ? `${divider()}${paragraph('<strong>Resumo da tua leitura:</strong>')}${formatResultsHtml(resultados)}` : ''}
 ${paragraph('Em alguns casos, estes padrões podem ajudar a explicar sintomas persistentes como fadiga, alterações hormonais, dificuldades digestivas ou stress fisiológico.')}
 ${paragraph('Se quiseres uma leitura clínica completa — integrando sintomas, história clínica e exames — podes agendar uma consulta inicial aqui:')}
 ${ctaButton('Agendar consulta inicial', 'https://catarinaveigaagendamento.as.me/')}
