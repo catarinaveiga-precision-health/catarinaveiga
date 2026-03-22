@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import catarinaPhoto from "@/assets/catarina-sobre-portrait.png";
+import brandDevices from "@/assets/catarina-brand-devices.png";
 import Footer from "@/components/Footer";
 import LegalBand from "@/components/LegalBand";
 import MobileCTA from "@/components/MobileCTA";
@@ -236,7 +237,6 @@ const HojeSection = () => {
 };
 
 /* ── 8  BRAND IMAGE ── */
-import brandDevices from "@/assets/catarina-brand-devices.png";
 
 const BrandSection = () => {
   const ref = useFadeUp();
