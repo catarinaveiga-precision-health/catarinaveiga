@@ -39,6 +39,7 @@ const Navbar = () => {
     { label: t("nav.biblioteca"), href: "/recursos" },
     { label: t("nav.sobre"), href: "/sobre" },
     { label: t("nav.avaliacao"), href: "/avaliacao" },
+    { label: t("nav.blog"), href: "/blog" },
   ];
 
   useEffect(() => {
