@@ -305,6 +305,7 @@ const Sobre = () => {
         <PontoViragemSection />
         <CredenciaisSection />
         <HojeSection />
+        <BrandSection />
         <AssinaturaSection />
         <CTASection />
       </main>
