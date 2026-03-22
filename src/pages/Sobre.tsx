@@ -235,7 +235,26 @@ const HojeSection = () => {
   );
 };
 
-/* ── 8  FRASE ASSINATURA ── */
+/* ── 8  BRAND IMAGE ── */
+import brandDevices from "@/assets/catarina-brand-devices.png";
+
+const BrandSection = () => {
+  const ref = useFadeUp();
+  return (
+    <section ref={ref} className="bg-ivory section-padding">
+      <div className="max-w-5xl mx-auto fade-up">
+        <img
+          src={brandDevices}
+          alt="Catarina Veiga — Medicina Funcional Integrativa — consultas online"
+          className="w-full h-auto"
+          loading="lazy"
+        />
+      </div>
+    </section>
+  );
+};
+
+/* ── 9  FRASE ASSINATURA ── */
 const AssinaturaSection = () => {
   const ref = useFadeUp();
   return (
