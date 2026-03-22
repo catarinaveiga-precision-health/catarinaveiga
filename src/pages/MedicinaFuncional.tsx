@@ -107,8 +107,8 @@ const MedicinaFuncional = () => {
 
   return (
     <SEOPageLayout
-      title="Medicina Funcional: O Que É e Quando Pode Ajudar | Catarina Veiga"
-      description="A medicina funcional investiga as causas raiz de sintomas persistentes — especialmente quando os exames parecem normais. Consultas online para mulheres."
+      title="Medicina Funcional: Quando os Exames Dão Tudo Normal"
+      description="Os teus exames estão normais mas os sintomas continuam. A medicina funcional investiga as causas que os valores de referência standard não mostram."
       canonical="https://www.catarinaveiga.com/medicina-funcional"
       structuredData={structuredData}
     >
