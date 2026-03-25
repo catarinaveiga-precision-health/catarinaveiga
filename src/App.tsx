@@ -22,8 +22,8 @@ import InsulinaJejum from "./pages/InsulinaJejum";
 import FadigaExamesNormais from "./pages/FadigaExamesNormais";
 import TshNormal from "./pages/TshNormal";
 import MedicinaFuncional from "./pages/MedicinaFuncional";
-import PequenosAlmocosProteina from "./pages/PequenosAlmocosProteina";
-import PequenosAlmocosProteinaMenopausa from "./pages/PequenosAlmocosProteinaMenopausa";
+import PequenosAlmocosRicosProteina from "./pages/PequenosAlmocosRicosProteina";
+import PequenosAlmocosProteinaEnergia from "./pages/PequenosAlmocosProteinaEnergia";
 import { HelmetProvider } from "react-helmet-async";
 import SEOCanonical from "./components/SEOCanonical";
 
@@ -57,8 +57,8 @@ const App = () => (
             <Route path="/fadiga-exames-normais" element={<FadigaExamesNormais />} />
             <Route path="/tsh-normal-mas-com-sintomas" element={<TshNormal />} />
             <Route path="/medicina-funcional" element={<MedicinaFuncional />} />
-            <Route path="/pequenos-almocos-ricos-em-proteina" element={<PequenosAlmocosProteina />} />
-            <Route path="/pequenos-almocos-com-proteina-energia-equilibrio-hormonal-e-simplicidade-para-mulheres-em-peri-e-menopausa" element={<PequenosAlmocosProteinaMenopausa />} />
+            <Route path="/pequenos-almocos-ricos-em-proteina" element={<PequenosAlmocosRicosProteina />} />
+            <Route path="/pequenos-almocos-com-proteina-energia-equilibrio-hormonal-e-simplicidade-para-mulheres-em-peri-e-menopausa" element={<PequenosAlmocosProteinaEnergia />} />
             <Route path="/especialidades/medicina-funcional/" element={<Navigate to="/medicina-funcional" replace />} />
             <Route path="/especialidades/" element={<Navigate to="/medicina-funcional" replace />} />
             
