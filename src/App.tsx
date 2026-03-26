@@ -63,6 +63,8 @@ const App = () => (
             <Route path="/especialidades/" element={<Navigate to="/medicina-funcional" replace />} />
             
             <Route path="/insulina-jejum" element={<Navigate to="/insulina-jejum-o-que-significa" replace />} />
+            <Route path="/pequenos-almocos-ricos-em-proteina-comeca-o-dia-com-energia-e-saude" element={<Navigate to="/pequenos-almocos-ricos-em-proteina" replace />} />
+            <Route path="/pequenos-almocos-ricos-em-proteina-comeca-o-dia-com-energia-e-saude/" element={<Navigate to="/pequenos-almocos-ricos-em-proteina" replace />} />
             <Route path="/10-formas-de-estimular-o-nervo-vago-e-reequilibrar-o-sistema-nervoso" element={<Navigate to="/blog/nervo-vago-como-ativar-mulher" replace />} />
             <Route path="/adeus-obstipacao-dicas-naturais-para-um-intestino-feliz/" element={<Navigate to="/blog/intestino-preso-causas-hormonais-mulher" replace />} />
             <Route path="/nsdr-descanso-profundo-sem-dormir-para-melhorar-saude-e-produtividade/" element={<Navigate to="/blog/nervo-vago-como-ativar-mulher" replace />} />
