@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/catarina-hero.png";
+import heroImage from "@/assets/catarina-hero.jpg";
 import { openAcuity } from "@/hooks/useAcuityModal";
 import { useFadeUp } from "@/hooks/useFadeUp";
 import { useLanguage } from "@/contexts/LanguageContext";

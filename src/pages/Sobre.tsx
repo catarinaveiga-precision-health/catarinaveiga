@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
-import catarinaPhoto from "@/assets/catarina-sobre-portrait.png";
-import brandDevices from "@/assets/catarina-brand-devices.png";
+import catarinaPhoto from "@/assets/catarina-sobre-portrait.jpg";
+import brandDevices from "@/assets/catarina-brand-devices.jpg";
 import Footer from "@/components/Footer";
 import LegalBand from "@/components/LegalBand";
 import MobileCTA from "@/components/MobileCTA";
@@ -28,6 +28,10 @@ const HeroSection = () => {
             src={catarinaPhoto}
             alt="Catarina Veiga — Especialista em Medicina Funcional Integrativa"
             className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-full object-cover object-top"
+            loading="lazy"
+            decoding="async"
+            width={280}
+            height={280}
           />
         </div>
         <div className="fade-up">
@@ -248,6 +252,9 @@ const BrandSection = () => {
           alt="Catarina Veiga — Medicina Funcional Integrativa — consultas online"
           className="w-full h-auto"
           loading="lazy"
+          decoding="async"
+          width={1200}
+          height={675}
         />
       </div>
     </section>
