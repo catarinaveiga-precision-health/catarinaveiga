@@ -53,6 +53,10 @@ const Hero = () => {
               alt="Catarina Veiga - Medicina Funcional Integrativa"
               className="w-full h-[360px] md:h-auto object-cover object-top md:translate-y-4"
               loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              width={800}
+              height={960}
             />
           </div>
         </div>

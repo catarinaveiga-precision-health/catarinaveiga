@@ -19,7 +19,7 @@ const About = () => {
     <section ref={ref} id="sobre" className="bg-muted section-padding">
       <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-start">
         <div className="fade-up md:col-span-3">
-          <img src={heroImage} alt="Catarina Veiga" className="w-full h-auto object-cover max-h-[600px]" loading="lazy" />
+          <img src={heroImage} alt="Catarina Veiga" className="w-full h-auto object-cover max-h-[600px]" loading="lazy" decoding="async" width={600} height={600} />
         </div>
         <div className="fade-up md:col-span-2">
           <p className="label-uppercase text-amber mb-4">{t("about.label")}</p>

@@ -43,7 +43,7 @@ const Footer = () => {
     <footer className="bg-dark-footer text-ivory/80 section-padding pb-8">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
         <div>
-          <img src={logoFull} alt="Catarina Veiga" className="h-12 mb-4 brightness-0 invert opacity-90" />
+          <img src={logoFull} alt="Catarina Veiga" className="h-12 mb-4 brightness-0 invert opacity-90" loading="lazy" decoding="async" width={200} height={48} />
           <p className="text-[14px] text-ivory/60 mb-4">{t("footer.desc")}</p>
           <p className="text-[13px] text-ivory/50">{t("footer.online")}</p>
         </div>

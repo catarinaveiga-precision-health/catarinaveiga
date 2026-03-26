@@ -31,6 +31,7 @@ export default function BlogSection() {
                   alt={t(a.titleKey)}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="p-8">

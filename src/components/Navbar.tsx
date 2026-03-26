@@ -67,7 +67,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logoIcon} alt="Catarina Veiga" className="h-9 w-9" />
+          <img src={logoIcon} alt="Catarina Veiga" className="h-9 w-9" width={36} height={36} decoding="async" />
           <span className="font-serif text-xl text-foreground leading-tight">
             Catarina Veiga
           </span>
