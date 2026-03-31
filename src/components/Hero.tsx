@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/catarina-hero.jpg";
 import { openAcuity } from "@/hooks/useAcuityModal";
 import { useFadeUp } from "@/hooks/useFadeUp";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -49,7 +48,7 @@ const Hero = () => {
         <div className="fade-up relative order-2">
           <div className="relative overflow-hidden md:overflow-visible">
             <img
-              src={heroImage}
+              src="/catarina-hero.jpg"
               alt="Catarina Veiga - Medicina Funcional Integrativa"
               className="w-full h-[360px] md:h-auto object-cover object-top md:translate-y-4"
               loading="eager"
