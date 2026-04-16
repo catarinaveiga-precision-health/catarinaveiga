@@ -19,8 +19,11 @@ const HeroSection = () => {
         <h1 className="font-serif text-[2.5rem] md:text-6xl lg:text-7xl text-foreground leading-tight mb-6">
           Exames normais. Sintomas reais.<br className="hidden md:block" /> Nenhuma resposta.
         </h1>
-        <p className="text-muted-foreground text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-lg md:text-xl mb-4 max-w-2xl mx-auto">
           Descobre o que os teus exames não estão a dizer.
+        </p>
+        <p className="text-foreground text-[15px] md:text-base mb-10 max-w-2xl mx-auto">
+          Um programa clínico personalizado, conduzido por uma equipa, baseado em dados reais. Não em suposições.
         </p>
         <Button variant="hero" size="lg" asChild>
           <a href={ACUITY_URL} target="_blank" rel="noopener noreferrer">
@@ -40,7 +43,13 @@ const symptoms = [
   "Brain fog — dificuldade de concentração e memória",
   "Ansiedade ou humor instável sem causa aparente",
   "Queda de cabelo, pele sem vida, problemas digestivos",
-  '"Os seus exames estão todos bons" — mas você sabe que algo não está bem',
+  '"Os seus exames estão todos bons" — mas tu sabes que algo não está bem',
+  "Sono interrompido ou não reparador",
+  "Doenças autoimunes diagnosticadas ou por diagnosticar",
+  "Cabelo sem brilho, queda aumentada",
+  "Pele sem vida, seca, ou com alterações novas",
+  "Dores articulares ou musculares sem causa identificada",
+  "Ciclos menstruais irregulares ou com características diferentes do habitual",
 ];
 
 const IdentificacaoSection = () => {
@@ -49,7 +58,7 @@ const IdentificacaoSection = () => {
     <section ref={ref} className="bg-background section-padding">
       <div className="max-w-3xl mx-auto fade-up">
         <h2 className="font-serif text-3xl md:text-[2.75rem] text-foreground leading-tight mb-10">
-          Se se reconhece nisto, este programa foi pensado para si
+          Se te reconheces nisto, este programa foi pensado para ti
         </h2>
         <ul className="space-y-4 mb-10">
           {symptoms.map((s, i) => (
@@ -60,7 +69,7 @@ const IdentificacaoSection = () => {
           ))}
         </ul>
         <p className="text-muted-foreground text-[15px] leading-relaxed border-l-[3px] border-amber pl-6">
-          Estes sintomas não são imaginados. São sinais reais de desequilíbrios funcionais que os exames convencionais frequentemente não detectam. Quando os marcadores ficam dentro dos intervalos de referência — intervalos demasiado amplos — o problema é declarado inexistente. Mas o seu corpo sabe. E há formas de o ouvir.
+          Estes sintomas não são imaginados. São sinais reais de desequilíbrios funcionais que os exames convencionais frequentemente não detectam. Quando os marcadores ficam dentro dos intervalos de referência — intervalos demasiado amplos — o problema é declarado inexistente. Mas o teu corpo sabe. E há formas de o ouvir.
         </p>
       </div>
     </section>
@@ -74,7 +83,7 @@ const QuemAcompanhaSection = () => {
     <section ref={ref} className="bg-ivory section-padding">
       <div className="max-w-5xl mx-auto fade-up">
         <h2 className="font-serif text-3xl md:text-[2.75rem] text-foreground leading-tight mb-10">
-          Quem vai acompanhar o seu caso
+          Quem vai acompanhar o teu caso
         </h2>
         <div className="grid md:grid-cols-[280px_1fr] gap-10 items-start">
           <img
@@ -88,10 +97,10 @@ const QuemAcompanhaSection = () => {
           />
           <div className="text-muted-foreground text-[15px] leading-relaxed space-y-4">
             <p>
-              A Dra. Catarina Veiga é médica com mais de 20 anos de experiência clínica, com prática em Medicina Funcional Integrativa. Speaker no Longevity Med Summit 2024, combina formação científica rigorosa com uma abordagem que trata a pessoa, não apenas o sintoma.
+              Catarina Veiga tem mais de 20 anos de prática clínica em medicina funcional integrativa. Formação em psicologia, análises funcionais e neurobiologia. Pioneira em Portugal na construção de painéis de avaliação biofuncional e plataformas interactivas de interpretação de análises funcionais — numa época em que este campo ainda não tinha nome em português. Directora clínica com experiência em medicina tradicional chinesa, medicina funcional e integrativa. Speaker convidada no Longevity Med Summit 2024, em Lisboa, com a apresentação <em>Exploring the link between oestrogen-related conditions and gut microbiota</em> — ao lado dos directores médicos da Clinique La Prairie, Lanserhof e Cleveland Clinic Abu Dhabi.
             </p>
             <p>
-              A sua experiência pessoal com a perimenopausa — e com a frustração de não encontrar respostas dentro do modelo convencional — é parte do que a levou a criar este programa. Não é apenas teoria. É prática vivida.
+              Não trabalha sozinha. A Aletheia é conduzida por uma equipa clínica que inclui médica de medicina familiar e geral, especialistas parceiros em nutrição, yoga terapêutico, libertação somática e coaching — todos seleccionados pela Catarina.
             </p>
           </div>
         </div>
@@ -115,13 +124,13 @@ const ProgramaSection = () => {
             <em className="font-serif text-foreground not-italic">Aletheia</em> significa "verdade" em grego — aquilo que está escondido e precisa de ser revelado. É exactamente isso que este programa faz.
           </p>
           <p>
-            O Aletheia é um plano de acompanhamento totalmente personalizado — de 3 meses, 6 meses ou outra duração, conforme o que o seu caso exige. Começa sempre com o Relatório BioFuncional ODX: uma análise profunda dos seus exames com intervalos funcionais (não apenas convencionais), cruzando marcadores que normalmente são avaliados isoladamente.
+            O Aletheia é um plano de acompanhamento totalmente personalizado — de 3, 6 meses ou outra duração, conforme o que o teu caso exige. Começa sempre com o Relatório BioFuncional ODX: uma análise profunda dos teus exames com intervalos funcionais (não apenas convencionais), cruzando marcadores que normalmente são avaliados isoladamente.
           </p>
           <p>
             A partir daí, cada decisão — alimentação, suplementação, exames adicionais, sessões complementares — é tomada pela Catarina com base em ciência e em mais de 20 anos de leitura clínica.
           </p>
           <p className="text-foreground font-medium">
-            Você não coordena nada. Não precisa de juntar peças de diferentes profissionais. Tem uma médica que assume a gestão total do seu caso.
+            Tu não coordenas nada. Não precisas de juntar peças de diferentes profissionais. Tens uma médica que assume a gestão total do teu caso.
           </p>
         </div>
       </div>
@@ -131,17 +140,17 @@ const ProgramaSection = () => {
 
 /* ── SECÇÃO 5 — O QUE ESTÁ INCLUÍDO ── */
 const inclusions = [
-  "Relatório Avaliação BioFuncional ODX",
+  "Relatório Avaliação BioFuncional ODX (66+ biomarcadores, interpretação funcional)",
   "Consultas de Medicina Funcional Integrativa (frequência adaptada ao plano)",
-  "2 consultas de medicina familiar e geral",
+  "2 consultas de medicina familiar e geral (início e fim do plano)",
   "Plano alimentar adaptado e revisto ao longo do programa",
-  "Orientação e análise de dados de wearables (monitor contínuo de glicose, Oura Ring, etc.)",
-  "App totalmente personalizada com o seu plano",
-  "Sessões com profissionais parceiros (yoga, libertação somática, coaching, outros — conforme indicação clínica)",
-  "Relatórios de progresso",
-  "Gestão activa de suplementos",
-  "Recomendação de testes especializados com desconto (microbioma, ácidos orgânicos, DUTCH, ADN, etc.)",
-  "Gestão total do processo — a Catarina coordena tudo",
+  "Orientação e análise de dados de wearables — monitor contínuo de glicose, Oura Ring e outros",
+  "App totalmente personalizada com tracking de sintomas, métricas e evolução",
+  "Sessões com profissionais parceiros — yoga terapêutico, libertação somática, coaching e outros conforme o caso",
+  "Relatórios de progresso ao longo do programa",
+  "Gestão activa de suplementos — prescrição, ajuste de dose, rotação",
+  "Recomendação de testes especializados com desconto — microbioma, ácidos orgânicos, DUTCH, ADN e outros",
+  "Gestão total do processo — a cliente não coordena nada",
 ];
 
 const IncluidoSection = () => {
@@ -167,19 +176,19 @@ const IncluidoSection = () => {
 
 /* ── SECÇÃO 6 — TRANSFORMAÇÃO ── */
 const beforeItems = [
-  "Vai a consultas diferentes sem ninguém ligar os pontos",
-  "Recebe resultados \"normais\" mas continua com sintomas",
-  "Tenta dietas e suplementos por conta própria, sem orientação",
-  "Sente que ninguém leva os seus sintomas a sério",
-  "Gasta tempo e dinheiro sem direcção clara",
+  "Vais a consultas diferentes sem ninguém ligar os pontos",
+  "Recebes resultados \"normais\" mas continuas com sintomas",
+  "Tentas dietas e suplementos por conta própria, sem orientação",
+  "Sentes que ninguém leva os teus sintomas a sério",
+  "Gastas tempo e dinheiro sem direcção clara",
 ];
 
 const afterItems = [
-  "Tem uma médica que gere o caso inteiro, do início ao fim",
-  "Sabe exactamente o que os seus marcadores significam — nos intervalos certos",
-  "Segue um plano alimentar e de suplementação feito para si",
-  "Tem acesso a profissionais complementares quando indicado",
-  "Recupera clareza sobre o que se passa no seu corpo — e controlo sobre o que fazer",
+  "Tens uma médica que gere o caso inteiro, do início ao fim",
+  "Sabes exactamente o que os teus marcadores significam — nos intervalos certos",
+  "Segues um plano alimentar e de suplementação feito para ti",
+  "Tens acesso a profissionais complementares quando indicado",
+  "Recuperas clareza sobre o que se passa no teu corpo — e controlo sobre o que fazer",
 ];
 
 const TransformacaoSection = () => {
@@ -191,7 +200,6 @@ const TransformacaoSection = () => {
           O que muda
         </h2>
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Antes */}
           <div className="border border-border p-8 md:p-10">
             <p className="label-uppercase text-muted-foreground mb-6">Antes</p>
             <ul className="space-y-4">
@@ -203,7 +211,6 @@ const TransformacaoSection = () => {
               ))}
             </ul>
           </div>
-          {/* Depois */}
           <div className="border border-amber/40 bg-ivory p-8 md:p-10">
             <p className="label-uppercase text-amber mb-6">Depois</p>
             <ul className="space-y-4">
@@ -294,17 +301,17 @@ const InvestimentoSection = () => {
           <p className="font-serif text-7xl md:text-8xl text-foreground">€199</p>
           <p className="text-muted-foreground text-sm mt-2">/mês</p>
         </div>
-        <p className="text-foreground text-[15px] mb-2">
-          Pagamento em prestações mensais equivalentes à duração do plano:
-        </p>
-        <p className="text-muted-foreground text-[15px] mb-6">
-          Plano de 3 meses = 3 prestações de €199 · Plano de 6 meses = 6 prestações de €199
+        <p className="text-foreground text-[15px] mb-6">
+          Pagamento em prestações mensais equivalentes à duração do plano.
         </p>
         <p className="text-amber text-sm font-medium mb-10">
           Pagamento único com desconto disponível — contactar para valor.
         </p>
-        <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl mx-auto">
+        <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl mx-auto mb-8">
           Este valor inclui tudo: consultas médicas, relatório BioFuncional, plano alimentar, gestão de suplementos, app personalizada, sessões complementares e coordenação total do processo. Não há surpresas nem custos escondidos. É o investimento num acompanhamento médico completo — o tipo de acompanhamento que deveria existir, mas raramente existe.
+        </p>
+        <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl mx-auto border-l-[3px] border-amber pl-6 text-left">
+          O plano é personalizado — 3, 6 meses ou outra duração conforme o caso clínico. O que não muda é a metodologia: análise de dados real, ajuste contínuo, uma equipa a gerir tudo.
         </p>
       </div>
     </section>
@@ -318,7 +325,7 @@ const CTAFinalSection = () => {
     <section ref={ref} className="bg-dark section-padding" style={{ backgroundColor: "#1F1A14" }}>
       <div className="max-w-3xl mx-auto text-center fade-up">
         <p className="font-serif text-xl md:text-2xl text-ivory/80 leading-relaxed mb-10 max-w-2xl mx-auto">
-          O programa começa com uma avaliação inicial — uma conversa clínica em que a Catarina revê a sua história, sintomas e exames, e determina o plano indicado para si.
+          O programa começa com uma avaliação inicial — uma conversa clínica em que a Catarina revê a tua história, sintomas e exames, e determina o plano indicado para ti.
         </p>
         <Button variant="heroAccent" size="lg" asChild>
           <a href={ACUITY_URL} target="_blank" rel="noopener noreferrer">
