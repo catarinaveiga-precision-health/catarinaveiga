@@ -124,10 +124,10 @@ const ProgramaSection = () => {
             <em className="font-serif text-foreground not-italic">Aletheia</em> significa "verdade" em grego — aquilo que está escondido e precisa de ser revelado. É exactamente isso que este programa faz.
           </p>
           <p>
-            O Aletheia é um plano de acompanhamento totalmente personalizado — de 3, 6 meses ou outra duração, conforme o que o teu caso exige. Começa sempre com o Relatório BioFuncional ODX: uma análise profunda dos teus exames com intervalos funcionais (não apenas convencionais), cruzando marcadores que normalmente são avaliados isoladamente.
+            O Aletheia é um plano de acompanhamento totalmente personalizado, com duração definida caso a caso — a partir da leitura e interpretação dos teus dados, análises e estilo de vida. Começa sempre com o Relatório BioFuncional ODX: uma análise profunda dos teus exames com intervalos funcionais (não apenas convencionais), cruzando marcadores que normalmente são avaliados isoladamente.
           </p>
           <p>
-            A partir daí, cada decisão — alimentação, suplementação, exames adicionais, sessões complementares — é tomada pela Catarina com base em ciência e em mais de 20 anos de leitura clínica.
+            A partir daí, cada decisão — alimentação, suplementação, exames adicionais, sessões complementares — é tomada pela Catarina com base em ciência e neurobiologia, para resultados máximos com o esforço mínimo da tua parte. O programa é desenhado para que, apesar de tudo o que envolve, o esforço que recai sobre ti seja o menor possível.
           </p>
           <p className="text-foreground font-medium">
             Tu não coordenas nada. Não precisas de juntar peças de diferentes profissionais. Tens uma médica que assume a gestão total do teu caso.
