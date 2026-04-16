@@ -23,7 +23,7 @@ const cards: Card[] = [
     icon: Diamond,
     step: "02 · Programa signature",
     title: "Aletheia",
-    desc: "Acompanhamento clínico personalizado de 3, 6 meses ou outra duração. Inclui Relatório BioFuncional, plano alimentar, gestão de suplementos, app personalizada e gestão total do caso por uma equipa.",
+    desc: "Acompanhamento clínico personalizado, com duração definida conforme o teu caso. Inclui Relatório BioFuncional, plano alimentar, gestão de suplementos, app personalizada e gestão total do caso por uma equipa.",
     cta: { label: "Conhecer o Aletheia", href: "/aletheia" },
   },
   {
