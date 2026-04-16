@@ -36,6 +36,7 @@ const Navbar = () => {
     { label: t("nav.home"), href: "/" },
     { label: t("nav.funcional"), href: "/medicina-funcional" },
     { label: t("nav.programa"), href: "/programa-fundacao" },
+    { label: "Aletheia", href: "/aletheia" },
     { label: t("nav.biblioteca"), href: "/recursos" },
     { label: t("nav.sobre"), href: "/sobre" },
     { label: t("nav.avaliacao"), href: "/avaliacao" },

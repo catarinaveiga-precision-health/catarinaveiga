@@ -24,6 +24,7 @@ import TshNormal from "./pages/TshNormal";
 import MedicinaFuncional from "./pages/MedicinaFuncional";
 import PequenosAlmocosRicosProteina from "./pages/PequenosAlmocosRicosProteina";
 import PequenosAlmocosProteinaEnergia from "./pages/PequenosAlmocosProteinaEnergia";
+import Aletheia from "./pages/Aletheia";
 import { HelmetProvider } from "react-helmet-async";
 import SEOCanonical from "./components/SEOCanonical";
 
@@ -59,6 +60,7 @@ const App = () => (
             <Route path="/medicina-funcional" element={<MedicinaFuncional />} />
             <Route path="/pequenos-almocos-ricos-em-proteina" element={<PequenosAlmocosRicosProteina />} />
             <Route path="/pequenos-almocos-com-proteina-energia-equilibrio-hormonal-e-simplicidade-para-mulheres-em-peri-e-menopausa" element={<PequenosAlmocosProteinaEnergia />} />
+            <Route path="/aletheia" element={<Aletheia />} />
             <Route path="/especialidades/medicina-funcional/" element={<Navigate to="/medicina-funcional" replace />} />
             <Route path="/especialidades/" element={<Navigate to="/medicina-funcional" replace />} />
             
