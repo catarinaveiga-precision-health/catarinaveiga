@@ -311,7 +311,7 @@ const InvestimentoSection = () => {
           Este valor inclui tudo: consultas médicas, relatório BioFuncional, plano alimentar, gestão de suplementos, app personalizada, sessões complementares e coordenação total do processo. Não há surpresas nem custos escondidos. É o investimento num acompanhamento médico completo — o tipo de acompanhamento que deveria existir, mas raramente existe.
         </p>
         <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl mx-auto border-l-[3px] border-amber pl-6 text-left">
-          O plano é personalizado — 3, 6 meses ou outra duração conforme o caso clínico. O que não muda é a metodologia: análise de dados real, ajuste contínuo, uma equipa a gerir tudo.
+          O plano é personalizado — a duração é definida conforme o teu caso clínico, a leitura dos teus dados, análises e estilo de vida. O que não muda é a metodologia: ciência, neurobiologia, análise de dados real, ajuste contínuo e uma equipa a gerir tudo — para que o esforço que recai sobre ti seja o menor possível.
         </p>
       </div>
     </section>
