@@ -370,7 +370,7 @@ const Avaliacao = () => {
 
     if (step === 6) {
       setSaving(true);
-      const evalResults = evaluateResults(form.labValues);
+      const evalResults = evaluateResults(form.labValues, form.labUnits);
       const localeCountryCode = typeof navigator !== "undefined" && navigator.language.includes("-")
         ? navigator.language.split("-")[1]?.toUpperCase() ?? null
         : null;
@@ -382,7 +382,7 @@ const Avaliacao = () => {
         pais: localeCountryCode,
         sexo: form.sexo || null,
         objetivos: form.objetivos,
-        valores_laboratoriais: JSON.parse(JSON.stringify(form.labValues)),
+        valores_laboratoriais: JSON.parse(JSON.stringify({ values: form.labValues, units: form.labUnits })),
         resultados: JSON.parse(JSON.stringify(evalResults)),
       };
 
@@ -439,7 +439,7 @@ const Avaliacao = () => {
             idade: form.idade ? parseInt(form.idade) : null,
             sexo: form.sexo || null,
             objetivos: form.objetivos,
-            valores_laboratoriais: form.labValues,
+            valores_laboratoriais: { values: form.labValues, units: form.labUnits },
             resultados: evalResults,
             created_at: new Date().toISOString(),
           },
@@ -459,7 +459,7 @@ const Avaliacao = () => {
     setStep((s) => Math.max(s - 1, 0));
   };
 
-  const results = evaluateResults(form.labValues);
+  const results = evaluateResults(form.labValues, form.labUnits);
   const systems = getSystemSummary(results);
   const hasAnyLabValue = Object.values(form.labValues).some((v) => v && v.trim() !== "");
   const optimalCount = systems.filter(([, s]) => s === "optimal").length;
@@ -611,9 +611,9 @@ const Avaliacao = () => {
                 <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <LabInput label="TSH" unit="mUI/L" value={form.labValues.tsh || ""} onChange={(v) => updateLab("tsh", v)} placeholder="Ex: 2.5" />
-                <LabInput label="T3 Livre" unit="pg/mL" value={form.labValues.t3_livre || ""} onChange={(v) => updateLab("t3_livre", v)} placeholder="Ex: 3.1" />
-                <LabInput label="T4 Livre" unit="ng/dL" value={form.labValues.t4_livre || ""} onChange={(v) => updateLab("t4_livre", v)} placeholder="Ex: 1.2" />
+                <LabInput label="TSH" labKey="tsh" value={form.labValues.tsh || ""} unit={form.labUnits.tsh || ""} onChange={(v) => updateLab("tsh", v)} onUnitChange={(u) => updateUnit("tsh", u)} placeholder="Ex: 2.5" />
+                <LabInput label="T3 Livre" labKey="t3_livre" value={form.labValues.t3_livre || ""} unit={form.labUnits.t3_livre || ""} onChange={(v) => updateLab("t3_livre", v)} onUnitChange={(u) => updateUnit("t3_livre", u)} placeholder="Ex: 3.1" />
+                <LabInput label="T4 Livre" labKey="t4_livre" value={form.labValues.t4_livre || ""} unit={form.labUnits.t4_livre || ""} onChange={(v) => updateLab("t4_livre", v)} onUnitChange={(u) => updateUnit("t4_livre", u)} placeholder="Ex: 1.2" />
               </div>
             </div>
           )}
@@ -626,9 +626,9 @@ const Avaliacao = () => {
                 <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <LabInput label="Ferritina" unit="ng/mL" value={form.labValues.ferritina || ""} onChange={(v) => updateLab("ferritina", v)} placeholder="Ex: 45" />
-                <LabInput label="Ferro Sérico" unit="µg/dL" value={form.labValues.ferro_serico || ""} onChange={(v) => updateLab("ferro_serico", v)} placeholder="Ex: 80" />
-                <LabInput label="Transferrina" unit="mg/dL" value={form.labValues.transferrina || ""} onChange={(v) => updateLab("transferrina", v)} placeholder="Ex: 250" />
+                <LabInput label="Ferritina" labKey="ferritina" value={form.labValues.ferritina || ""} unit={form.labUnits.ferritina || ""} onChange={(v) => updateLab("ferritina", v)} onUnitChange={(u) => updateUnit("ferritina", u)} placeholder="Ex: 45" />
+                <LabInput label="Ferro Sérico" labKey="ferro_serico" value={form.labValues.ferro_serico || ""} unit={form.labUnits.ferro_serico || ""} onChange={(v) => updateLab("ferro_serico", v)} onUnitChange={(u) => updateUnit("ferro_serico", u)} placeholder="Ex: 80" />
+                <LabInput label="Transferrina" labKey="transferrina" value={form.labValues.transferrina || ""} unit={form.labUnits.transferrina || ""} onChange={(v) => updateLab("transferrina", v)} onUnitChange={(u) => updateUnit("transferrina", u)} placeholder="Ex: 250" />
               </div>
             </div>
           )}
@@ -641,9 +641,9 @@ const Avaliacao = () => {
                 <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <LabInput label="PCR (Proteína C-Reactiva)" unit="mg/L" value={form.labValues.pcr || ""} onChange={(v) => updateLab("pcr", v)} placeholder="Ex: 0.5" />
-                <LabInput label="Homocisteína" unit="µmol/L" value={form.labValues.homocisteina || ""} onChange={(v) => updateLab("homocisteina", v)} placeholder="Ex: 8" />
-                <LabInput label="VS (Velocidade de Sedimentação)" unit="mm/h" value={form.labValues.vsg || ""} onChange={(v) => updateLab("vsg", v)} placeholder="Ex: 10" />
+                <LabInput label="PCR (Proteína C-Reactiva)" labKey="pcr" value={form.labValues.pcr || ""} unit={form.labUnits.pcr || ""} onChange={(v) => updateLab("pcr", v)} onUnitChange={(u) => updateUnit("pcr", u)} placeholder="Ex: 0.5" />
+                <LabInput label="Homocisteína" labKey="homocisteina" value={form.labValues.homocisteina || ""} unit={form.labUnits.homocisteina || ""} onChange={(v) => updateLab("homocisteina", v)} onUnitChange={(u) => updateUnit("homocisteina", u)} placeholder="Ex: 8" />
+                <LabInput label="VS (Velocidade de Sedimentação)" labKey="vsg" value={form.labValues.vsg || ""} unit={form.labUnits.vsg || ""} onChange={(v) => updateLab("vsg", v)} onUnitChange={(u) => updateUnit("vsg", u)} placeholder="Ex: 10" />
               </div>
             </div>
           )}
@@ -656,11 +656,11 @@ const Avaliacao = () => {
                 <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <LabInput label="Vitamina D" unit="ng/mL" value={form.labValues.vitamina_d || ""} onChange={(v) => updateLab("vitamina_d", v)} placeholder="Ex: 35" />
-                <LabInput label="Vitamina B12" unit="pg/mL" value={form.labValues.vitamina_b12 || ""} onChange={(v) => updateLab("vitamina_b12", v)} placeholder="Ex: 400" />
-                <LabInput label="Ácido Fólico" unit="ng/mL" value={form.labValues.acido_folico || ""} onChange={(v) => updateLab("acido_folico", v)} placeholder="Ex: 8" />
-                <LabInput label="Cortisol (manhã)" unit="µg/dL" value={form.labValues.cortisol || ""} onChange={(v) => updateLab("cortisol", v)} placeholder="Ex: 15" />
-                <LabInput label="DHEA-S" unit="µg/dL" value={form.labValues.dhea || ""} onChange={(v) => updateLab("dhea", v)} placeholder="Ex: 200" />
+                <LabInput label="Vitamina D" labKey="vitamina_d" value={form.labValues.vitamina_d || ""} unit={form.labUnits.vitamina_d || ""} onChange={(v) => updateLab("vitamina_d", v)} onUnitChange={(u) => updateUnit("vitamina_d", u)} placeholder="Ex: 35" />
+                <LabInput label="Vitamina B12" labKey="vitamina_b12" value={form.labValues.vitamina_b12 || ""} unit={form.labUnits.vitamina_b12 || ""} onChange={(v) => updateLab("vitamina_b12", v)} onUnitChange={(u) => updateUnit("vitamina_b12", u)} placeholder="Ex: 400" />
+                <LabInput label="Ácido Fólico" labKey="acido_folico" value={form.labValues.acido_folico || ""} unit={form.labUnits.acido_folico || ""} onChange={(v) => updateLab("acido_folico", v)} onUnitChange={(u) => updateUnit("acido_folico", u)} placeholder="Ex: 8" />
+                <LabInput label="Cortisol (manhã)" labKey="cortisol" value={form.labValues.cortisol || ""} unit={form.labUnits.cortisol || ""} onChange={(v) => updateLab("cortisol", v)} onUnitChange={(u) => updateUnit("cortisol", u)} placeholder="Ex: 15" />
+                <LabInput label="DHEA-S" labKey="dhea" value={form.labValues.dhea || ""} unit={form.labUnits.dhea || ""} onChange={(v) => updateLab("dhea", v)} onUnitChange={(u) => updateUnit("dhea", u)} placeholder="Ex: 200" />
               </div>
             </div>
           )}
