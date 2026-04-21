@@ -352,6 +352,8 @@ const Avaliacao = () => {
   const canProceed = () => {
     if (step === 0) return form.objetivos.length > 0;
     if (step === 1) return form.sexo !== "";
+    // Steps 2–5 = painéis laboratoriais. Bloquear avanço se houver valor sem unidade.
+    if (step >= 2 && step <= 5 && missingUnits.length > 0) return false;
     if (step === 6) return form.nome.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
     return true;
   };
@@ -360,8 +362,9 @@ const Avaliacao = () => {
     setError(null);
     if (!canProceed()) {
       if (step === 0) setError("Seleciona pelo menos um objetivo.");
-      if (step === 1) setError("Seleciona o sexo biológico.");
-      if (step === 6) setError("Nome e email válido são obrigatórios.");
+      else if (step === 1) setError("Seleciona o sexo biológico.");
+      else if (step >= 2 && step <= 5 && missingUnits.length > 0) setError("Indica em que unidade está cada valor preenchido.");
+      else if (step === 6) setError("Nome e email válido são obrigatórios.");
       return;
     }
 
