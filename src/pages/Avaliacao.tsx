@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { downloadPDF, generatePDFBase64, statusSymbol } from "@/lib/generatePDF";
 import AcuityModal from "@/components/AcuityModal";
+import { LAB_UNIT_CONFIG, LabKey, getDefaultUnit, isImplausible } from "@/lib/labUnits";
 
 const OBJECTIVES = [
   "Fadiga persistente",
@@ -38,20 +39,30 @@ interface LabValues {
   estradiol?: string;
 }
 
+type LabUnits = Partial<Record<keyof LabValues, string>>;
+
 interface FormState {
   objetivos: string[];
   sexo: string;
   idade: string;
   labValues: LabValues;
+  labUnits: LabUnits;
   nome: string;
   email: string;
 }
+
+// Pré-popular unidades com defaults para cada marcador.
+const initialUnits: LabUnits = (Object.keys(LAB_UNIT_CONFIG) as LabKey[]).reduce(
+  (acc, k) => ({ ...acc, [k]: getDefaultUnit(k) }),
+  {} as LabUnits,
+);
 
 const initialForm: FormState = {
   objetivos: [],
   sexo: "",
   idade: "",
   labValues: {},
+  labUnits: initialUnits,
   nome: "",
   email: "",
 };
@@ -105,63 +116,80 @@ const SYSTEM_EXPLANATIONS: Record<string, string> = {
   "Eixo HPA": "O eixo hipotálamo-hipófise-adrenal regula a resposta ao stress. Cortisol desregulado pode causar insónia, ansiedade, fadiga matinal e dificuldade de recuperação.",
 };
 
-function evaluateResults(labValues: LabValues) {
-  const findings: { marker: string; value: string; status: "optimal" | "suboptimal" | "flag"; note: string }[] = [];
+function evaluateResults(labValues: LabValues, labUnits: LabUnits) {
+  const findings: { marker: string; value: string; unit: string; status: "optimal" | "suboptimal" | "flag"; note: string; implausible?: boolean }[] = [];
 
   const v = (key: keyof LabValues) => {
     const raw = labValues[key];
     return raw ? parseFloat(raw.replace(",", ".")) : null;
   };
+  const u = (key: keyof LabValues) => labUnits[key] || getDefaultUnit(key as LabKey) || "";
+  const flag = (key: keyof LabValues, raw: string | undefined, unit: string) =>
+    raw ? isImplausible(key as LabKey, raw, unit) : false;
 
   const tsh = v("tsh");
   if (tsh !== null) {
-    if (tsh >= 0.5 && tsh <= 2.0) findings.push({ marker: "TSH", value: `${tsh} mUI/L`, status: "optimal", note: "Dentro do intervalo funcional óptimo." });
-    else if (tsh > 2.0 && tsh <= 4.5) findings.push({ marker: "TSH", value: `${tsh} mUI/L`, status: "suboptimal", note: "Dentro do intervalo convencional, mas acima do óptimo funcional (0.5–2.0)." });
-    else findings.push({ marker: "TSH", value: `${tsh} mUI/L`, status: "flag", note: "Fora do intervalo de referência. Requer avaliação clínica." });
+    const unit = u("tsh");
+    const implausible = flag("tsh", labValues.tsh, unit);
+    if (tsh >= 0.5 && tsh <= 2.0) findings.push({ marker: "TSH", value: `${tsh}`, unit, status: "optimal", note: "Dentro do intervalo funcional óptimo.", implausible });
+    else if (tsh > 2.0 && tsh <= 4.5) findings.push({ marker: "TSH", value: `${tsh}`, unit, status: "suboptimal", note: "Dentro do intervalo convencional, mas acima do óptimo funcional (0.5–2.0).", implausible });
+    else findings.push({ marker: "TSH", value: `${tsh}`, unit, status: "flag", note: "Fora do intervalo de referência. Requer avaliação clínica.", implausible });
   }
 
   const ferritina = v("ferritina");
   if (ferritina !== null) {
-    if (ferritina >= 40 && ferritina <= 100) findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "optimal", note: "Nível óptimo para energia e função tiroideia." });
-    else if (ferritina >= 12 && ferritina < 40) findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "suboptimal", note: "Dentro do 'normal' laboratorial, mas funcionalmente baixa." });
-    else if (ferritina < 12) findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "flag", note: "Depleção de ferro. Requer intervenção." });
-    else findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "suboptimal", note: "Elevada — pode indicar inflamação." });
+    const unit = u("ferritina");
+    const implausible = flag("ferritina", labValues.ferritina, unit);
+    if (ferritina >= 40 && ferritina <= 100) findings.push({ marker: "Ferritina", value: `${ferritina}`, unit, status: "optimal", note: "Nível óptimo para energia e função tiroideia.", implausible });
+    else if (ferritina >= 12 && ferritina < 40) findings.push({ marker: "Ferritina", value: `${ferritina}`, unit, status: "suboptimal", note: "Dentro do 'normal' laboratorial, mas funcionalmente baixa.", implausible });
+    else if (ferritina < 12) findings.push({ marker: "Ferritina", value: `${ferritina}`, unit, status: "flag", note: "Depleção de ferro. Requer intervenção.", implausible });
+    else findings.push({ marker: "Ferritina", value: `${ferritina}`, unit, status: "suboptimal", note: "Elevada — pode indicar inflamação.", implausible });
   }
 
   const pcr = v("pcr");
   if (pcr !== null) {
-    if (pcr < 1) findings.push({ marker: "PCR", value: `${pcr} mg/L`, status: "optimal", note: "Sem inflamação sistémica detectável." });
-    else if (pcr >= 1 && pcr <= 3) findings.push({ marker: "PCR", value: `${pcr} mg/L`, status: "suboptimal", note: "Inflamação de baixo grau. Investigar causa." });
-    else findings.push({ marker: "PCR", value: `${pcr} mg/L`, status: "flag", note: "Inflamação elevada. Requer avaliação clínica." });
+    const unit = u("pcr");
+    const implausible = flag("pcr", labValues.pcr, unit);
+    if (pcr < 1) findings.push({ marker: "PCR", value: `${pcr}`, unit, status: "optimal", note: "Sem inflamação sistémica detectável.", implausible });
+    else if (pcr >= 1 && pcr <= 3) findings.push({ marker: "PCR", value: `${pcr}`, unit, status: "suboptimal", note: "Inflamação de baixo grau. Investigar causa.", implausible });
+    else findings.push({ marker: "PCR", value: `${pcr}`, unit, status: "flag", note: "Inflamação elevada. Requer avaliação clínica.", implausible });
   }
 
   const vitD = v("vitamina_d");
   if (vitD !== null) {
-    if (vitD >= 50 && vitD <= 80) findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "optimal", note: "Nível óptimo funcional." });
-    else if (vitD >= 30 && vitD < 50) findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "suboptimal", note: "Suficiente mas abaixo do óptimo funcional (50–80)." });
-    else if (vitD < 30) findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "flag", note: "Insuficiência de vitamina D." });
-    else findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "suboptimal", note: "Acima do intervalo óptimo." });
+    const unit = u("vitamina_d");
+    const implausible = flag("vitamina_d", labValues.vitamina_d, unit);
+    if (vitD >= 50 && vitD <= 80) findings.push({ marker: "Vitamina D", value: `${vitD}`, unit, status: "optimal", note: "Nível óptimo funcional.", implausible });
+    else if (vitD >= 30 && vitD < 50) findings.push({ marker: "Vitamina D", value: `${vitD}`, unit, status: "suboptimal", note: "Suficiente mas abaixo do óptimo funcional (50–80).", implausible });
+    else if (vitD < 30) findings.push({ marker: "Vitamina D", value: `${vitD}`, unit, status: "flag", note: "Insuficiência de vitamina D.", implausible });
+    else findings.push({ marker: "Vitamina D", value: `${vitD}`, unit, status: "suboptimal", note: "Acima do intervalo óptimo.", implausible });
   }
 
   const b12 = v("vitamina_b12");
   if (b12 !== null) {
-    if (b12 >= 500 && b12 <= 900) findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "optimal", note: "Nível óptimo funcional." });
-    else if (b12 >= 200 && b12 < 500) findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "suboptimal", note: "Normal laboratorial mas funcionalmente insuficiente." });
-    else if (b12 < 200) findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "flag", note: "Deficiência de B12. Requer suplementação." });
-    else findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "optimal", note: "Nível adequado." });
+    const unit = u("vitamina_b12");
+    const implausible = flag("vitamina_b12", labValues.vitamina_b12, unit);
+    if (b12 >= 500 && b12 <= 900) findings.push({ marker: "Vitamina B12", value: `${b12}`, unit, status: "optimal", note: "Nível óptimo funcional.", implausible });
+    else if (b12 >= 200 && b12 < 500) findings.push({ marker: "Vitamina B12", value: `${b12}`, unit, status: "suboptimal", note: "Normal laboratorial mas funcionalmente insuficiente.", implausible });
+    else if (b12 < 200) findings.push({ marker: "Vitamina B12", value: `${b12}`, unit, status: "flag", note: "Deficiência de B12. Requer suplementação.", implausible });
+    else findings.push({ marker: "Vitamina B12", value: `${b12}`, unit, status: "optimal", note: "Nível adequado.", implausible });
   }
 
   const hom = v("homocisteina");
   if (hom !== null) {
-    if (hom < 7) findings.push({ marker: "Homocisteína", value: `${hom} µmol/L`, status: "optimal", note: "Nível óptimo." });
-    else if (hom >= 7 && hom <= 10) findings.push({ marker: "Homocisteína", value: `${hom} µmol/L`, status: "suboptimal", note: "Ligeiramente elevada. Verificar B12, B6 e folato." });
-    else findings.push({ marker: "Homocisteína", value: `${hom} µmol/L`, status: "flag", note: "Elevada — risco cardiovascular e neuroinflamatório." });
+    const unit = u("homocisteina");
+    const implausible = flag("homocisteina", labValues.homocisteina, unit);
+    if (hom < 7) findings.push({ marker: "Homocisteína", value: `${hom}`, unit, status: "optimal", note: "Nível óptimo.", implausible });
+    else if (hom >= 7 && hom <= 10) findings.push({ marker: "Homocisteína", value: `${hom}`, unit, status: "suboptimal", note: "Ligeiramente elevada. Verificar B12, B6 e folato.", implausible });
+    else findings.push({ marker: "Homocisteína", value: `${hom}`, unit, status: "flag", note: "Elevada — risco cardiovascular e neuroinflamatório.", implausible });
   }
 
   const cortisol = v("cortisol");
   if (cortisol !== null) {
-    if (cortisol >= 10 && cortisol <= 18) findings.push({ marker: "Cortisol (manhã)", value: `${cortisol} µg/dL`, status: "optimal", note: "Dentro do intervalo funcional." });
-    else findings.push({ marker: "Cortisol (manhã)", value: `${cortisol} µg/dL`, status: "suboptimal", note: "Fora do intervalo óptimo. Avaliar eixo HPA." });
+    const unit = u("cortisol");
+    const implausible = flag("cortisol", labValues.cortisol, unit);
+    if (cortisol >= 10 && cortisol <= 18) findings.push({ marker: "Cortisol (manhã)", value: `${cortisol}`, unit, status: "optimal", note: "Dentro do intervalo funcional.", implausible });
+    else findings.push({ marker: "Cortisol (manhã)", value: `${cortisol}`, unit, status: "suboptimal", note: "Fora do intervalo óptimo. Avaliar eixo HPA.", implausible });
   }
 
   return findings;
@@ -179,24 +207,66 @@ function getSystemSummary(results: ReturnType<typeof evaluateResults>) {
   return Array.from(systemMap.entries());
 }
 
-const LabInput = ({ label, unit, value, onChange, placeholder }: {
-  label: string; unit: string; value: string; onChange: (v: string) => void; placeholder?: string;
-}) => (
-  <div className="space-y-1.5">
-    <label className="text-sm font-sans text-muted-foreground">{label}</label>
-    <div className="flex items-center gap-2">
-      <Input
-        type="text"
-        inputMode="decimal"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder || "—"}
-        className="bg-transparent border-matcha/30 focus:border-matcha"
-      />
-      <span className="text-xs text-muted-foreground font-sans whitespace-nowrap">{unit}</span>
+const LabInput = ({
+  label,
+  labKey,
+  value,
+  unit,
+  onChange,
+  onUnitChange,
+  placeholder,
+}: {
+  label: string;
+  labKey: LabKey;
+  value: string;
+  unit: string;
+  onChange: (v: string) => void;
+  onUnitChange: (u: string) => void;
+  placeholder?: string;
+}) => {
+  const cfg = LAB_UNIT_CONFIG[labKey];
+  const showImplausible = value.trim() !== "" && unit && isImplausible(labKey, value, unit);
+  const valueWithoutUnit = value.trim() !== "" && !unit;
+
+  return (
+    <div className="space-y-1.5">
+      <label className="text-sm font-sans text-muted-foreground">{label}</label>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <Input
+          type="text"
+          inputMode="decimal"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder || "—"}
+          className="bg-transparent border-matcha/30 focus:border-matcha sm:flex-1"
+        />
+        <select
+          value={unit}
+          onChange={(e) => onUnitChange(e.target.value)}
+          aria-label={`Unidade de ${label}`}
+          className="h-10 rounded-md border border-matcha/30 bg-transparent px-2 text-sm font-sans text-foreground focus:border-matcha focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 sm:w-auto sm:min-w-[110px]"
+        >
+          {cfg.units.length > 1 && <option value="">Unidade…</option>}
+          {cfg.units.map((u) => (
+            <option key={u.value} value={u.value}>
+              {u.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      {valueWithoutUnit && (
+        <p className="text-xs font-sans text-destructive">
+          Indica em que unidade está este valor.
+        </p>
+      )}
+      {showImplausible && (
+        <p className="text-xs font-sans text-amber">
+          Este valor parece invulgar para a unidade seleccionada. Verifica no relatório original se a unidade está correcta.
+        </p>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 const Accordion = ({ title, children }: { title: string; children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
@@ -261,6 +331,15 @@ const Avaliacao = () => {
     setForm((prev) => ({ ...prev, labValues: { ...prev.labValues, [key]: value } }));
   };
 
+  const updateUnit = (key: keyof LabValues, unit: string) => {
+    setForm((prev) => ({ ...prev, labUnits: { ...prev.labUnits, [key]: unit } }));
+  };
+
+  /** Marcadores onde valor está preenchido mas unidade está vazia. */
+  const missingUnits = (Object.keys(form.labValues) as (keyof LabValues)[]).filter(
+    (k) => (form.labValues[k] || "").trim() !== "" && !(form.labUnits[k] || "").trim(),
+  );
+
   const toggleObjective = (obj: string) => {
     setForm((prev) => ({
       ...prev,
@@ -273,6 +352,8 @@ const Avaliacao = () => {
   const canProceed = () => {
     if (step === 0) return form.objetivos.length > 0;
     if (step === 1) return form.sexo !== "";
+    // Steps 2–5 = painéis laboratoriais. Bloquear avanço se houver valor sem unidade.
+    if (step >= 2 && step <= 5 && missingUnits.length > 0) return false;
     if (step === 6) return form.nome.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
     return true;
   };
@@ -281,14 +362,15 @@ const Avaliacao = () => {
     setError(null);
     if (!canProceed()) {
       if (step === 0) setError("Seleciona pelo menos um objetivo.");
-      if (step === 1) setError("Seleciona o sexo biológico.");
-      if (step === 6) setError("Nome e email válido são obrigatórios.");
+      else if (step === 1) setError("Seleciona o sexo biológico.");
+      else if (step >= 2 && step <= 5 && missingUnits.length > 0) setError("Indica em que unidade está cada valor preenchido.");
+      else if (step === 6) setError("Nome e email válido são obrigatórios.");
       return;
     }
 
     if (step === 6) {
       setSaving(true);
-      const evalResults = evaluateResults(form.labValues);
+      const evalResults = evaluateResults(form.labValues, form.labUnits);
       const localeCountryCode = typeof navigator !== "undefined" && navigator.language.includes("-")
         ? navigator.language.split("-")[1]?.toUpperCase() ?? null
         : null;
@@ -300,7 +382,7 @@ const Avaliacao = () => {
         pais: localeCountryCode,
         sexo: form.sexo || null,
         objetivos: form.objetivos,
-        valores_laboratoriais: JSON.parse(JSON.stringify(form.labValues)),
+        valores_laboratoriais: JSON.parse(JSON.stringify({ values: form.labValues, units: form.labUnits })),
         resultados: JSON.parse(JSON.stringify(evalResults)),
       };
 
@@ -357,7 +439,7 @@ const Avaliacao = () => {
             idade: form.idade ? parseInt(form.idade) : null,
             sexo: form.sexo || null,
             objetivos: form.objetivos,
-            valores_laboratoriais: form.labValues,
+            valores_laboratoriais: { values: form.labValues, units: form.labUnits },
             resultados: evalResults,
             created_at: new Date().toISOString(),
           },
@@ -377,7 +459,7 @@ const Avaliacao = () => {
     setStep((s) => Math.max(s - 1, 0));
   };
 
-  const results = evaluateResults(form.labValues);
+  const results = evaluateResults(form.labValues, form.labUnits);
   const systems = getSystemSummary(results);
   const hasAnyLabValue = Object.values(form.labValues).some((v) => v && v.trim() !== "");
   const optimalCount = systems.filter(([, s]) => s === "optimal").length;
@@ -529,9 +611,9 @@ const Avaliacao = () => {
                 <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <LabInput label="TSH" unit="mUI/L" value={form.labValues.tsh || ""} onChange={(v) => updateLab("tsh", v)} placeholder="Ex: 2.5" />
-                <LabInput label="T3 Livre" unit="pg/mL" value={form.labValues.t3_livre || ""} onChange={(v) => updateLab("t3_livre", v)} placeholder="Ex: 3.1" />
-                <LabInput label="T4 Livre" unit="ng/dL" value={form.labValues.t4_livre || ""} onChange={(v) => updateLab("t4_livre", v)} placeholder="Ex: 1.2" />
+                <LabInput label="TSH" labKey="tsh" value={form.labValues.tsh || ""} unit={form.labUnits.tsh || ""} onChange={(v) => updateLab("tsh", v)} onUnitChange={(u) => updateUnit("tsh", u)} placeholder="Ex: 2.5" />
+                <LabInput label="T3 Livre" labKey="t3_livre" value={form.labValues.t3_livre || ""} unit={form.labUnits.t3_livre || ""} onChange={(v) => updateLab("t3_livre", v)} onUnitChange={(u) => updateUnit("t3_livre", u)} placeholder="Ex: 3.1" />
+                <LabInput label="T4 Livre" labKey="t4_livre" value={form.labValues.t4_livre || ""} unit={form.labUnits.t4_livre || ""} onChange={(v) => updateLab("t4_livre", v)} onUnitChange={(u) => updateUnit("t4_livre", u)} placeholder="Ex: 1.2" />
               </div>
             </div>
           )}
@@ -544,9 +626,9 @@ const Avaliacao = () => {
                 <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <LabInput label="Ferritina" unit="ng/mL" value={form.labValues.ferritina || ""} onChange={(v) => updateLab("ferritina", v)} placeholder="Ex: 45" />
-                <LabInput label="Ferro Sérico" unit="µg/dL" value={form.labValues.ferro_serico || ""} onChange={(v) => updateLab("ferro_serico", v)} placeholder="Ex: 80" />
-                <LabInput label="Transferrina" unit="mg/dL" value={form.labValues.transferrina || ""} onChange={(v) => updateLab("transferrina", v)} placeholder="Ex: 250" />
+                <LabInput label="Ferritina" labKey="ferritina" value={form.labValues.ferritina || ""} unit={form.labUnits.ferritina || ""} onChange={(v) => updateLab("ferritina", v)} onUnitChange={(u) => updateUnit("ferritina", u)} placeholder="Ex: 45" />
+                <LabInput label="Ferro Sérico" labKey="ferro_serico" value={form.labValues.ferro_serico || ""} unit={form.labUnits.ferro_serico || ""} onChange={(v) => updateLab("ferro_serico", v)} onUnitChange={(u) => updateUnit("ferro_serico", u)} placeholder="Ex: 80" />
+                <LabInput label="Transferrina" labKey="transferrina" value={form.labValues.transferrina || ""} unit={form.labUnits.transferrina || ""} onChange={(v) => updateLab("transferrina", v)} onUnitChange={(u) => updateUnit("transferrina", u)} placeholder="Ex: 250" />
               </div>
             </div>
           )}
@@ -559,9 +641,9 @@ const Avaliacao = () => {
                 <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <LabInput label="PCR (Proteína C-Reactiva)" unit="mg/L" value={form.labValues.pcr || ""} onChange={(v) => updateLab("pcr", v)} placeholder="Ex: 0.5" />
-                <LabInput label="Homocisteína" unit="µmol/L" value={form.labValues.homocisteina || ""} onChange={(v) => updateLab("homocisteina", v)} placeholder="Ex: 8" />
-                <LabInput label="VS (Velocidade de Sedimentação)" unit="mm/h" value={form.labValues.vsg || ""} onChange={(v) => updateLab("vsg", v)} placeholder="Ex: 10" />
+                <LabInput label="PCR (Proteína C-Reactiva)" labKey="pcr" value={form.labValues.pcr || ""} unit={form.labUnits.pcr || ""} onChange={(v) => updateLab("pcr", v)} onUnitChange={(u) => updateUnit("pcr", u)} placeholder="Ex: 0.5" />
+                <LabInput label="Homocisteína" labKey="homocisteina" value={form.labValues.homocisteina || ""} unit={form.labUnits.homocisteina || ""} onChange={(v) => updateLab("homocisteina", v)} onUnitChange={(u) => updateUnit("homocisteina", u)} placeholder="Ex: 8" />
+                <LabInput label="VS (Velocidade de Sedimentação)" labKey="vsg" value={form.labValues.vsg || ""} unit={form.labUnits.vsg || ""} onChange={(v) => updateLab("vsg", v)} onUnitChange={(u) => updateUnit("vsg", u)} placeholder="Ex: 10" />
               </div>
             </div>
           )}
@@ -574,11 +656,11 @@ const Avaliacao = () => {
                 <p className="text-sm text-muted-foreground font-sans mt-2">Preenche apenas os valores que tens disponíveis.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <LabInput label="Vitamina D" unit="ng/mL" value={form.labValues.vitamina_d || ""} onChange={(v) => updateLab("vitamina_d", v)} placeholder="Ex: 35" />
-                <LabInput label="Vitamina B12" unit="pg/mL" value={form.labValues.vitamina_b12 || ""} onChange={(v) => updateLab("vitamina_b12", v)} placeholder="Ex: 400" />
-                <LabInput label="Ácido Fólico" unit="ng/mL" value={form.labValues.acido_folico || ""} onChange={(v) => updateLab("acido_folico", v)} placeholder="Ex: 8" />
-                <LabInput label="Cortisol (manhã)" unit="µg/dL" value={form.labValues.cortisol || ""} onChange={(v) => updateLab("cortisol", v)} placeholder="Ex: 15" />
-                <LabInput label="DHEA-S" unit="µg/dL" value={form.labValues.dhea || ""} onChange={(v) => updateLab("dhea", v)} placeholder="Ex: 200" />
+                <LabInput label="Vitamina D" labKey="vitamina_d" value={form.labValues.vitamina_d || ""} unit={form.labUnits.vitamina_d || ""} onChange={(v) => updateLab("vitamina_d", v)} onUnitChange={(u) => updateUnit("vitamina_d", u)} placeholder="Ex: 35" />
+                <LabInput label="Vitamina B12" labKey="vitamina_b12" value={form.labValues.vitamina_b12 || ""} unit={form.labUnits.vitamina_b12 || ""} onChange={(v) => updateLab("vitamina_b12", v)} onUnitChange={(u) => updateUnit("vitamina_b12", u)} placeholder="Ex: 400" />
+                <LabInput label="Ácido Fólico" labKey="acido_folico" value={form.labValues.acido_folico || ""} unit={form.labUnits.acido_folico || ""} onChange={(v) => updateLab("acido_folico", v)} onUnitChange={(u) => updateUnit("acido_folico", u)} placeholder="Ex: 8" />
+                <LabInput label="Cortisol (manhã)" labKey="cortisol" value={form.labValues.cortisol || ""} unit={form.labUnits.cortisol || ""} onChange={(v) => updateLab("cortisol", v)} onUnitChange={(u) => updateUnit("cortisol", u)} placeholder="Ex: 15" />
+                <LabInput label="DHEA-S" labKey="dhea" value={form.labValues.dhea || ""} unit={form.labUnits.dhea || ""} onChange={(v) => updateLab("dhea", v)} onUnitChange={(u) => updateUnit("dhea", u)} placeholder="Ex: 200" />
               </div>
             </div>
           )}
@@ -710,7 +792,10 @@ const Avaliacao = () => {
                             {r.status === "optimal" ? "Funcional" : r.status === "suboptimal" ? "Sub-óptimo" : "Atenção"}
                           </span>
                         </div>
-                        <p className="text-xs text-muted-custom font-sans">{r.value}</p>
+                        <p className="text-xs text-muted-custom font-sans">
+                          {r.value} {r.unit}
+                          {r.implausible && <span className="text-amber"> · valor invulgar para a unidade seleccionada</span>}
+                        </p>
                         {FUNCTIONAL_RANGES[r.marker] && (
                           <p className="text-xs text-muted-custom font-sans mt-0.5 italic">{FUNCTIONAL_RANGES[r.marker]}</p>
                         )}

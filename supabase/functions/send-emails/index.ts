@@ -145,25 +145,33 @@ function formatLabValues(labValues: Record<string, unknown> | undefined): string
     vitamina_d: 'Vitamina D', vitamina_b12: 'Vitamina B12', acido_folico: 'Ácido Fólico',
     cortisol: 'Cortisol (manhã)', dhea: 'DHEA-S', estradiol: 'Estradiol',
   };
-  const rows = Object.entries(labValues)
+  // Suporta o novo formato { values, units } e o antigo (valores soltos).
+  const lv = labValues as { values?: Record<string, unknown>; units?: Record<string, unknown> };
+  const values = (lv.values && typeof lv.values === 'object') ? lv.values : labValues;
+  const units = (lv.units && typeof lv.units === 'object') ? lv.units : {};
+  const rows = Object.entries(values)
     .filter(([, v]) => v && String(v).trim() !== '')
-    .map(([k, v]) => `<tr><td style="padding-right:12px;font-weight:400;">${labels[k] || k}:</td><td>${v}</td></tr>`)
+    .map(([k, v]) => {
+      const unit = units[k] ? ` ${units[k]}` : '';
+      return `<tr><td style="padding-right:12px;font-weight:400;">${labels[k] || k}:</td><td>${v}${unit}</td></tr>`;
+    })
     .join('');
   return rows || '—';
 }
 
 function formatResultsHtml(resultados: unknown): string {
   if (!Array.isArray(resultados) || resultados.length === 0) return paragraph('Sem resultados.');
-  return resultados.map((r: { marker?: string; value?: string; note?: string }) =>
-    `<p style="font-family:'Jost',Arial,sans-serif;font-weight:400;font-size:14px;color:#1F1A14;margin:0 0 2px;"><strong>${r.marker || '—'}:</strong> ${r.value || '—'}</p>
-<p style="font-family:'Jost',Arial,sans-serif;font-weight:300;font-size:13px;color:#3D3529;margin:0 0 16px;">${r.note || ''}</p>`
-  ).join('');
+  return resultados.map((r: { marker?: string; value?: string; unit?: string; note?: string; implausible?: boolean }) => {
+    const valueLine = `${r.value || '—'}${r.unit ? ` ${r.unit}` : ''}${r.implausible ? ' &nbsp;<span style="color:#9B7B5A;">⚠ FORA de intervalo plausível — confirmar unidade</span>' : ''}`;
+    return `<p style="font-family:'Jost',Arial,sans-serif;font-weight:400;font-size:14px;color:#1F1A14;margin:0 0 2px;"><strong>${r.marker || '—'}:</strong> ${valueLine}</p>
+<p style="font-family:'Jost',Arial,sans-serif;font-weight:300;font-size:13px;color:#3D3529;margin:0 0 16px;">${r.note || ''}</p>`;
+  }).join('');
 }
 
 function formatResultsText(resultados: unknown): string {
   if (!Array.isArray(resultados) || resultados.length === 0) return 'Sem resultados.';
-  return resultados.map((r: { marker?: string; value?: string; note?: string }) =>
-    `${r.marker || '—'}: ${r.value || '—'}\n${r.note || ''}`
+  return resultados.map((r: { marker?: string; value?: string; unit?: string; note?: string; implausible?: boolean }) =>
+    `${r.marker || '—'}: ${r.value || '—'}${r.unit ? ` ${r.unit}` : ''}${r.implausible ? '  [⚠ FORA de intervalo plausível — confirmar unidade]' : ''}\n${r.note || ''}`
   ).join('\n\n');
 }
 
@@ -202,9 +210,12 @@ function formatLabValuesText(labValues: Record<string, unknown> | undefined): st
     vitamina_d: 'Vitamina D', vitamina_b12: 'Vitamina B12', acido_folico: 'Ácido Fólico',
     cortisol: 'Cortisol (manhã)', dhea: 'DHEA-S', estradiol: 'Estradiol',
   };
-  return Object.entries(labValues)
+  const lv = labValues as { values?: Record<string, unknown>; units?: Record<string, unknown> };
+  const values = (lv.values && typeof lv.values === 'object') ? lv.values : labValues;
+  const units = (lv.units && typeof lv.units === 'object') ? lv.units : {};
+  return Object.entries(values)
     .filter(([, v]) => v && String(v).trim() !== '')
-    .map(([k, v]) => `${labels[k] || k}: ${v}`)
+    .map(([k, v]) => `${labels[k] || k}: ${v}${units[k] ? ` ${units[k]}` : ''}`)
     .join('\n') || '—';
 }
 
