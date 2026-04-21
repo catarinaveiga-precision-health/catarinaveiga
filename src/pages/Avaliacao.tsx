@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { downloadPDF, generatePDFBase64, statusSymbol } from "@/lib/generatePDF";
 import AcuityModal from "@/components/AcuityModal";
+import { LAB_UNIT_CONFIG, LabKey, getDefaultUnit, isImplausible } from "@/lib/labUnits";
 
 const OBJECTIVES = [
   "Fadiga persistente",
