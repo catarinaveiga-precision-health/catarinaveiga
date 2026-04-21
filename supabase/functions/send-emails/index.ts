@@ -145,9 +145,16 @@ function formatLabValues(labValues: Record<string, unknown> | undefined): string
     vitamina_d: 'Vitamina D', vitamina_b12: 'Vitamina B12', acido_folico: 'Ácido Fólico',
     cortisol: 'Cortisol (manhã)', dhea: 'DHEA-S', estradiol: 'Estradiol',
   };
-  const rows = Object.entries(labValues)
+  // Suporta o novo formato { values, units } e o antigo (valores soltos).
+  const lv = labValues as { values?: Record<string, unknown>; units?: Record<string, unknown> };
+  const values = (lv.values && typeof lv.values === 'object') ? lv.values : labValues;
+  const units = (lv.units && typeof lv.units === 'object') ? lv.units : {};
+  const rows = Object.entries(values)
     .filter(([, v]) => v && String(v).trim() !== '')
-    .map(([k, v]) => `<tr><td style="padding-right:12px;font-weight:400;">${labels[k] || k}:</td><td>${v}</td></tr>`)
+    .map(([k, v]) => {
+      const unit = units[k] ? ` ${units[k]}` : '';
+      return `<tr><td style="padding-right:12px;font-weight:400;">${labels[k] || k}:</td><td>${v}${unit}</td></tr>`;
+    })
     .join('');
   return rows || '—';
 }
@@ -203,9 +210,12 @@ function formatLabValuesText(labValues: Record<string, unknown> | undefined): st
     vitamina_d: 'Vitamina D', vitamina_b12: 'Vitamina B12', acido_folico: 'Ácido Fólico',
     cortisol: 'Cortisol (manhã)', dhea: 'DHEA-S', estradiol: 'Estradiol',
   };
-  return Object.entries(labValues)
+  const lv = labValues as { values?: Record<string, unknown>; units?: Record<string, unknown> };
+  const values = (lv.values && typeof lv.values === 'object') ? lv.values : labValues;
+  const units = (lv.units && typeof lv.units === 'object') ? lv.units : {};
+  return Object.entries(values)
     .filter(([, v]) => v && String(v).trim() !== '')
-    .map(([k, v]) => `${labels[k] || k}: ${v}`)
+    .map(([k, v]) => `${labels[k] || k}: ${v}${units[k] ? ` ${units[k]}` : ''}`)
     .join('\n') || '—';
 }
 
