@@ -39,20 +39,30 @@ interface LabValues {
   estradiol?: string;
 }
 
+type LabUnits = Partial<Record<keyof LabValues, string>>;
+
 interface FormState {
   objetivos: string[];
   sexo: string;
   idade: string;
   labValues: LabValues;
+  labUnits: LabUnits;
   nome: string;
   email: string;
 }
+
+// Pré-popular unidades com defaults para cada marcador.
+const initialUnits: LabUnits = (Object.keys(LAB_UNIT_CONFIG) as LabKey[]).reduce(
+  (acc, k) => ({ ...acc, [k]: getDefaultUnit(k) }),
+  {} as LabUnits,
+);
 
 const initialForm: FormState = {
   objetivos: [],
   sexo: "",
   idade: "",
   labValues: {},
+  labUnits: initialUnits,
   nome: "",
   email: "",
 };
