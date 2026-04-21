@@ -207,24 +207,66 @@ function getSystemSummary(results: ReturnType<typeof evaluateResults>) {
   return Array.from(systemMap.entries());
 }
 
-const LabInput = ({ label, unit, value, onChange, placeholder }: {
-  label: string; unit: string; value: string; onChange: (v: string) => void; placeholder?: string;
-}) => (
-  <div className="space-y-1.5">
-    <label className="text-sm font-sans text-muted-foreground">{label}</label>
-    <div className="flex items-center gap-2">
-      <Input
-        type="text"
-        inputMode="decimal"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder || "—"}
-        className="bg-transparent border-matcha/30 focus:border-matcha"
-      />
-      <span className="text-xs text-muted-foreground font-sans whitespace-nowrap">{unit}</span>
+const LabInput = ({
+  label,
+  labKey,
+  value,
+  unit,
+  onChange,
+  onUnitChange,
+  placeholder,
+}: {
+  label: string;
+  labKey: LabKey;
+  value: string;
+  unit: string;
+  onChange: (v: string) => void;
+  onUnitChange: (u: string) => void;
+  placeholder?: string;
+}) => {
+  const cfg = LAB_UNIT_CONFIG[labKey];
+  const showImplausible = value.trim() !== "" && unit && isImplausible(labKey, value, unit);
+  const valueWithoutUnit = value.trim() !== "" && !unit;
+
+  return (
+    <div className="space-y-1.5">
+      <label className="text-sm font-sans text-muted-foreground">{label}</label>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <Input
+          type="text"
+          inputMode="decimal"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder || "—"}
+          className="bg-transparent border-matcha/30 focus:border-matcha sm:flex-1"
+        />
+        <select
+          value={unit}
+          onChange={(e) => onUnitChange(e.target.value)}
+          aria-label={`Unidade de ${label}`}
+          className="h-10 rounded-md border border-matcha/30 bg-transparent px-2 text-sm font-sans text-foreground focus:border-matcha focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 sm:w-auto sm:min-w-[110px]"
+        >
+          {cfg.units.length > 1 && <option value="">Unidade…</option>}
+          {cfg.units.map((u) => (
+            <option key={u.value} value={u.value}>
+              {u.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      {valueWithoutUnit && (
+        <p className="text-xs font-sans text-destructive">
+          Indica em que unidade está este valor.
+        </p>
+      )}
+      {showImplausible && (
+        <p className="text-xs font-sans text-amber">
+          Este valor parece invulgar para a unidade seleccionada. Verifica no relatório original se a unidade está correcta.
+        </p>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 const Accordion = ({ title, children }: { title: string; children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
