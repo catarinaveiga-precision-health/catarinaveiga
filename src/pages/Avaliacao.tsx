@@ -331,6 +331,15 @@ const Avaliacao = () => {
     setForm((prev) => ({ ...prev, labValues: { ...prev.labValues, [key]: value } }));
   };
 
+  const updateUnit = (key: keyof LabValues, unit: string) => {
+    setForm((prev) => ({ ...prev, labUnits: { ...prev.labUnits, [key]: unit } }));
+  };
+
+  /** Marcadores onde valor está preenchido mas unidade está vazia. */
+  const missingUnits = (Object.keys(form.labValues) as (keyof LabValues)[]).filter(
+    (k) => (form.labValues[k] || "").trim() !== "" && !(form.labUnits[k] || "").trim(),
+  );
+
   const toggleObjective = (obj: string) => {
     setForm((prev) => ({
       ...prev,
