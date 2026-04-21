@@ -116,63 +116,80 @@ const SYSTEM_EXPLANATIONS: Record<string, string> = {
   "Eixo HPA": "O eixo hipotálamo-hipófise-adrenal regula a resposta ao stress. Cortisol desregulado pode causar insónia, ansiedade, fadiga matinal e dificuldade de recuperação.",
 };
 
-function evaluateResults(labValues: LabValues) {
-  const findings: { marker: string; value: string; status: "optimal" | "suboptimal" | "flag"; note: string }[] = [];
+function evaluateResults(labValues: LabValues, labUnits: LabUnits) {
+  const findings: { marker: string; value: string; unit: string; status: "optimal" | "suboptimal" | "flag"; note: string; implausible?: boolean }[] = [];
 
   const v = (key: keyof LabValues) => {
     const raw = labValues[key];
     return raw ? parseFloat(raw.replace(",", ".")) : null;
   };
+  const u = (key: keyof LabValues) => labUnits[key] || getDefaultUnit(key as LabKey) || "";
+  const flag = (key: keyof LabValues, raw: string | undefined, unit: string) =>
+    raw ? isImplausible(key as LabKey, raw, unit) : false;
 
   const tsh = v("tsh");
   if (tsh !== null) {
-    if (tsh >= 0.5 && tsh <= 2.0) findings.push({ marker: "TSH", value: `${tsh} mUI/L`, status: "optimal", note: "Dentro do intervalo funcional óptimo." });
-    else if (tsh > 2.0 && tsh <= 4.5) findings.push({ marker: "TSH", value: `${tsh} mUI/L`, status: "suboptimal", note: "Dentro do intervalo convencional, mas acima do óptimo funcional (0.5–2.0)." });
-    else findings.push({ marker: "TSH", value: `${tsh} mUI/L`, status: "flag", note: "Fora do intervalo de referência. Requer avaliação clínica." });
+    const unit = u("tsh");
+    const implausible = flag("tsh", labValues.tsh, unit);
+    if (tsh >= 0.5 && tsh <= 2.0) findings.push({ marker: "TSH", value: `${tsh}`, unit, status: "optimal", note: "Dentro do intervalo funcional óptimo.", implausible });
+    else if (tsh > 2.0 && tsh <= 4.5) findings.push({ marker: "TSH", value: `${tsh}`, unit, status: "suboptimal", note: "Dentro do intervalo convencional, mas acima do óptimo funcional (0.5–2.0).", implausible });
+    else findings.push({ marker: "TSH", value: `${tsh}`, unit, status: "flag", note: "Fora do intervalo de referência. Requer avaliação clínica.", implausible });
   }
 
   const ferritina = v("ferritina");
   if (ferritina !== null) {
-    if (ferritina >= 40 && ferritina <= 100) findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "optimal", note: "Nível óptimo para energia e função tiroideia." });
-    else if (ferritina >= 12 && ferritina < 40) findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "suboptimal", note: "Dentro do 'normal' laboratorial, mas funcionalmente baixa." });
-    else if (ferritina < 12) findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "flag", note: "Depleção de ferro. Requer intervenção." });
-    else findings.push({ marker: "Ferritina", value: `${ferritina} ng/mL`, status: "suboptimal", note: "Elevada — pode indicar inflamação." });
+    const unit = u("ferritina");
+    const implausible = flag("ferritina", labValues.ferritina, unit);
+    if (ferritina >= 40 && ferritina <= 100) findings.push({ marker: "Ferritina", value: `${ferritina}`, unit, status: "optimal", note: "Nível óptimo para energia e função tiroideia.", implausible });
+    else if (ferritina >= 12 && ferritina < 40) findings.push({ marker: "Ferritina", value: `${ferritina}`, unit, status: "suboptimal", note: "Dentro do 'normal' laboratorial, mas funcionalmente baixa.", implausible });
+    else if (ferritina < 12) findings.push({ marker: "Ferritina", value: `${ferritina}`, unit, status: "flag", note: "Depleção de ferro. Requer intervenção.", implausible });
+    else findings.push({ marker: "Ferritina", value: `${ferritina}`, unit, status: "suboptimal", note: "Elevada — pode indicar inflamação.", implausible });
   }
 
   const pcr = v("pcr");
   if (pcr !== null) {
-    if (pcr < 1) findings.push({ marker: "PCR", value: `${pcr} mg/L`, status: "optimal", note: "Sem inflamação sistémica detectável." });
-    else if (pcr >= 1 && pcr <= 3) findings.push({ marker: "PCR", value: `${pcr} mg/L`, status: "suboptimal", note: "Inflamação de baixo grau. Investigar causa." });
-    else findings.push({ marker: "PCR", value: `${pcr} mg/L`, status: "flag", note: "Inflamação elevada. Requer avaliação clínica." });
+    const unit = u("pcr");
+    const implausible = flag("pcr", labValues.pcr, unit);
+    if (pcr < 1) findings.push({ marker: "PCR", value: `${pcr}`, unit, status: "optimal", note: "Sem inflamação sistémica detectável.", implausible });
+    else if (pcr >= 1 && pcr <= 3) findings.push({ marker: "PCR", value: `${pcr}`, unit, status: "suboptimal", note: "Inflamação de baixo grau. Investigar causa.", implausible });
+    else findings.push({ marker: "PCR", value: `${pcr}`, unit, status: "flag", note: "Inflamação elevada. Requer avaliação clínica.", implausible });
   }
 
   const vitD = v("vitamina_d");
   if (vitD !== null) {
-    if (vitD >= 50 && vitD <= 80) findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "optimal", note: "Nível óptimo funcional." });
-    else if (vitD >= 30 && vitD < 50) findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "suboptimal", note: "Suficiente mas abaixo do óptimo funcional (50–80)." });
-    else if (vitD < 30) findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "flag", note: "Insuficiência de vitamina D." });
-    else findings.push({ marker: "Vitamina D", value: `${vitD} ng/mL`, status: "suboptimal", note: "Acima do intervalo óptimo." });
+    const unit = u("vitamina_d");
+    const implausible = flag("vitamina_d", labValues.vitamina_d, unit);
+    if (vitD >= 50 && vitD <= 80) findings.push({ marker: "Vitamina D", value: `${vitD}`, unit, status: "optimal", note: "Nível óptimo funcional.", implausible });
+    else if (vitD >= 30 && vitD < 50) findings.push({ marker: "Vitamina D", value: `${vitD}`, unit, status: "suboptimal", note: "Suficiente mas abaixo do óptimo funcional (50–80).", implausible });
+    else if (vitD < 30) findings.push({ marker: "Vitamina D", value: `${vitD}`, unit, status: "flag", note: "Insuficiência de vitamina D.", implausible });
+    else findings.push({ marker: "Vitamina D", value: `${vitD}`, unit, status: "suboptimal", note: "Acima do intervalo óptimo.", implausible });
   }
 
   const b12 = v("vitamina_b12");
   if (b12 !== null) {
-    if (b12 >= 500 && b12 <= 900) findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "optimal", note: "Nível óptimo funcional." });
-    else if (b12 >= 200 && b12 < 500) findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "suboptimal", note: "Normal laboratorial mas funcionalmente insuficiente." });
-    else if (b12 < 200) findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "flag", note: "Deficiência de B12. Requer suplementação." });
-    else findings.push({ marker: "Vitamina B12", value: `${b12} pg/mL`, status: "optimal", note: "Nível adequado." });
+    const unit = u("vitamina_b12");
+    const implausible = flag("vitamina_b12", labValues.vitamina_b12, unit);
+    if (b12 >= 500 && b12 <= 900) findings.push({ marker: "Vitamina B12", value: `${b12}`, unit, status: "optimal", note: "Nível óptimo funcional.", implausible });
+    else if (b12 >= 200 && b12 < 500) findings.push({ marker: "Vitamina B12", value: `${b12}`, unit, status: "suboptimal", note: "Normal laboratorial mas funcionalmente insuficiente.", implausible });
+    else if (b12 < 200) findings.push({ marker: "Vitamina B12", value: `${b12}`, unit, status: "flag", note: "Deficiência de B12. Requer suplementação.", implausible });
+    else findings.push({ marker: "Vitamina B12", value: `${b12}`, unit, status: "optimal", note: "Nível adequado.", implausible });
   }
 
   const hom = v("homocisteina");
   if (hom !== null) {
-    if (hom < 7) findings.push({ marker: "Homocisteína", value: `${hom} µmol/L`, status: "optimal", note: "Nível óptimo." });
-    else if (hom >= 7 && hom <= 10) findings.push({ marker: "Homocisteína", value: `${hom} µmol/L`, status: "suboptimal", note: "Ligeiramente elevada. Verificar B12, B6 e folato." });
-    else findings.push({ marker: "Homocisteína", value: `${hom} µmol/L`, status: "flag", note: "Elevada — risco cardiovascular e neuroinflamatório." });
+    const unit = u("homocisteina");
+    const implausible = flag("homocisteina", labValues.homocisteina, unit);
+    if (hom < 7) findings.push({ marker: "Homocisteína", value: `${hom}`, unit, status: "optimal", note: "Nível óptimo.", implausible });
+    else if (hom >= 7 && hom <= 10) findings.push({ marker: "Homocisteína", value: `${hom}`, unit, status: "suboptimal", note: "Ligeiramente elevada. Verificar B12, B6 e folato.", implausible });
+    else findings.push({ marker: "Homocisteína", value: `${hom}`, unit, status: "flag", note: "Elevada — risco cardiovascular e neuroinflamatório.", implausible });
   }
 
   const cortisol = v("cortisol");
   if (cortisol !== null) {
-    if (cortisol >= 10 && cortisol <= 18) findings.push({ marker: "Cortisol (manhã)", value: `${cortisol} µg/dL`, status: "optimal", note: "Dentro do intervalo funcional." });
-    else findings.push({ marker: "Cortisol (manhã)", value: `${cortisol} µg/dL`, status: "suboptimal", note: "Fora do intervalo óptimo. Avaliar eixo HPA." });
+    const unit = u("cortisol");
+    const implausible = flag("cortisol", labValues.cortisol, unit);
+    if (cortisol >= 10 && cortisol <= 18) findings.push({ marker: "Cortisol (manhã)", value: `${cortisol}`, unit, status: "optimal", note: "Dentro do intervalo funcional.", implausible });
+    else findings.push({ marker: "Cortisol (manhã)", value: `${cortisol}`, unit, status: "suboptimal", note: "Fora do intervalo óptimo. Avaliar eixo HPA.", implausible });
   }
 
   return findings;
