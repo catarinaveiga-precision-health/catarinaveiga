@@ -80,8 +80,10 @@ const OPTIMAL_TEXT = "Valor dentro do intervalo funcional. A interpretação cl�
 interface Finding {
   marker: string;
   value: string;
+  unit?: string;
   status: "optimal" | "suboptimal" | "flag";
   note: string;
+  implausible?: boolean;
 }
 
 // Convert logo to base64 for PDF embedding
@@ -349,7 +351,8 @@ export async function generateFunctionalPDF(
 
     doc.setFontSize(9);
     doc.setTextColor(MUTED);
-    doc.text(`Valor introduzido: ${r.value}`, 80, y + 20);
+    const valueDisplay = `Valor introduzido: ${r.value}${r.unit ? ` ${r.unit}` : ""}${r.implausible ? "  ⚠ unidade a confirmar" : ""}`;
+    doc.text(valueDisplay, 80, y + 20);
 
     let lineY = y + 20;
     if (range) {
