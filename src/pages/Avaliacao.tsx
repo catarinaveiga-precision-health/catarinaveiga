@@ -792,7 +792,10 @@ const Avaliacao = () => {
                             {r.status === "optimal" ? "Funcional" : r.status === "suboptimal" ? "Sub-óptimo" : "Atenção"}
                           </span>
                         </div>
-                        <p className="text-xs text-muted-custom font-sans">{r.value}</p>
+                        <p className="text-xs text-muted-custom font-sans">
+                          {r.value} {r.unit}
+                          {r.implausible && <span className="text-amber"> · valor invulgar para a unidade seleccionada</span>}
+                        </p>
                         {FUNCTIONAL_RANGES[r.marker] && (
                           <p className="text-xs text-muted-custom font-sans mt-0.5 italic">{FUNCTIONAL_RANGES[r.marker]}</p>
                         )}
