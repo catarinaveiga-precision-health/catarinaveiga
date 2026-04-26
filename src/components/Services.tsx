@@ -14,24 +14,24 @@ type Card = {
 const cards: Card[] = [
   {
     icon: Circle,
-    step: "01 · Ponto de entrada",
-    title: "Primeira Consulta",
-    desc: "90 minutos de anamnese aprofundada — história clínica, sintomas e exames — seguidos de relatório escrito com a leitura clínica e direcção sugerida.",
+    step: "01 · Consulta",
+    title: "Consulta de Medicina Funcional",
+    desc: "90 minutos de anamnese aprofundada. História clínica, sintomas e exames anteriores — seguidos de relatório escrito com leitura funcional e direcção terapêutica. Com possibilidade de acompanhamento.",
     cta: { label: "Marcar consulta", onClick: openAcuity },
   },
   {
     icon: Diamond,
-    step: "02 · Programa signature",
-    title: "Aletheia",
-    desc: "Acompanhamento clínico personalizado, com duração definida conforme o teu caso. Inclui Relatório BioFuncional, plano alimentar, gestão de suplementos, app personalizada e gestão total do caso por uma equipa.",
-    cta: { label: "Conhecer o Aletheia", href: "/aletheia" },
+    step: "02 · Checkup completo",
+    title: "Checkup Funcional",
+    desc: "Nós pedimos as análises. Tu fazes. Produzimos um relatório funcional completo — 66+ biomarcadores interpretados com valores de referência funcionais, cruzando padrões que os exames convencionais não relacionam.",
+    cta: { label: "Saber mais", href: "#contacto" },
   },
   {
     icon: Hexagon,
-    step: "03 · Produto autónomo",
-    title: "Relatório BioFuncional ODX",
-    desc: "Análise funcional de 66+ biomarcadores com intervalos funcionais (não apenas convencionais), cruzando marcadores que normalmente são avaliados isoladamente. Disponível como relatório stand-alone.",
-    cta: { label: "Pedir informação", href: "#contacto" },
+    step: "03 · Revisão independente",
+    title: "Revisão de Análises",
+    desc: "Já tens análises feitas. Envias-nos. Interpretamos o teu caso com olhar funcional — biomarcadores cruzados, padrões identificados — e entregamos relatório escrito com orientação clínica.",
+    cta: { label: "Enviar análises", href: "#contacto" },
   },
 ];
 
