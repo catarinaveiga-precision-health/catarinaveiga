@@ -178,7 +178,7 @@ const FAQTeaser = () => {
         </ul>
         <div className="mt-10">
           <Link
-            to="/sobre"
+            to="/sobre#faq"
             className="font-sans text-sm tracking-wide text-muted-foreground hover:text-foreground transition-colors border-b border-amber pb-1"
           >
             Mais perguntas →

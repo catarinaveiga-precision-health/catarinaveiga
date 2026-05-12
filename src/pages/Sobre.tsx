@@ -251,7 +251,65 @@ const TransparenciaSection = () => {
   );
 };
 
-/* ── VII  CTA ── */
+/* ── VII  FAQ ── */
+const faqItems = [
+  {
+    q: "És médica?",
+    a: "Não sou médica. Sou especialista em Medicina Tradicional Chinesa, com cédula provisória da ACSS ao abrigo da Lei n.º 71/2013, em validação de créditos. A componente médica do acompanhamento — prescrição, análises, diagnóstico — é da responsabilidade da Dra. Patrícia Salvador, médica inscrita na Ordem dos Médicos.",
+  },
+  {
+    q: "Substitui o meu médico?",
+    a: "Não. O meu trabalho complementa o acompanhamento médico convencional, não o substitui. Quando há necessidade de diagnóstico, prescrição ou exames, articulo com a Dra. Patrícia Salvador ou refiro para outras especialidades.",
+  },
+  {
+    q: "Tratas hipotiroidismo, endometriose ou SOP?",
+    a: "Não trato patologias. O meu trabalho não substitui diagnóstico ou tratamento médico. Acompanho, dentro do âmbito da Medicina Tradicional Chinesa, em complemento ao acompanhamento médico das mulheres que vivem com estes diagnósticos.",
+  },
+  {
+    q: "Como olhas para análises clínicas?",
+    a: "A leitura clínica oficial das análises é da Dra. Patrícia Salvador. Eu integro essa leitura no contexto mais amplo da Medicina Tradicional Chinesa e dos quatro anos que passei no Departamento de Microbioma da Regenerus Labs, onde trabalhei com análises funcionais todos os dias. Integro — não substituo — a interpretação médica.",
+  },
+  {
+    q: "Quanto tempo até notar mudanças?",
+    a: "Depende. As pacientes descrevem mudanças subjetivas em sono, energia e equilíbrio ao longo de semanas a meses. Não prometo prazos.",
+  },
+];
+
+const FAQSection = () => {
+  const ref = useFadeUp();
+  return (
+    <section ref={ref} id="faq" className="bg-background section-padding scroll-mt-24">
+      <div className="max-w-2xl mx-auto fade-up">
+        <Eyebrow>VII  —  Antes de marcares</Eyebrow>
+        <h2 className="font-serif text-[clamp(2rem,3vw,2.75rem)] leading-tight text-foreground mb-12 text-balance">
+          Perguntas frequentes.
+        </h2>
+        <div className="space-y-0">
+          {faqItems.map((item, i) => (
+            <details
+              key={item.q}
+              className={`group py-6 md:py-7 ${i < faqItems.length - 1 ? "border-b border-border" : ""}`}
+            >
+              <summary className="flex items-start justify-between gap-6 cursor-pointer list-none">
+                <h3 className="font-serif text-[1.125rem] md:text-[1.25rem] text-foreground/90 group-open:text-foreground transition-colors">
+                  {item.q}
+                </h3>
+                <span className="font-serif text-2xl text-amber leading-none mt-0.5 transition-transform duration-200 group-open:rotate-45 shrink-0">
+                  +
+                </span>
+              </summary>
+              <p className="font-sans text-[15px] md:text-[1rem] leading-[1.7] text-foreground/80 mt-4 max-w-[60ch]">
+                {item.a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ── VIII  CTA ── */
 const CTASection = () => {
   const ref = useFadeUp();
   return (
@@ -288,6 +346,7 @@ const Sobre = () => {
         <MetodoSection />
         <FormacaoSection />
         <TransparenciaSection />
+        <FAQSection />
         <CTASection />
       </main>
       <LegalBand />
