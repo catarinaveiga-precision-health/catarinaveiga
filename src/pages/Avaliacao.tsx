@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
-import { downloadPDF, generatePDFBase64, statusSymbol } from "@/lib/generatePDF";
+// PDF helpers carregados via dynamic import nos pontos de uso (lazy chunk)
+// para evitar 599 KB no bundle inicial.
 import AcuityModal from "@/components/AcuityModal";
 import { LAB_UNIT_CONFIG, LabKey, getDefaultUnit, isImplausible } from "@/lib/labUnits";
 
@@ -421,6 +422,7 @@ const Avaliacao = () => {
       const systemSummary = getSystemSummary(evalResults);
       let pdfBase64: string | undefined;
       try {
+        const { generatePDFBase64 } = await import("@/lib/generatePDF");
         pdfBase64 = await generatePDFBase64(form.nome.trim(), systemSummary, evalResults);
       } catch (e) {
         console.error('PDF generation error:', e);
@@ -466,6 +468,7 @@ const Avaliacao = () => {
   const flagCount = systems.filter(([, s]) => s !== "optimal").length;
 
   const handleExportPDF = async () => {
+    const { downloadPDF } = await import("@/lib/generatePDF");
     await downloadPDF(form.nome || "utilizador", systems, results);
   };
 

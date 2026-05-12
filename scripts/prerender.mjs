@@ -164,12 +164,12 @@ const pages = [
   // Homepage
   {
     path: "/",
-    title: "Catarina Veiga | Medicina Funcional Integrativa",
+    title: "Catarina Veiga · Medicina Tradicional Chinesa para Saúde Hormonal Feminina",
     description:
-      "Quando os exames dizem que está tudo bem mas o corpo continua a dar sinais. Medicina funcional que investiga as causas profundas.",
-    h1: "Os teus exames estão normais. O teu corpo não.",
+      "Consulta de Medicina Tradicional Chinesa em telemedicina, com leitura funcional integrada. Para mulheres em perimenopausa. Em colaboração com médica inscrita na Ordem dos Médicos. Portugal e estrangeiro.",
+    h1: "Uma leitura mais profunda do corpo feminino na perimenopausa.",
     intro:
-      "Descobre o que os teus exames não estão a dizer. Medicina Funcional Integrativa — consultas online para Portugal e Brasil.",
+      "Integro sintomas, histórico clínico e padrões funcionais para construir um plano individualizado em Medicina Tradicional Chinesa, com acompanhamento longitudinal.",
   },
   // SEO article pages
   {
@@ -254,12 +254,12 @@ const pages = [
   // Main site pages
   {
     path: "/sobre",
-    title: "Sobre Catarina Veiga | Medicina Funcional Integrativa",
+    title: "Sobre · Catarina Veiga · Medicina Tradicional Chinesa",
     description:
-      "Mais de 20 anos de experiência em medicina funcional integrativa. Especializada em saúde hormonal feminina, perimenopausa e fadiga crónica.",
-    h1: "Catarina Veiga — Medicina Funcional Integrativa",
+      "Catarina Veiga é especialista em Medicina Tradicional Chinesa, com vinte anos de prática clínica e quatro anos no Departamento de Microbioma da Regenerus Labs. Acompanha mulheres em perimenopausa, em colaboração com médica inscrita na Ordem dos Médicos.",
+    h1: "Acompanho mulheres que sabem que algo não está certo — mesmo quando os números dizem o contrário.",
     intro:
-      "Mais de 20 anos dedicados a investigar as causas profundas de desequilíbrios hormonais e metabólicos em mulheres.",
+      "Vinte anos de prática clínica em Medicina Tradicional Chinesa, com foco em saúde hormonal feminina e perimenopausa. Telemedicina, em Portugal e no estrangeiro.",
   },
   {
     path: "/metodo",
@@ -290,12 +290,12 @@ const pages = [
   },
   {
     path: "/avaliacao",
-    title: "Avaliação Funcional de Exames | Catarina Veiga",
+    title: "Autoavaliação · Catarina Veiga",
     description:
-      "Introduz os valores dos teus exames e recebe uma interpretação funcional imediata de mais de 15 biomarcadores.",
-    h1: "Avaliação Funcional de Exames",
+      "Esta autoavaliação é educativa. Ajuda-te a chegar à consulta — comigo ou com o teu médico — com perguntas estruturadas. Não substitui avaliação clínica.",
+    h1: "Os teus exames estão normais. O teu corpo não.",
     intro:
-      "Os teus exames estão normais. Mas podem não estar ideais. Verifica os teus biomarcadores com critérios funcionais.",
+      "Esta autoavaliação é educativa. Ajuda-te a chegar à consulta — comigo ou com o teu médico — com perguntas estruturadas. Não substitui avaliação clínica.",
   },
   {
     path: "/candidatura",
