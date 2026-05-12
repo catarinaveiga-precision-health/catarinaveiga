@@ -1,12 +1,11 @@
 const items = [
   "Instituto Van Nghi Portugal",
-  "Cédula ACSS · Lei 71/2013",
-  "Regenerus Labs (anteriormente Omnos.me)",
-  "Quatro anos no Departamento de Microbioma",
+  "Cédula ACSS · Lei n.º 71/2013",
+  "Regenerus Labs (ex-Omnos.me)",
+  "Departamento de Microbioma",
   "Longevity Med Summit 2024",
   "20 anos de prática clínica",
-  "Perimenopausa",
-  "Telemedicina",
+  "Saúde hormonal feminina",
 ];
 
 const CredentialsBand = () => {
