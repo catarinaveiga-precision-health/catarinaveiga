@@ -6,7 +6,7 @@ const Hero = () => {
   const ref = useFadeUp();
 
   return (
-    <section ref={ref} className="bg-background pt-28 pb-16 md:pt-40 md:pb-28 px-6">
+    <section ref={ref} className="bg-background pt-24 pb-12 md:pt-40 md:pb-28 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
         <div className="fade-up text-center md:text-left order-1">
           <p className="label-uppercase text-muted-foreground text-[11px] tracking-[0.18em] mb-6">
@@ -35,7 +35,7 @@ const Hero = () => {
             <img
               src="/catarina-hero.jpg"
               alt="Catarina Veiga, especialista em Medicina Tradicional Chinesa"
-              className="w-full h-[360px] md:h-auto object-cover object-top md:translate-y-4"
+              className="w-full h-[300px] md:h-auto object-cover object-top md:translate-y-4"
               loading="eager"
               fetchPriority="high"
               decoding="async"

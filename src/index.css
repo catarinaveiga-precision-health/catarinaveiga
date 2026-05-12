@@ -95,7 +95,10 @@
 
 @layer components {
   .section-padding {
-    @apply py-28 px-6;
+    padding-top: clamp(72px, 11vw, 112px);
+    padding-bottom: clamp(72px, 11vw, 112px);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .label-uppercase {

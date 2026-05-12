@@ -90,7 +90,7 @@ const OMetodo = () => {
         <div className="text-center mb-16">
           <Eyebrow>O método</Eyebrow>
         </div>
-        <div className="grid md:grid-cols-2 gap-x-12 gap-y-12 max-w-2xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-14 max-w-2xl mx-auto">
           {metodoSteps.map((step, i) => (
             <div key={step.title}>
               <p className="font-sans text-[11px] uppercase tracking-[0.14em] text-amber mb-3">
@@ -119,11 +119,11 @@ const ComoFunciona = () => {
     <section ref={ref} className="bg-bone section-padding">
       <div className="max-w-2xl mx-auto fade-up">
         <Eyebrow>Como funciona</Eyebrow>
-        <div className="space-y-10">
+        <div className="space-y-8 md:space-y-10">
           {funcionaSteps.map((body, i) => (
-            <div key={i} className="grid grid-cols-[auto_1fr] gap-6 items-baseline">
-              <p className="font-serif italic text-3xl text-amber">{String(i + 1).padStart(2, "0")}</p>
-              <p className="font-sans text-[1.0625rem] leading-[1.7] text-foreground/85">{body}</p>
+            <div key={i} className="grid grid-cols-[auto_1fr] gap-4 md:gap-6 items-baseline">
+              <p className="font-serif italic text-2xl md:text-3xl text-amber shrink-0">{String(i + 1).padStart(2, "0")}</p>
+              <p className="font-sans text-[1rem] md:text-[1.0625rem] leading-[1.65] md:leading-[1.7] text-foreground/85">{body}</p>
             </div>
           ))}
         </div>
@@ -168,7 +168,7 @@ const FAQTeaser = () => {
           {faqQuestions.map((q, i) => (
             <li
               key={q}
-              className={`font-serif text-[1.25rem] md:text-[1.375rem] text-foreground/90 py-5 ${
+              className={`font-serif text-[1.125rem] md:text-[1.375rem] text-foreground/90 py-4 md:py-5 ${
                 i < faqQuestions.length - 1 ? "border-b border-border" : ""
               }`}
             >
@@ -204,7 +204,7 @@ const Testemunhos = () => {
         <div className="text-center mb-14">
           <Eyebrow>O que as pacientes descrevem</Eyebrow>
         </div>
-        <div className="space-y-16">
+        <div className="space-y-12 md:space-y-16">
           {testimonials.map((t) => (
             <blockquote key={t.attr} className="text-center">
               <p className="font-serif italic text-[clamp(1.25rem,2vw,1.5rem)] leading-snug text-foreground max-w-[44ch] mx-auto">
