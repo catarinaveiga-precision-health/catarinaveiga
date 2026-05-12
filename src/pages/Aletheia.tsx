@@ -26,7 +26,7 @@ const HeroSection = () => {
           Os teus exames estão normais.<br className="hidden md:block" /> O teu corpo discorda.
         </h1>
         <p className="text-muted-foreground text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-          Catarina Veiga lê as análises que já tens sob a lente da medicina funcional. Descobre o que os intervalos de referência convencionais deixam escapar — e o que isso tem a ver com a tua fadiga, o teu sono e os teus ciclos.
+          Catarina Veiga lê as análises que já tens sob a lente da Medicina Tradicional Chinesa com leitura funcional integrada. Observa o que os intervalos de referência convencionais deixam escapar — e o que isso tem a ver com a tua fadiga, o teu sono e os teus ciclos.
         </p>
         <Button variant="hero" size="lg" asChild>
           <a href={ACUITY_URL} target="_blank" rel="noopener noreferrer">
@@ -139,7 +139,7 @@ const QuemAcompanhaSection = () => {
         <div className="grid md:grid-cols-[280px_1fr] gap-10 items-start">
           <img
             src={catarinaPhoto}
-            alt="Dra. Catarina Veiga — Medicina Funcional Integrativa"
+            alt="Catarina Veiga, especialista em Medicina Tradicional Chinesa"
             className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-full object-cover object-top mx-auto md:mx-0"
             loading="lazy"
             decoding="async"
@@ -148,7 +148,7 @@ const QuemAcompanhaSection = () => {
           />
           <div className="text-muted-foreground text-[15px] leading-relaxed space-y-4">
             <p>
-              Catarina Veiga tem mais de 20 anos de prática clínica em medicina funcional integrativa. Formação em psicologia, análises funcionais e neurobiologia. Pioneira em Portugal na construção de painéis de avaliação biofuncional e plataformas de interpretação de análises funcionais — numa época em que este campo ainda não tinha nome em português.
+              Catarina Veiga é especialista em Medicina Tradicional Chinesa, com 20 anos de prática clínica e cédula provisória da ACSS ao abrigo da Lei n.º 71/2013. Formação em psicologia, análises funcionais e neurobiologia. Quatro anos no Departamento de Microbioma da Regenerus Labs (anteriormente Omnos.me), um dos maiores laboratórios europeus de testes funcionais. Pioneira em Portugal na construção de painéis de avaliação biofuncional e plataformas de interpretação de análises funcionais.
             </p>
             <p>
               Em Maio de 2024, foi speaker convidada no Longevity Med Summit, em Lisboa, com a apresentação <em>Exploring the link between oestrogen-related conditions and gut microbiota</em> — ao lado dos directores médicos da Clinique La Prairie, Lanserhof e Cleveland Clinic Abu Dhabi.
@@ -157,7 +157,7 @@ const QuemAcompanhaSection = () => {
               Conhece a diferença entre ler um artigo sobre flutuações hormonais e dormir mal cinco noites por semana durante meses sem conseguir dizer porquê. A especialização não é apenas académica.
             </p>
             <p className="text-foreground">
-              A Aletheia não é uma consulta a solo. A equipa inclui médica de medicina familiar e geral, e profissionais parceiros em yoga terapêutico, libertação somática e coaching — seleccionados pela Catarina.
+              A Aletheia não é uma consulta a solo. A equipa inclui a Dra. Patrícia Salvador (médica inscrita na Ordem dos Médicos, responsável pela componente médica do acompanhamento) e profissionais parceiros em yoga terapêutico, libertação somática e coaching — seleccionados pela Catarina.
             </p>
           </div>
         </div>
@@ -169,12 +169,12 @@ const QuemAcompanhaSection = () => {
 /* ── VI — O QUE ESTÁ INCLUÍDO ── */
 const inclusions: { title: string; desc: string }[] = [
   { title: "Relatório de Avaliação BioFuncional ODX", desc: "Interpretação funcional de 66+ biomarcadores em 12 sistemas. O mapa que fundamenta todo o resto." },
-  { title: "Consultas de Medicina Funcional Integrativa", desc: "Frequência adaptada ao teu plano. Revisão de dados, ajuste de protocolo, decisão clínica." },
-  { title: "2 consultas de medicina familiar e geral", desc: "Início e fim do plano, para articulação clínica formal quando necessário." },
+  { title: "Consultas de Medicina Tradicional Chinesa", desc: "Frequência adaptada ao teu plano. Revisão de dados, ajuste de plano, leitura funcional integrada." },
+  { title: "2 consultas com a Dra. Patrícia Salvador", desc: "Médica inscrita na Ordem dos Médicos. Início e fim do plano, para articulação clínica formal quando necessário." },
   { title: "Plano alimentar adaptado e revisto", desc: "Com base nos teus marcadores e sintomas. Não é uma dieta genérica de perimenopausa." },
   { title: "Orientação e análise de dados de wearables", desc: "Monitor contínuo de glicose, Oura Ring e outros. Os dados do teu corpo lidos clinicamente." },
   { title: "App totalmente personalizada", desc: "Tracking de sintomas, sono, ciclo, energia. A Catarina lê os dados antes de cada consulta." },
-  { title: "Sessões com profissionais parceiros", desc: "Yoga terapêutico, libertação somática, coaching e outros conforme o caso clínico." },
+  { title: "Sessões com profissionais parceiros", desc: "Yoga terapêutico, libertação somática, coaching e outros conforme o contexto clínico." },
   { title: "Relatórios de progresso ao longo do plano", desc: "Não uma avaliação inicial e outra final. Dados intermédios que mostram o que mudou." },
   { title: "Gestão activa de suplementos", desc: "Prescrição, ajuste de dose, rotação. Sem frascos que ninguém reviu." },
   { title: "Recomendação de testes especializados com desconto", desc: "Microbioma, ácidos orgânicos, DUTCH, ADN e outros quando o caso beneficia." },
@@ -405,7 +405,7 @@ const faqs = [
   },
   {
     q: "Qual a duração do plano?",
-    a: "O plano é personalizado — a duração é definida na avaliação inicial, conforme o teu caso clínico, dados, análises e estilo de vida.",
+    a: "O plano é personalizado — a duração é definida na avaliação inicial, conforme o teu contexto clínico, dados, análises e estilo de vida.",
   },
   {
     q: "Os suplementos estão incluídos?",
